@@ -1,9 +1,10 @@
-package org.ludo;
+package org.ludo.controllers;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
+import org.ludo.App;
 
-public class PrimaryController {
+public class EndSceneController {
 
     @FXML
     private void switchToSecondary() throws IOException {
