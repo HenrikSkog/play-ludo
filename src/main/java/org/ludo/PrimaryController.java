@@ -1,4 +1,4 @@
-package org.example;
+package org.ludo;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
