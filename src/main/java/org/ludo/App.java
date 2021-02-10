@@ -21,12 +21,10 @@ public class App extends Application {
         Canvas canvas = new Canvas();
         var gc = canvas.getGraphicsContext2D();
 
-
         scene = new Scene(loadFXML("primary"), 640, 480);
 
         stage.setScene(scene);
         stage.show();
-        System.out.println("Test");
     }
 
     public static void setRoot(String fxml) throws IOException {
