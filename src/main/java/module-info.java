@@ -4,4 +4,6 @@ module org.ludo {
 
     opens org.ludo to javafx.fxml;
     exports org.ludo;
+    opens org.ludo.controllers to javafx.fxml;
+    exports org.ludo.controllers;
 }

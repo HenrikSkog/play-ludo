@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class CanvasRenderer {
   private static GraphicsContext gc;
-  private static ArrayList<Renderable> renderableObjects;
+  private static ArrayList<Renderable> renderableObjects = new ArrayList<>();
 
 
   public static void renderObjects() {

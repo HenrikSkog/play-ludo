@@ -20,12 +20,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Canvas canvas = new Canvas();
-        var gc = canvas.getGraphicsContext2D();
-
         scene = new Scene(loadFXML("gameScene"));
 
         var test = new Board();
+
         CanvasRenderer.addRenderable(test);
         CanvasRenderer.renderObjects();
 

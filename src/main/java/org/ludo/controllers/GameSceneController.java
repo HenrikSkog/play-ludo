@@ -7,7 +7,7 @@ import org.ludo.gameRendering.CanvasRenderer;
 
 public class GameSceneController {
   @FXML
-  private Canvas boardCanvas ;
+  private Canvas boardCanvas;
 
   public void initialize() {
     GraphicsContext gc = boardCanvas.getGraphicsContext2D();
