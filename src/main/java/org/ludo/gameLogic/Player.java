@@ -3,6 +3,7 @@ package org.ludo.gameLogic;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player {
   private ArrayList<Piece> pieces;
@@ -10,9 +11,38 @@ public class Player {
   private Color color;
 
   public Player(String name, Color color) {
-    this.name = name;
-    this.color = color;
+    setName(name);
+    setColor(color);
   }
+
+  /**
+   * Sets the players color with validation
+   * @param color
+   * @throws IllegalArgumentException
+   */
+  private void setColor(Color color) throws IllegalArgumentException {
+    var allowedColors = new Color[]{Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW};
+
+    if (!Arrays.asList(allowedColors).contains(color)) {
+      throw new IllegalArgumentException("Color has to be red, blue, yellow or green");
+    } else {
+      this.color = color;
+    }
+  }
+
+  /**
+   * Sets the players name with validation
+   * @param name
+   * @throws IllegalArgumentException
+   */
+  private void setName(String name) throws IllegalArgumentException{
+    if(name.length() < 1) {
+      throw new IllegalArgumentException("Name cannot be empty string");
+    } else {
+      this.name = name;
+    }
+  }
+
 
   //TODO: is this tight coupling, and should therefore be implemented differently?
   public void setNewPieces() {

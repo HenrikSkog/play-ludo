@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
+import org.ludo.gameLogic.Board;
+import org.ludo.gameRendering.CanvasRenderer;
 
 import java.io.IOException;
 
@@ -21,7 +23,11 @@ public class App extends Application {
         Canvas canvas = new Canvas();
         var gc = canvas.getGraphicsContext2D();
 
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("gameScene"));
+
+        var test = new Board();
+        CanvasRenderer.addRenderable(test);
+        CanvasRenderer.renderObjects();
 
         stage.setScene(scene);
         stage.show();
