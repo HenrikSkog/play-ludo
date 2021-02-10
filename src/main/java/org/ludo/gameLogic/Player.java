@@ -14,7 +14,8 @@ public class Player {
     this.color = color;
   }
 
-  public void setPieces() {
+  //TODO: is this tight coupling, and should therefore be implemented differently?
+  public void setNewPieces() {
     for (int i = 0; i < 4; i++) {
       pieces.add(new Piece(color));
     }

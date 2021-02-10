@@ -1,4 +1,4 @@
-module org.example {
+module org.ludo {
     requires javafx.controls;
     requires javafx.fxml;
 
