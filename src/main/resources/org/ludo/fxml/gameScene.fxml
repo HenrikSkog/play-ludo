@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.GameSceneController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #8A8A8A#8A8A8A;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.GameSceneController">
    <children>
-      <Canvas fx:id="boardCanvas" height="400.0" layoutY="15.0" style="-fx-effect: 0000;" width="500.0" />
+      <Canvas fx:id="boardCanvas" height="400.0" style="-fx-effect: 0000;" width="500.0" />
       <Button fx:id="menuButton" layoutX="411.0" layoutY="15.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" styleClass="btn" stylesheets="@../css/styles.css" text="Menu" AnchorPane.leftAnchor="411.0" AnchorPane.rightAnchor="8.0" />
       <VBox layoutX="400.0" layoutY="50.0" prefHeight="265.0" prefWidth="100.0" spacing="10.0">
          <children>
@@ -36,7 +36,7 @@
                </padding>
             </Label>
             <ProgressBar fx:id="progressBar2" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-            <Label fx:id="name2" prefHeight="18.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 2" textAlignment="CENTER" textFill="#edff22">
+            <Label fx:id="name2" prefHeight="18.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 2" textAlignment="CENTER" textFill="#edf811e3">
                <font>
                   <Font size="14.0" />
                </font>
