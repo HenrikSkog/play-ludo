@@ -10,6 +10,8 @@ public class Player {
   private String name;
   private Color color;
 
+  private int colorIndex;
+
   public Player(String name, Color color) {
     setName(name);
     setColor(color);
@@ -27,7 +29,12 @@ public class Player {
       throw new IllegalArgumentException("Color has to be red, blue, yellow or green");
     } else {
       this.color = color;
+      this.colorIndex = Arrays.asList(allowedColors).indexOf(color);
     }
+  }
+
+  public void setPieces() {
+
   }
 
   /**
