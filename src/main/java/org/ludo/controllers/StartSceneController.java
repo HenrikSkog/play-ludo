@@ -10,10 +10,7 @@ import java.io.IOException;
 public class StartSceneController {
 
     @FXML
-    private Button newGameButton;
-
-    @FXML
-    void startNewGameMethod(ActionEvent event) throws IOException {
+    void startNewGame(ActionEvent event) throws IOException {
         App.setRoot("newGameScene");
     }
 
@@ -21,6 +18,8 @@ public class StartSceneController {
     private Button loadGameButton;
 
     @FXML
-    private Button quitGameButton;
+    void quitGameMethod(ActionEvent event) throws IOException{
+
+    }
 
 }
