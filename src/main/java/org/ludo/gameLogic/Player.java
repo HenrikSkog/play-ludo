@@ -10,8 +10,6 @@ public class Player {
   private String name;
   private Color color;
 
-  private int colorIndex;
-
   public Player(String name, Color color) {
     setName(name);
     setColor(color);
@@ -23,13 +21,12 @@ public class Player {
    * @throws IllegalArgumentException
    */
   private void setColor(Color color) throws IllegalArgumentException {
-    var allowedColors = new Color[]{Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW};
+    var allowedColors = new Color[]{Color.GREEN, Color.YELLOW, Color.BLUE, Color.RED};
 
     if (!Arrays.asList(allowedColors).contains(color)) {
       throw new IllegalArgumentException("Color has to be red, blue, yellow or green");
     } else {
       this.color = color;
-      this.colorIndex = Arrays.asList(allowedColors).indexOf(color);
     }
   }
 
@@ -54,7 +51,7 @@ public class Player {
   //TODO: is this tight coupling, and should therefore be implemented differently?
   public void setNewPieces() {
     for (int i = 0; i < 4; i++) {
-      pieces.add(new Piece(color));
+//      pieces.add(new Piece(color));
     }
   }
 }

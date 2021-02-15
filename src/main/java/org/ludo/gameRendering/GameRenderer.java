@@ -4,20 +4,13 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
-public abstract class CanvasRenderer {
-  private static GraphicsContext gc;
+public abstract class GameRenderer {
   private static ArrayList<Renderable> renderableObjects = new ArrayList<>();
-
 
   public static void renderObjects() {
     for(var object: renderableObjects) {
-      object.render(gc);
+      object.render();
     }
-  }
-
-
-  public static void setGc(GraphicsContext gc) {
-    CanvasRenderer.gc = gc;
   }
 
   public static void addRenderable(Renderable object) {

@@ -8,7 +8,7 @@ public class PieceRenderer implements Renderable{
 
 
   @Override
-  public void render(GraphicsContext gc) {
+  public void render() {
 
   }
 }

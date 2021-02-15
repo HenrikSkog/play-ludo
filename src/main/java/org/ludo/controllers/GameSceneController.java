@@ -3,14 +3,16 @@ package org.ludo.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import org.ludo.gameRendering.CanvasRenderer;
+import javafx.scene.layout.Pane;
+import org.ludo.gameLogic.GameInitialState;
+import org.ludo.gameRendering.GameRenderer;
 
 public class GameSceneController {
-  @FXML
-  private Canvas boardCanvas;
+    @FXML
+    private Pane gameContainer;
 
-  public void initialize() {
-    GraphicsContext gc = boardCanvas.getGraphicsContext2D();
-    CanvasRenderer.setGc(gc);
-  }
+    @FXML
+    private void initialize(){
+        GameInitialState.setGameContainer(gameContainer);
+    }
 }

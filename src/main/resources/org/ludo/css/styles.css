@@ -15,6 +15,11 @@
     -fx-accent: #27BB9A;
 }
 
-
 .nameLabel {
+}
+
+.pane {
+    -fx-border-color: "white";
+    -fx-border-width: 1px;
+
 }
