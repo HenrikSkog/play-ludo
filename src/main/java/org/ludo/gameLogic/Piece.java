@@ -60,7 +60,7 @@ public class Piece extends ImageView implements Renderable {
     currentBoardPositionArea = area;
   }
 
-  public String getCurrentBoardPositionArea() {
+  public String getArea() {
     return currentBoardPositionArea;
   }
 
