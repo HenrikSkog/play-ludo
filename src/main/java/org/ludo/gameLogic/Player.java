@@ -49,6 +49,10 @@ public class Player {
     return pieces;
   }
 
+  public int getIndex() {
+    return Board.getIndexOfColor(color);
+  }
+
   /**
    * Sets the players color with validation
    * @param color

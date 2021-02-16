@@ -12,9 +12,15 @@ public class GameState {
     private int currentTurnPlayer = 0;
     private int currentTurnTries = 3;
 
+    private GameTurn gameTurn;
+
 
     public void intializeGameState(String ... playerNames) {
         setPlayers(playerNames);
+        
+
+
+
         indicatePlayerTurn();
 
         Die.getDieBtn().setOnMouseClicked(event -> handleDieRoll());
