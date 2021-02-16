@@ -10,13 +10,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #8A8A8A#8A8A8A;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.GameSceneController">
    <children>
       <Button fx:id="menuButton" layoutX="411.0" layoutY="15.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" styleClass="btn" stylesheets="@../css/styles.css" text="Menu" AnchorPane.leftAnchor="411.0" AnchorPane.rightAnchor="8.0" />
       <VBox layoutX="400.0" layoutY="50.0" prefHeight="265.0" prefWidth="100.0" spacing="10.0">
          <children>
-            <Label fx:id="name1" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 1" textAlignment="CENTER" textFill="#2ada20">
+            <Label fx:id="player1Label" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 1" textAlignment="CENTER" textFill="#2ada20">
                <font>
                   <Font size="14.0" />
                </font>
@@ -28,7 +29,7 @@
                </VBox.margin>
             </Label>
             <ProgressBar fx:id="progressBar1" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-            <Label fx:id="name3" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 3" textAlignment="CENTER" textFill="#eb0d0d">
+            <Label fx:id="player2Label" prefHeight="18.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 2" textAlignment="CENTER" textFill="#edf811e3">
                <font>
                   <Font size="14.0" />
                </font>
@@ -37,7 +38,7 @@
                </padding>
             </Label>
             <ProgressBar fx:id="progressBar2" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-            <Label fx:id="name2" prefHeight="18.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 2" textAlignment="CENTER" textFill="#edf811e3">
+            <Label fx:id="player3Label" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 3" textAlignment="CENTER" textFill="#2944e1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -46,7 +47,7 @@
                </padding>
             </Label>
             <ProgressBar fx:id="progressBar3" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-            <Label fx:id="name4" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 4" textAlignment="CENTER" textFill="#2944e1">
+            <Label fx:id="player4Label" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 4" textAlignment="CENTER" textFill="#eb0d0d">
                <font>
                   <Font size="14.0" />
                </font>
@@ -68,5 +69,11 @@
                </image>
             </ImageView>
          </children></Pane>
+      <Button fx:id="dieBtn" layoutX="426.0" layoutY="361.0" mnemonicParsing="false" text="RULL" />
+      <Text fx:id="dieTextOutput" layoutX="438.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="26.13671875">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

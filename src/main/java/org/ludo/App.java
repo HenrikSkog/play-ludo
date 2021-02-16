@@ -7,16 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.ludo.gameLogic.Board;
-import org.ludo.gameLogic.BoardPosition;
-import org.ludo.gameLogic.GameInitialState;
-import org.ludo.gameLogic.Piece;
-import org.ludo.gameRendering.GameRenderer;
+import org.ludo.gameLogic.*;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
 
 /**
  * JavaFX App
@@ -30,22 +24,13 @@ public class App extends Application {
         scene = new Scene(loadFXML("gameScene"));
         scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 
-        //var test = new Board();
-
-        // GameRenderer.addRenderable(test);
-        // GameRenderer.renderObjects();
-
         stage.setScene(scene);
 
-        var piece = new Piece(Color.GREEN, 49);
+        var gamestate1 = new GameState();
 
-        System.out.println(piece.getLayoutY());
+        gamestate1.intializeGameState("Henrik", "Jørgen", "Ola", "Brage");
 
-        GameInitialState.getGameContainer().getChildren().add(piece);
-
-        System.out.println(Board.getPositions());
-
-        System.out.println("Printing in app: " + Board.betweenColorsBoardPositions.get(0));
+        gamestate1.renderPieces();
 
         stage.show();
     }
@@ -58,6 +43,13 @@ public class App extends Application {
         rect.setHeight(25);
         GameInitialState.getGameContainer().getChildren().add(rect);
     }
+
+    private void drawBoardPositions(ArrayList<BoardPosition> array) {
+        for (int i = 0; i < array.size(); i++) {
+            drawRectangle(array.get(i).getX(), array.get(i).getY());
+        }
+    }
+
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
