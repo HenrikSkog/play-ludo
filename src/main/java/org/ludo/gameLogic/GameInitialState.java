@@ -5,7 +5,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class GameInitialState {
-    private static BoardPosition[] boardpositions;
     private static Pane gameContainer;
     private static Label[] playerLabels;
     private static TextField[] playerText;
