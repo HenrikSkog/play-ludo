@@ -9,10 +9,8 @@ import java.util.Map;
 
 public abstract class Board {
 
-
   final public static ArrayList<BoardPosition> gameTrackPositions = new ArrayList<>();
   final public static ArrayList<BoardPosition> yardPositions = new ArrayList<>();
-
   final private static int scale = 25;
 
   final private static Map<String, ArrayList<BoardPosition>> boardPositionAreas = new HashMap<>();

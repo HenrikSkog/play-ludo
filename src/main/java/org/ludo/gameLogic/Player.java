@@ -51,8 +51,8 @@ public class Player {
 
   /**
    * Sets the players color with validation
-   * @param color
-   * @throws IllegalArgumentException
+   * @param color sets the color
+   * @throws IllegalArgumentException if something goes wrong
    */
   private void setColor(Color color) throws IllegalArgumentException {
     if (!Arrays.asList(Board.colorOrder).contains(color)) {
