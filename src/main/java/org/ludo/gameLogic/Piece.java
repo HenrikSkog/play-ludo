@@ -42,7 +42,6 @@ public class Piece extends ImageView implements Renderable {
     setPosition();
   }
 
-
   private void setPosition() {
     super.setLayoutX(Board.getBoardPositionX(currentBoardPositionArea, index));
     super.setLayoutY(Board.getBoardPositionY(currentBoardPositionArea, index));

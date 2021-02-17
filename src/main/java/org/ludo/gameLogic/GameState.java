@@ -27,11 +27,12 @@ public class GameState {
         if(dieResult != 6)
             currentTurnTries -= 1;
 
-        if(currentTurnTries == 0 && players.get(currentTurnPlayer).getPiecesInYard().size() == 4) {
+        if(currentTurnTries == 0 && currentPlayer.getPiecesInYard().size() == 4) {
             nextPlayer();
+        } else {
+            enableMoveToPlayer(currentPlayer.getPieces(), dieResult);
         }
 
-        enableMoveToPlayer(currentPlayer.getPieces(), dieResult);
     }
 
     private void enableMoveToPlayer(ArrayList<Piece> pieces, int dieResult) {
@@ -75,6 +76,7 @@ public class GameState {
 
     public void renderPieces() {
         getPlayers().stream().forEach(player -> player.renderPieces());
+
     }
 
     private void indicatePlayerTurn() {
