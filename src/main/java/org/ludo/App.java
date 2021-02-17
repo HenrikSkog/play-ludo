@@ -32,6 +32,8 @@ public class App extends Application {
 
         gamestate1.renderPieces();
 
+        drawBoardPositions(Board.homeColumnPositions);
+
         stage.show();
     }
 

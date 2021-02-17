@@ -11,6 +11,7 @@ public abstract class Board {
 
   final public static ArrayList<BoardPosition> gameTrackPositions = new ArrayList<>();
   final public static ArrayList<BoardPosition> yardPositions = new ArrayList<>();
+  final public static ArrayList<BoardPosition> homeColumnPositions = new ArrayList<>();
   final private static int scale = 25;
 
   final private static Map<String, ArrayList<BoardPosition>> boardPositionAreas = new HashMap<>();
@@ -22,16 +23,18 @@ public abstract class Board {
     generateBetweenColorPositions();
     generateHomePositions();
     initBoardPositionAreas();
+    generateHomeColumnPositions();
   }
 
   private static void initBoardPositionAreas() {
     boardPositionAreas.put("yard", yardPositions);
     boardPositionAreas.put("gameTrack", gameTrackPositions);
-    boardPositionAreas.put("homeColumn", gameTrackPositions);
+    boardPositionAreas.put("homeColumn", homeColumnPositions);
 
 
     allowedBoardPositionAreas.add("yard");
     allowedBoardPositionAreas.add("gameTrack");
+    allowedBoardPositionAreas.add("homeColumn");
   }
 
   private static void generateHomePositions() {
@@ -56,6 +59,41 @@ public abstract class Board {
 //    right square
     yardPositions.add(new BoardPosition(x + scale*2, y+scale));
   }
+
+  private static void generateHomeColumnPositions() {
+    //first green route
+    homeColumnPositions.add(new BoardPosition(13+scale*1, 13+scale*6));
+
+    //Green horizontal homeColumn
+    for (int i = 0; i < 5; i++){
+      homeColumnPositions.add(new BoardPosition(13+scale+scale*i, 13+scale*7));
+    }
+    //Yellow single route
+    homeColumnPositions.add((new BoardPosition(13+scale*8, 13+scale*1)));
+
+    //Yellow vertical homeColumn
+    for (int i = 1; i < 6; i++){
+      homeColumnPositions.add((new BoardPosition(13+scale*7, 13+scale *i)));
+    }
+    //First blue route
+    homeColumnPositions.add(new BoardPosition(13+scale*13, 13+scale*8));
+
+    //Blue horizontal homeColumn
+    for (int i = 13; i > 8; i--){
+      homeColumnPositions.add(new BoardPosition(13+scale*i, 13+scale*7));
+    }
+    //First red route
+    homeColumnPositions.add(new BoardPosition(13+scale*6, 13+scale*13));
+
+    //Vertical red route
+    for (int i = 13; i > 8; i--){
+      homeColumnPositions.add(new BoardPosition(13+scale*7, 13+scale*i));
+    }
+
+
+
+  }
+
 
 
   private static void generateBetweenColorPositions() {
