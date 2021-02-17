@@ -1,5 +1,7 @@
 package org.ludo.gameLogic;
 
+import javafx.scene.layout.Border;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -82,9 +84,9 @@ public class GameState {
     private void indicatePlayerTurn() {
         for (int i = 0; i < GameInitialState.getPlayerLabels().length; i++) {
             if(i == currentTurnPlayer)
-                GameInitialState.getPlayerLabels()[i].setFont(Font.font(null, FontWeight.BOLD, 16));
+                GameInitialState.getPlayerLabels()[i].setUnderline(true);
             else
-                GameInitialState.getPlayerLabels()[i].setFont(Font.font(null, FontWeight.NORMAL, 14));
+                GameInitialState.getPlayerLabels()[i].setUnderline(false);
         }
     }
 

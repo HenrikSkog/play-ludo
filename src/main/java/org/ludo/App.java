@@ -16,23 +16,25 @@ import java.util.ArrayList;
  * JavaFX App
  */
 public class App extends Application {
+    //TODO: Gå inn i HomeColumn etter en runde
+    //TODO: Ta brikker hvis en lander på en annen
+    //TODO: Fikse navngiving når man kommer inn i et nytt spill
+    //TODO: Lagring av gamestate
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("gameScene"));
+        scene = new Scene(loadFXML("StartScene"));
         scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 
         stage.setScene(scene);
 
         var gamestate1 = new GameState();
 
-        gamestate1.intializeGameState("Henrik", "Jørgen", "Ola", "Brage");
+        //gamestate1.intializeGameState("Henrik", "Jørgen", "Ola", "Brage");
 
         gamestate1.renderPieces();
-
-        drawBoardPositions(Board.homeColumnPositions);
 
         stage.show();
     }
