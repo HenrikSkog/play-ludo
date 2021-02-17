@@ -4,7 +4,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 public class GameInitialState {
-    private static BoardPosition[] boardpositions;
     private static Pane gameContainer;
     private static Label[] playerLabels;
 

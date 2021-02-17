@@ -8,8 +8,6 @@ import org.ludo.utils.PieceImages;
 import java.util.ArrayList;
 
 public class Piece extends ImageView implements Renderable {
-  //TODO: Move the piece that is clicked on
-
   private Color color;
   private String currentBoardPositionArea;
   private int index;
@@ -20,9 +18,6 @@ public class Piece extends ImageView implements Renderable {
 
     initializePiece();
   }
-
-
-
 
   public void movePieceOnGameTrack(int dieResult) {
     //TODO: Move piece into home column
