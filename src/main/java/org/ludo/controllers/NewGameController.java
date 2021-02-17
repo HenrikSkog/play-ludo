@@ -37,21 +37,6 @@ public class NewGameController extends GameSceneController {
 
     @FXML
     public void newGame(ActionEvent event) throws IOException {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/gameScene.fxml"));
-            Parent root = (Parent) loader.load();
-            GameSceneController gameSceneController = loader.getController();
-            gameSceneController.setLabelText(blueName.getText());
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-
-
-
     }
 }
 
