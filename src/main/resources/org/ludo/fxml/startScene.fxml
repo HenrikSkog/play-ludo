@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.EndSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.StartSceneController">
    <children>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" text="Switch to Secondary View" onAction="#switchToSecondary"/>
+      <ImageView blendMode="OVERLAY" fitHeight="394.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/board.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="newGameButton" layoutX="130.0" layoutY="120.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="70.0" prefWidth="134.0" text="Start new game" />
+      <Button fx:id="loadGameButton" layoutX="130.0" layoutY="210.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="134.0" text="Load Game" />
+      <Label layoutY="14.0" prefHeight="94.0" prefWidth="395.0" text="LUDO" textAlignment="CENTER">
+         <padding>
+            <Insets left="135.0" />
+         </padding>
+         <font>
+            <Font name="Bodoni 72 Book" size="48.0" />
+         </font>
+      </Label>
+      <Button fx:id="quitGameButton" layoutX="130.0" layoutY="300.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="134.0" text="Quit" />
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</AnchorPane>
