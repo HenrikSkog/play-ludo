@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.ludo.App;
+import org.ludo.gameLogic.GameInitialState;
 
 import java.io.IOException;
 
@@ -37,6 +38,9 @@ public class NewGameController extends GameSceneController {
 
     @FXML
     public void newGame(ActionEvent event) throws IOException {
+        String [] playerNames ={greenName.getText(), yellowName.getText(), blueName.getText(), redName.getText()};
+        GameInitialState.setPlayerNames(playerNames);
+        App.setRoot("gameScene");
     }
 }
 
