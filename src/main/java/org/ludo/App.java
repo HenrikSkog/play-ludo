@@ -30,12 +30,6 @@ public class App extends Application {
 
         stage.setScene(scene);
 
-        var gamestate1 = new GameState();
-
-        //gamestate1.intializeGameState("Henrik", "Jørgen", "Ola", "Brage");
-
-        gamestate1.renderPieces();
-
         stage.show();
     }
 

@@ -1,5 +1,6 @@
 package org.ludo.gameLogic;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -102,8 +103,11 @@ public class GameState {
             throw new IllegalArgumentException("There cannot be more than 4 players");
         }
 
+
         int playerIndex = 0;
         for(String playerName : playerNames) {
+            //TODO: move line under to dedicated class for rendering stuff maybe
+            GameInitialState.getPlayerLabels()[playerIndex].setText(playerName);
 
             var player = new Player(playerName, Board.getColorByOrder(playerIndex));
 

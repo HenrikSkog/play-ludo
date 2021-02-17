@@ -12,11 +12,6 @@ public class GameInitialState {
     public static Pane getGameContainer() {
         return gameContainer;
     }
-    public static void setPlayerNames(){
-        for (Label player : playerLabels) {
-            player.setText("hei");
-        }
-    }
 
     public static void setGameContainer(Pane gameContainer) {
         GameInitialState.gameContainer = gameContainer;
