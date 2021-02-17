@@ -53,6 +53,5 @@ public class NewGameController extends GameSceneController {
 
 
     }
-
 }
 
