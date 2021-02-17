@@ -1,63 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #8A8A8A#8A8A8A;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.GameSceneController">
+<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: ffff;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.GameSceneController">
    <children>
-      <Canvas fx:id="boardCanvas" height="400.0" style="-fx-effect: 0000;" width="500.0" />
-      <Button fx:id="menuButton" layoutX="411.0" layoutY="15.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" styleClass="btn" stylesheets="@../css/styles.css" text="Menu" AnchorPane.leftAnchor="411.0" AnchorPane.rightAnchor="8.0" />
-      <VBox layoutX="400.0" layoutY="50.0" prefHeight="265.0" prefWidth="100.0" spacing="10.0">
-         <children>
-            <Label fx:id="name1" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 1" textAlignment="CENTER" textFill="#2ada20">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="20.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <ProgressBar fx:id="progressBar1" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-            <Label fx:id="name3" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 3" textAlignment="CENTER" textFill="#eb0d0d">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="20.0" />
-               </padding>
-            </Label>
-            <ProgressBar fx:id="progressBar2" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-            <Label fx:id="name2" prefHeight="18.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 2" textAlignment="CENTER" textFill="#edf811e3">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="20.0" />
-               </padding>
-            </Label>
-            <ProgressBar fx:id="progressBar3" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-            <Label fx:id="name4" prefHeight="17.0" prefWidth="81.0" styleClass="nameLabel" text="Navn 4" textAlignment="CENTER" textFill="#2944e1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="20.0" />
-               </padding>
-            </Label>
-            <ProgressBar fx:id="progressBar4" prefHeight="20.0" prefWidth="82.0" progress="0.0" styleClass="progressBar" />
-         </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </VBox>
+      <ProgressBar layoutX="285.0" layoutY="238.0" prefHeight="20.0" prefWidth="101.0" progress="0.0" />
+      <ProgressBar layoutX="291.0" layoutY="109.0" prefHeight="20.0" prefWidth="101.0" progress="0.0" />
+      <ProgressBar layoutX="285.0" layoutY="172.0" prefHeight="20.0" prefWidth="101.0" progress="0.0" />
+      <ProgressBar layoutX="285.0" layoutY="297.0" prefHeight="20.0" prefWidth="101.0" progress="0.0" />
+      <Label fx:id="name1" layoutX="316.0" layoutY="76.0" textFill="#4414e1" />
+      <Label fx:id="name2" layoutX="321.0" layoutY="143.0" text="Name2" textFill="#f20a0a" />
+      <Label fx:id="name3" layoutX="315.0" layoutY="208.0" text="Name3" textFill="#e1d205" />
+      <Label fx:id="name4" layoutX="315.0" layoutY="272.0" text="Name4" textFill="#17eb3e" />
    </children>
 </AnchorPane>
