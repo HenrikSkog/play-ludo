@@ -18,13 +18,16 @@ import java.util.ArrayList;
 public class App extends Application {
     //TODO: Gå inn i HomeColumn etter en runde
     //TODO: Ta brikker hvis en lander på en annen
-    //TODO: Fikse navngiving når man kommer inn i et nytt spill
     //TODO: Lagring av gamestate
 
-    private static Scene scene;
+    public static Scene scene;
+    public static Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
+        this.stage = stage;
+
+
         scene = new Scene(loadFXML("StartScene"));
         scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 

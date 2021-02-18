@@ -65,7 +65,7 @@
          <children>
             <ImageView fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/board.png" />
+                  <Image url="@../assets/board_with_border.png" />
                </image>
             </ImageView>
          </children></Pane>

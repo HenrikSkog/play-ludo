@@ -1,41 +1,39 @@
 package org.ludo.gameLogic;
 
-import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 //TODO: move currentTurnTries to player? Allows for further encapsulation of for example makeMove to Piece class
 public class GameState {
     private ArrayList<Player> players = new ArrayList<>();
-    private int currentTurnPlayer = 0;
+
+    private int currentPlayerTurn = 0;
+    private Player currentPlayer;
     private int currentTurnTries = 3;
 
 
-    public void intializeGameState(String ... playerNames) {
-        setPlayers(playerNames);
+    public void intializeGameState(HashMap<Color, String> enteredPlayers) {
+        setPlayers(enteredPlayers);
+        decideStartingPlayer();
         indicatePlayerTurn();
+        currentPlayer = players.get(currentPlayerTurn);
 
         Die.getDieBtn().setOnMouseClicked(event -> handleDieRoll());
     }
 
     private void handleDieRoll() {
-        var currentPlayer = players.get(currentTurnPlayer);
-
         int dieResult = Die.roll();
         if(dieResult != 6)
             currentTurnTries -= 1;
 
-        if(currentTurnTries == 0 && currentPlayer.getPiecesInYard().size() == 4) {
+        if(currentTurnTries == 0 && currentPlayer.onlyHasPiecesInYard()) {
             nextPlayer();
         } else {
             enableMoveToPlayer(currentPlayer.getPieces(), dieResult);
         }
-
     }
 
     private void enableMoveToPlayer(ArrayList<Piece> pieces, int dieResult) {
@@ -65,17 +63,18 @@ public class GameState {
     }
 
     private void nextPlayer() {
-        removePieceListeners(players.get(currentTurnPlayer).getPieces());
-        currentTurnPlayer = (currentTurnPlayer == players.size()-1) ? 0 : currentTurnPlayer + 1;
+        removePieceListeners(currentPlayer.getPieces());
+
+        currentPlayerTurn = (currentPlayerTurn == players.size()-1) ? 0 : currentPlayerTurn + 1;
+        currentPlayer = players.get(currentPlayerTurn);
+
         indicatePlayerTurn();
-        if(players.get(currentTurnPlayer).getPiecesInYard().size() == 4)
+
+        if(players.get(currentPlayerTurn).onlyHasPiecesInYard())
             currentTurnTries = 3;
         else
             currentTurnTries = 1;
-
     }
-
-
 
     public void renderPieces() {
         getPlayers().stream().forEach(player -> player.renderPieces());
@@ -84,25 +83,17 @@ public class GameState {
 
     private void indicatePlayerTurn() {
         for (int i = 0; i < GameInitialState.getPlayerLabels().length; i++) {
-            if(i == currentTurnPlayer)
+            if(i == currentPlayerTurn)
                 GameInitialState.getPlayerLabels()[i].setUnderline(true);
             else
                 GameInitialState.getPlayerLabels()[i].setUnderline(false);
         }
     }
 
-    private void addMouseClick() {
-        players.stream().forEach(player ->
-                player.pieces.stream().forEach(piece ->
-                        piece.setOnMouseClicked(event ->
-                                piece.movePieceOutOfYard())));
-    }
-
-    public void setPlayers(String[] playerNames) throws IllegalArgumentException {
-        if(playerNames.length > 4) {
+    public void setPlayers(HashMap<Color, String> enteredPlayers) throws IllegalArgumentException {
+        if(enteredPlayers.size() > 4) {
             throw new IllegalArgumentException("There cannot be more than 4 players");
         }
-
 
         int playerIndex = 0;
         for(String playerName : playerNames) {
@@ -110,10 +101,15 @@ public class GameState {
             GameInitialState.getPlayerLabels()[playerIndex].setText(playerName);
 
             var player = new Player(playerName, Board.getColorByOrder(playerIndex));
-
             players.add(player);
 
             playerIndex += 1;
+        }
+    }
+
+    private void decideStartingPlayer() {
+        for (Color color: Board.getColorByOrder()) {
+
         }
     }
 

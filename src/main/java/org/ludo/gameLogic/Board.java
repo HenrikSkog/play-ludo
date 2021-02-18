@@ -167,6 +167,10 @@ public abstract class Board {
     return boardPositionAreas.get(area).get(index).getX();
   }
 
+  public static Color[] getColorOrder() {
+    return colorOrder;
+  }
+
   public static Color getColorByOrder(int index) {
     return colorOrder[index];
   }

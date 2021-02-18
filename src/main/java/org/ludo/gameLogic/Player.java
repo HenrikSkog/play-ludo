@@ -38,6 +38,12 @@ public class Player {
     return pieces.stream().filter(piece -> piece.getCurrentBoardPositionArea() == "yard").collect(Collectors.toList());
   }
 
+  public boolean onlyHasPiecesInYard() {
+    return pieces.size() == 4;
+  }
+
+
+
   public List<Piece> getPiecesInGameTrack() {
     return pieces.stream().filter(piece -> piece.getCurrentBoardPositionArea() == "gameTrack").collect(Collectors.toList());
   }
