@@ -8,8 +8,9 @@ import java.util.ArrayList;
 //TODO: move currentTurnTries to player? Allows for further encapsulation of for example makeMove to Piece class
 public class GameState {
     private ArrayList<Player> players = new ArrayList<>();
-    private int currentTurnPlayer = 0;
+    private int currentPlayerTurn = 0;
     private int currentTurnTries = 3;
+    private Player currentPlayer;
 
 
     public void intializeGameState(String ... playerNames) {
@@ -20,8 +21,6 @@ public class GameState {
     }
 
     private void handleDieRoll() {
-        var currentPlayer = players.get(currentTurnPlayer);
-
         int dieResult = Die.roll();
         if(dieResult != 6)
             currentTurnTries -= 1;
@@ -29,16 +28,16 @@ public class GameState {
         if(currentTurnTries == 0 && currentPlayer.getPiecesInYard().size() == 4) {
             nextPlayer();
         } else {
-            enableMoveToPlayer(currentPlayer.getPieces(), dieResult);
+            enableMoveToPlayer(dieResult);
         }
 
     }
 
-    private void enableMoveToPlayer(ArrayList<Piece> pieces, int dieResult) {
-        for (Piece piece: pieces) {
+    private void enableMoveToPlayer(int dieResult) {
+        for (Piece piece: currentPlayer.getPieces()) {
             piece.setOnMouseClicked(event -> {
                 makeMove(piece, dieResult);
-                removePieceListeners(pieces);
+                removePieceListeners();
                 if(currentTurnTries == 0)
                     nextPlayer();
             });
@@ -57,21 +56,23 @@ public class GameState {
         }
         }
 
-    private void removePieceListeners(ArrayList<Piece> pieces) {
-        for (Piece piece: pieces) {
+    private void removePieceListeners() {
+        for (Piece piece: currentPlayer.getPieces()) {
             piece.setOnMouseClicked(null);
         }
     }
 
     private void nextPlayer() {
-        removePieceListeners(players.get(currentTurnPlayer).getPieces());
-        currentTurnPlayer = (currentTurnPlayer == players.size()-1) ? 0 : currentTurnPlayer + 1;
+        removePieceListeners();
+        currentPlayerTurn = (currentPlayerTurn == players.size()-1) ? 0 : currentPlayerTurn + 1;
+
+        currentPlayer = players.get(currentPlayerTurn);
+
         indicatePlayerTurn();
-        if(players.get(currentTurnPlayer).getPiecesInYard().size() == 4)
+        if(currentPlayer.getPiecesInYard().size() == 4)
             currentTurnTries = 3;
         else
             currentTurnTries = 1;
-
     }
 
     private int willPassHomeColumnEntranceWith(Piece piece, int dieResult) {
@@ -94,7 +95,7 @@ public class GameState {
 
     private void indicatePlayerTurn() {
         for (int i = 0; i < GameInitialState.getPlayerLabels().length; i++) {
-            if(i == currentTurnPlayer)
+            if(i == currentPlayerTurn)
                 GameInitialState.getPlayerLabels()[i].setUnderline(true);
             else
                 GameInitialState.getPlayerLabels()[i].setUnderline(false);
@@ -125,6 +126,11 @@ public class GameState {
 
             playerIndex += 1;
         }
+        currentPlayer = players.get(currentPlayerTurn);
+    }
+
+    public void setCurrentPlayer(int currentTurnPlayer, Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public ArrayList<Player> getPlayers() {
