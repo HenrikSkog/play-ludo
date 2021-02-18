@@ -54,13 +54,12 @@ public class GameState {
             piece.movePieceOutOfYard();
             currentTurnTries = 1;
         } else if(piece.getCurrentBoardPositionArea() == "gameTrack") {
-            if((Board.getIndexOfColor(piece.getColor())*13) - 7
+            //if(Board.getIndexOfColor()
             }
             if (Board.getIndexOfColor(piece.getColor())*13 > piece.getIndex() + dieResult){
             }
             piece.movePieceOnGameTrack(dieResult);
         }
-    }
 
     private void removePieceListeners(ArrayList<Piece> pieces) {
         for (Piece piece: pieces) {
@@ -77,6 +76,16 @@ public class GameState {
         else
             currentTurnTries = 1;
 
+    }
+
+    private boolean inProximityOfHomeColumn(Piece piece) {
+        var gameTrackIndex = piece.getIndex();
+        var colorIndex = Board.getIndexOfColor(piece.getColor());
+        // is piece in proximity
+        if ((gameTrackIndex >= colorIndex*13-6 && gameTrackIndex <= colorIndex*13-1) || (piece.getColor()==Color.GREEN && gameTrackIndex >= 46 && gameTrackIndex <= 51)){
+            return true;
+        }
+        return false;
     }
 
 
