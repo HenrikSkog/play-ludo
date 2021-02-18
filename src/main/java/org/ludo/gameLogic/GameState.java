@@ -1,10 +1,6 @@
 package org.ludo.gameLogic;
 
-import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 
@@ -54,9 +50,9 @@ public class GameState {
             piece.movePieceOutOfYard();
             currentTurnTries = 1;
         } else if(piece.getCurrentBoardPositionArea() == "gameTrack") {
-            //if(Board.getIndexOfColor()
+            if (!(willPassHomeColumnEntranceWith(piece, dieResult) == -1)){
+                piece.movePieceOnHomeColumn(willPassHomeColumnEntranceWith(piece, dieResult));
             }
-            if (Board.getIndexOfColor(piece.getColor())*13 > piece.getIndex() + dieResult){
             }
             piece.movePieceOnGameTrack(dieResult);
         }
@@ -78,14 +74,16 @@ public class GameState {
 
     }
 
-    private boolean inProximityOfHomeColumn(Piece piece) {
+    private int willPassHomeColumnEntranceWith(Piece piece, int dieResult) {
         var gameTrackIndex = piece.getIndex();
         var colorIndex = Board.getIndexOfColor(piece.getColor());
         // is piece in proximity
         if ((gameTrackIndex >= colorIndex*13-6 && gameTrackIndex <= colorIndex*13-1) || (piece.getColor()==Color.GREEN && gameTrackIndex >= 46 && gameTrackIndex <= 51)){
-            return true;
+            if (gameTrackIndex + dieResult > colorIndex*13) {
+                return gameTrackIndex + dieResult - colorIndex * 13;
+            }
         }
-        return false;
+        return -1;
     }
 
 

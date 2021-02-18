@@ -25,6 +25,17 @@ public class Piece extends ImageView implements Renderable {
     setPosition();
   }
 
+  //TODO: refctor to movetohomecolumn and moveonhomecolumn
+  public void movePieceOnHomeColumn(int dieResult){
+    if(getCurrentBoardPositionArea() != "homeColumn") {
+      setCurrentBoardPositionArea("homeColumn");
+      index = dieResult + Board.getIndexOfColor(color);
+    } else {
+      index += dieResult;
+    }
+    setPosition();
+  }
+
   public void movePieceOutOfYard() {
     setCurrentBoardPositionArea("gameTrack");
     setIndex(13*Board.getIndexOfColor(color));
