@@ -54,6 +54,10 @@ public class GameState {
             piece.movePieceOutOfYard();
             currentTurnTries = 1;
         } else if(piece.getCurrentBoardPositionArea() == "gameTrack") {
+            if(Board.getIndexOfColor()
+            }
+            if (Board.getIndexOfColor(piece.getColor())*13 > piece.getIndex() + dieResult){
+            }
             piece.movePieceOnGameTrack(dieResult);
         }
     }
@@ -74,7 +78,6 @@ public class GameState {
             currentTurnTries = 1;
 
     }
-
 
 
     public void renderPieces() {
