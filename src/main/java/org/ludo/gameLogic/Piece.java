@@ -20,8 +20,7 @@ public class Piece extends ImageView implements Renderable {
   }
 
   public void movePieceOnGameTrack(int dieResult) {
-    //TODO: Move piece into home column
-    index += dieResult;
+    index = (index + dieResult > 51) ? dieResult - (52 - index) : index + dieResult;
     setPosition();
   }
 
