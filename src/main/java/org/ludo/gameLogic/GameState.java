@@ -53,8 +53,8 @@ public class GameState {
             if (!(willPassHomeColumnEntranceWith(piece, dieResult) == -1)){
                 piece.movePieceOnHomeColumn(willPassHomeColumnEntranceWith(piece, dieResult));
             }
-            }
             piece.movePieceOnGameTrack(dieResult);
+        }
         }
 
     private void removePieceListeners(ArrayList<Piece> pieces) {
