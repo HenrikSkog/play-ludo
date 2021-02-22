@@ -16,22 +16,22 @@
             <Image url="@../assets/board.png" />
          </image>
       </ImageView>
-      <TextField fx:id="greenName" layoutX="125.0" layoutY="95.0" prefHeight="27.0" prefWidth="150.0" promptText="Green Player">
+      <TextField fx:id="greenName" layoutX="125.0" layoutY="95.0" prefHeight="27.0" prefWidth="150.0" promptText="Green Player" text="Henrik">
          <padding>
             <Insets left="40.0" />
          </padding>
       </TextField>
-      <TextField fx:id="yellowName" layoutX="125.0" layoutY="145.0" prefHeight="27.0" prefWidth="150.0" promptText="Yellow Player">
+      <TextField fx:id="yellowName" layoutX="125.0" layoutY="145.0" prefHeight="27.0" prefWidth="150.0" promptText="Yellow Player" text="Jørgen">
          <padding>
             <Insets left="40.0" />
          </padding>
       </TextField>
-      <TextField fx:id="blueName" layoutX="125.0" layoutY="195.0" prefHeight="27.0" prefWidth="150.0" promptText="Blue Player">
+      <TextField fx:id="blueName" layoutX="125.0" layoutY="195.0" prefHeight="27.0" prefWidth="150.0" promptText="Blue Player" text="Brage">
          <padding>
             <Insets left="45.0" />
          </padding>
       </TextField>
-      <TextField fx:id="redName" layoutX="125.0" layoutY="245.0" prefHeight="27.0" prefWidth="150.0" promptText="Red player">
+      <TextField fx:id="redName" layoutX="125.0" layoutY="245.0" prefHeight="27.0" prefWidth="150.0" promptText="Red player" text="Halvor">
          <padding>
             <Insets left="45.0" />
          </padding>

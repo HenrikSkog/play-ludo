@@ -8,10 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.ludo.App;
 import org.ludo.gameLogic.GameInitialState;
 import org.ludo.gameLogic.GameState;
+import org.ludo.gameLogic.Piece;
 
 import java.io.IOException;
 
@@ -43,7 +45,6 @@ public class NewGameController extends GameSceneController {
         gameState.intializeGameState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
 
         gameState.renderPieces();
-
     }
 
 }

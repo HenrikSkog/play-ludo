@@ -35,14 +35,14 @@ public class Player {
   }
 
   public List<Piece> getPiecesInYard() {
-    return pieces.stream().filter(piece -> piece.getCurrentBoardPositionArea() == "yard").collect(Collectors.toList());
+    return pieces.stream().filter(piece -> piece.getBoardArea() == "yard").collect(Collectors.toList());
   }
 
   public List<Piece> getPiecesInGameTrack() {
-    return pieces.stream().filter(piece -> piece.getCurrentBoardPositionArea() == "gameTrack").collect(Collectors.toList());
+    return pieces.stream().filter(piece -> piece.getBoardArea() == "gameTrack").collect(Collectors.toList());
   }
   public List<Piece> getPiecesInHomeColumn() {
-    return pieces.stream().filter(piece -> piece.getCurrentBoardPositionArea() == "homeColumn").collect(Collectors.toList());
+    return pieces.stream().filter(piece -> piece.getBoardArea() == "homeColumn").collect(Collectors.toList());
   }
 
   public ArrayList<Piece> getPieces() {

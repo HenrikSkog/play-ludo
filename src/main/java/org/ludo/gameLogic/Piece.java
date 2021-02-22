@@ -5,11 +5,9 @@ import javafx.scene.paint.Color;
 import org.ludo.gameRendering.Renderable;
 import org.ludo.utils.PieceImages;
 
-import java.util.ArrayList;
-
 public class Piece extends ImageView implements Renderable {
   private Color color;
-  private String currentBoardPositionArea;
+  private String boardArea;
   private int index;
 
   public Piece(Color color, int index) {
@@ -24,26 +22,31 @@ public class Piece extends ImageView implements Renderable {
     setPosition();
   }
 
-  //TODO: refctor to movetohomecolumn and moveonhomecolumn
-  public void movePieceOnHomeColumn(int dieResult){
-    if(getCurrentBoardPositionArea() != "homeColumn") {
-      setCurrentBoardPositionArea("homeColumn");
-      index = dieResult + Board.getIndexOfColor(color);
-    } else {
-      index += dieResult;
-    }
+  public void moveToHomeColumn(int dieResult) {
+    index = dieResult + Board.getIndexOfColor(color)*7;
+    setBoardArea("homeColumn");
     setPosition();
   }
 
+  //TODO: refctor to movetohomecolumn and moveonhomecolumn
+  public void movePieceOnHomeColumn(int dieResult){
+    if(dieResult + index - Board.getIndexOfColor(color)*7 > 7) {
+      System.out.println(this.toString() + "har vunnet!");
+    } else {
+      index += dieResult;
+      setPosition();
+    }
+  }
+
   public void movePieceOutOfYard() {
-    setCurrentBoardPositionArea("gameTrack");
+    setBoardArea("gameTrack");
     setIndex(13*Board.getIndexOfColor(color));
     setPosition();
   }
 
   private void initializePiece() {
     super.setImage(PieceImages.getPieceImage(color));
-    setCurrentBoardPositionArea("yard");
+    setBoardArea("yard");
     setPosition();
   }
 
@@ -55,25 +58,25 @@ public class Piece extends ImageView implements Renderable {
     return index;
   }
 
-  private void setPosition() {
-    super.setLayoutX(Board.getBoardPositionX(currentBoardPositionArea, index));
-    super.setLayoutY(Board.getBoardPositionY(currentBoardPositionArea, index));
+  public void setPosition() {
+    super.setLayoutX(Board.getBoardPositionX(boardArea, index));
+    super.setLayoutY(Board.getBoardPositionY(boardArea, index));
   }
 
-  private void setIndex(int index) {
+  public void setIndex(int index) {
     this.index = index;
   }
 
-  public void setCurrentBoardPositionArea(String area) throws IllegalArgumentException{
-    if(!Board.getAllowedBoardPositionAreas().contains(area)) {
+  public void setBoardArea(String boardArea) throws IllegalArgumentException{
+    if(!Board.getAllowedBoardPositionAreas().contains(boardArea)) {
       throw new IllegalArgumentException("Not an allowed area");
     }
 
-    currentBoardPositionArea = area;
+    this.boardArea = boardArea;
   }
 
-  public String getCurrentBoardPositionArea() {
-    return currentBoardPositionArea;
+  public String getBoardArea() {
+    return boardArea;
   }
 
   @Override
@@ -85,7 +88,7 @@ public class Piece extends ImageView implements Renderable {
   public String toString() {
     return "Piece{" +
             "color=" + color +
-            ", currentBoardPositionArea='" + currentBoardPositionArea + '\'' +
+            ", currentBoardPositionArea='" + boardArea + '\'' +
             ", index=" + index +
             '}';
   }
