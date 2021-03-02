@@ -1,27 +1,26 @@
 package org.ludo.gameLogic;
 
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+import org.ludo.gameRendering.DieAnimator;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Die {
-    static Text dieTextOutput;
-    static Button dieBtn;
+    private Text dieTextOutput;
+    private Button dieBtn;
 
-    public static int roll() {
+    public Die(Text dieTextOutput, Button dieBtn) {
+        this.dieTextOutput = dieTextOutput;
+        this.dieBtn = dieBtn;
+    }
+
+    public int roll() {
         int result = (int)(Math.random() * 6 + 1);
-        dieTextOutput.setText(Integer.toString(result));
         return result;
-    }
-
-    public static Button getDieBtn() {
-        return dieBtn;
-    }
-
-    public static void setDieTextOutput(Text dieTextOutput) {
-        Die.dieTextOutput = dieTextOutput;
-    }
-
-    public static void setDieBtn(Button dieBtn) {
-        Die.dieBtn = dieBtn;
     }
 }

@@ -1,38 +1,102 @@
 package org.ludo.gameLogic;
 
 import javafx.scene.layout.Border;
+import org.ludo.gameRendering.DieAnimator;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class GameState {
   private ArrayList<Player> players = new ArrayList<>();
-  private int currentPlayerTurn = 0;
-  private int currentTurnTries = 3;
-  private Player currentPlayer;
   private PieceMover pieceMover = new PieceMover(this);
+
+  //about current turn
+  private int currentPlayerTurn;
+  private Player currentPlayer;
+  private int currentTurnTries;
+
+  private boolean testing = false;
 
 
   public void intializeGameState(String... playerNames) {
     setPlayers(playerNames);
     indicatePlayerTurn();
     enableDieRoll();
+
+    currentTurnTries = 3;
+    currentPlayerTurn = 0;
+    currentPlayer = players.get(currentPlayerTurn);
   }
 
   private void handleDieRoll() {
-    int dieResult = Die.roll();
-    if (dieResult != 6)
-      currentTurnTries -= 1;
+    var die = new Die(GameInitialState.getDieTextOutput(), GameInitialState.getDieBtn());
+    String lastDieRoll = GameInitialState.getDieTextOutput().getText();
+    int lastDieRollInt;
 
-    if (currentTurnTries == 0 && currentPlayer.getPiecesInYard().size() == 4) {
-      nextPlayer();
-    }
-    else {
-      if (dieResult == 6 && currentPlayer.getPiecesInYard().size() == 4) {
-        currentTurnTries = 1;
+    if(lastDieRoll == "")
+      lastDieRollInt = 1;
+    else
+      lastDieRollInt = Integer.parseInt(lastDieRoll);
+
+
+    int dieResult = die.roll();
+
+    var dieAnimator = new DieAnimator(GameInitialState.getDieTextOutput(), GameInitialState.getDieBtn(), lastDieRollInt, dieResult);
+
+    var timer = new Timer();
+
+    var task = new TimerTask() {
+      @Override
+      public void run() {
+        if (currentPlayer.hasAllPiecesInYard()) {
+          handleDieRollWhenAllInYard(dieResult);
+          // one or more pieces out and/or die result is 6 -> player has to move a piece and
+        } else {
+          handleDieRollWhenOutOfYard(dieResult);
+        }
+
       }
+      // all pieces in yard and no tries left -> only go to next player and dont enable move to player
+    };
+
+    int delay = 1000;
+    int flashes = 10;
+    int rotations = 4;
+
+
+    if(testing) {
+      delay = 50;
+      flashes = 2;
+
+    }
+
+    dieAnimator.animate(delay, rotations, flashes, dieResult);
+    timer.schedule(task, delay+10);
+  }
+
+  private void handleDieRollWhenOutOfYard(int dieResult) {
+    if (dieResult != 6) {
+      currentTurnTries--;
+    }
+    enableMoveToPlayer(dieResult);
+    disableDieRoll();
+  }
+
+  private void handleDieRollWhenAllInYard(int dieResult) {
+    currentTurnTries -= 1;
+
+    if (dieResult == 6) {
       enableMoveToPlayer(dieResult);
       disableDieRoll();
+      currentTurnTries = 1;
+    } else if (currentTurnTries == 0) {
+      nextPlayer();
     }
   }
 
@@ -50,11 +114,11 @@ public class GameState {
   }
 
   private void enableDieRoll() {
-    Die.getDieBtn().setOnMouseClicked(event -> handleDieRoll());
+    GameInitialState.getDieBtn().setOnMouseClicked(event -> handleDieRoll());
   }
 
   private void disableDieRoll() {
-    Die.getDieBtn().setOnMouseClicked(null);
+    GameInitialState.getDieBtn().setOnMouseClicked(null);
 
   }
 
@@ -65,13 +129,15 @@ public class GameState {
   }
 
   private void nextPlayer() {
-    removePieceListeners();
-    currentPlayerTurn = (currentPlayerTurn == players.size() - 1) ? 0 : currentPlayerTurn + 1;
+    if(testing) return;
 
+    removePieceListeners();
+
+    currentPlayerTurn = (currentPlayerTurn == players.size() - 1) ? 0 : currentPlayerTurn + 1;
     currentPlayer = players.get(currentPlayerTurn);
 
     indicatePlayerTurn();
-    if (currentPlayer.getPiecesInYard().size() == 4)
+    if (currentPlayer.hasAllPiecesInYard())
       currentTurnTries = 3;
     else
       currentTurnTries = 1;
@@ -105,14 +171,25 @@ public class GameState {
 
       playerIndex += 1;
     }
-    currentPlayer = players.get(currentPlayerTurn);
   }
 
   public void setCurrentPlayer(int currentTurnPlayer, Player currentPlayer) {
     this.currentPlayer = currentPlayer;
   }
 
+  public Player getCurrentPlayer() {
+    return currentPlayer;
+  }
+
   public ArrayList<Player> getPlayers() {
     return players;
+  }
+
+  public void setCurrentTurnTries(int currentTurnTries) {
+    this.currentTurnTries = currentTurnTries;
+  }
+
+  public void setTestingMode() {
+    this.testing = true;
   }
 }

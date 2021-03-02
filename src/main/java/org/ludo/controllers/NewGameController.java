@@ -32,9 +32,7 @@ public class NewGameController extends GameSceneController {
 
     @FXML
     void goBackMethod(ActionEvent event) throws IOException {
-
         App.setRoot("startScene");
-
     }
 
     @FXML
@@ -43,6 +41,12 @@ public class NewGameController extends GameSceneController {
         var gameState = new GameState();
 
         gameState.intializeGameState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
+
+        GameInitialState.getStage().setWidth(520);
+
+
+        //gameState.setTestingMode();
+
 
         gameState.renderPieces();
     }

@@ -28,6 +28,8 @@ public class App extends Application {
         scene = new Scene(loadFXML("StartScene"));
         scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 
+        GameInitialState.setStage(stage);
+
         stage.setScene(scene);
 
         stage.show();

@@ -10,9 +10,11 @@ public class PieceMover {
   }
 
   public void move(Piece piece, int dieResult) {
-    if (dieResult == 6 && piece.getBoardArea() == "yard")
-      piece.movePieceOutOfYard();
-
+    try {
+    if(dieResult == 6 && gameState.getCurrentPlayer().hasAllPiecesInYard()) {
+      piece.movePieceOutOfYard(dieResult);
+    } else if (dieResult == 6 && piece.getBoardArea() == "yard")
+      piece.movePieceOutOfYard(dieResult);
 
     else if (piece.getBoardArea() == "gameTrack") {
 
@@ -27,7 +29,10 @@ public class PieceMover {
     } else if (piece.getBoardArea() == "homeColumn") {
       piece.movePieceOnHomeColumn(dieResult);
     }
-  }
+  } catch(Error error) {
+      System.out.println("Tried to move" + piece.toString() + "with dieResult " + dieResult);
+    }
+    }
 
   private boolean isInRangeOfHomeEntrance(Piece piece) {
     var gameTrackIndex = piece.getIndex();

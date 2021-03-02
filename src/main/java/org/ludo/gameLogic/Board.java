@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Board {
-
   final public static ArrayList<BoardPosition> gameTrackPositions = new ArrayList<>();
   final public static ArrayList<BoardPosition> yardPositions = new ArrayList<>();
   final public static ArrayList<BoardPosition> homeColumnPositions = new ArrayList<>();

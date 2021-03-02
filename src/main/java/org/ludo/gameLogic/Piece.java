@@ -17,12 +17,16 @@ public class Piece extends ImageView implements Renderable {
     initializePiece();
   }
 
-  public void movePieceOnGameTrack(int dieResult) {
+  public void movePieceOnGameTrack(int dieResult) throws IllegalArgumentException {
+    if(boardArea != "gameTrack")
+      throw new IllegalArgumentException("Tried to move piece on game track when it was not on game track");
     index = (index + dieResult > 51) ? dieResult - (52 - index) : index + dieResult;
     setPosition();
   }
-
-  public void moveToHomeColumn(int dieResult) {
+//TODO: feil exception?
+  public void moveToHomeColumn(int dieResult) throws IllegalArgumentException {
+    if(boardArea != "gameTrack")
+      throw new IllegalArgumentException("Tried to move piece from gametrack to home column when it was not on game track");
     index = dieResult + Board.getIndexOfColor(color)*7;
     setBoardArea("homeColumn");
     setPosition();
@@ -38,7 +42,9 @@ public class Piece extends ImageView implements Renderable {
     }
   }
 
-  public void movePieceOutOfYard() {
+  public void movePieceOutOfYard(int dieResult) throws IllegalArgumentException{
+    if(boardArea != "yard" || dieResult != 6)
+      throw new IllegalArgumentException("Tried to move piece out of yard with another die result than 6 or piece not on gameTrack");
     setBoardArea("gameTrack");
     setIndex(13*Board.getIndexOfColor(color));
     setPosition();
@@ -92,5 +98,4 @@ public class Piece extends ImageView implements Renderable {
             ", index=" + index +
             '}';
   }
-
 }

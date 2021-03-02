@@ -83,4 +83,10 @@ public class Player {
             ", color=" + color +
             '}';
   }
+
+  public boolean hasAllPiecesInYard() {
+    if(getPiecesInYard().size() == 4)
+      return true;
+    return false;
+  }
 }

@@ -35,7 +35,7 @@ public class GameSceneController {
     private void initialize(){
         GameInitialState.setGameContainer(gameContainer);
         GameInitialState.setPlayerLabels(new Label[] {player1Label, player2Label, player3Label, player4Label});
-        Die.setDieTextOutput(dieTextOutput);
-        Die.setDieBtn(dieBtn);
+        GameInitialState.setDieTextOutput(dieTextOutput);
+        GameInitialState.setDieBtn(dieBtn);
     }
 }
