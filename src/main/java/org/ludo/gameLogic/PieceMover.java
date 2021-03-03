@@ -1,7 +1,5 @@
 package org.ludo.gameLogic;
 
-import javafx.scene.paint.Color;
-
 public class PieceMover {
   private GameState gameState;
 
@@ -11,46 +9,52 @@ public class PieceMover {
 
   public void move(Piece piece, int dieResult) {
     try {
-    if(dieResult == 6 && gameState.getCurrentPlayer().hasAllPiecesInYard()) {
-      piece.movePieceOutOfYard(dieResult);
-    } else if (dieResult == 6 && piece.getBoardArea() == "yard")
-      piece.movePieceOutOfYard(dieResult);
+      switch (piece.getBoardArea()) {
+        case "yard":
+          if (dieResult == 6 && gameState.getCurrentPlayer().hasAllPiecesInYard()) {
+            piece.moveToGameTrack(dieResult);
+          } else if (dieResult == 6 && piece.getBoardArea() == "yard")
+            piece.moveToGameTrack(dieResult);
+          break;
+        case "gameTrack":
+          int willPassHomeColumnEntranceWith = willPassHomeColumnEntranceWith(piece, dieResult);
 
-    else if (piece.getBoardArea() == "gameTrack") {
-
-      int willPassHomeColumnEntranceWith = willPassHomeColumnEntranceWith(piece, dieResult);
-
-      if (willPassHomeColumnEntranceWith != -1) {
-        piece.moveToHomeColumn(willPassHomeColumnEntranceWith);
-
-      } else {
-        piece.movePieceOnGameTrack(dieResult);
+          if (willPassHomeColumnEntranceWith != -1) {
+            piece.moveToHomeColumn(willPassHomeColumnEntranceWith);
+          } else {
+            piece.moveOnGameTrack(dieResult);
+            handleLandingOnAnotherPiece(piece);
+          }
+          break;
+        case "homeColumn":
+          piece.moveOnHomeColumn(dieResult);
+          break;
       }
-    } else if (piece.getBoardArea() == "homeColumn") {
-      piece.movePieceOnHomeColumn(dieResult);
-    }
-  } catch(Error error) {
+    } catch (Error error) {
       System.out.println("Tried to move" + piece.toString() + "with dieResult " + dieResult);
     }
-    }
+  }
 
-  private boolean isInRangeOfHomeEntrance(Piece piece) {
-    var gameTrackIndex = piece.getIndex();
-    var colorIndex = Board.getIndexOfColor(piece.getColor());
-    if ((gameTrackIndex >= colorIndex * 13 - 6 && gameTrackIndex <= colorIndex * 13 - 1) || (piece.getColor() == Color.GREEN && gameTrackIndex >= 46 && gameTrackIndex <= 51)) {
-      return true;
-    }
-    return false;
+  private void handleLandingOnAnotherPiece(Piece currentPiece) {
+    gameState.getPlayers().stream().forEach(player -> player.getPieces().stream().forEach(piece -> {
+      if (piece.getIndex() == currentPiece.getIndex() && piece != currentPiece && piece.getBoardArea() == "gameTrack") {
+        piece.moveToYard();
+        System.out.println("TRAFF");
+      }
+    }));
   }
 
   private int willPassHomeColumnEntranceWith(Piece piece, int dieResult) {
-    var gameTrackIndex = piece.getIndex();
     var colorIndex = Board.getIndexOfColor(piece.getColor());
+    //find lane
+    int colorLane = (colorIndex - 1) % 4;
+    int currentLane = (piece.getIndex() / 13);
+    int currentLaneIndex = piece.getIndex() % 13;
 
-    if (isInRangeOfHomeEntrance(piece)) {
-      if (gameTrackIndex + dieResult > colorIndex * 13) {
-        return gameTrackIndex + dieResult - colorIndex * 13;
-      }
+    if (currentLane == colorLane) {
+      int entrancePassValue = 13 - currentLaneIndex + dieResult;
+      if (entrancePassValue > 0)
+        return entrancePassValue;
     }
     return -1;
   }

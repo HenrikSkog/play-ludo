@@ -9,21 +9,23 @@ public class Piece extends ImageView implements Renderable {
   private Color color;
   private String boardArea;
   private int index;
+  private int initialIndex;
 
-  public Piece(Color color, int index) {
+  public Piece(Color color, int initialIndex) {
     this.color = color;
-    this.index = index;
+    this.initialIndex = initialIndex;
+    this.index = initialIndex;
 
     initializePiece();
   }
 
-  public void movePieceOnGameTrack(int dieResult) throws IllegalArgumentException {
+  public void moveOnGameTrack(int dieResult) throws IllegalArgumentException {
     if(boardArea != "gameTrack")
       throw new IllegalArgumentException("Tried to move piece on game track when it was not on game track");
     index = (index + dieResult > 51) ? dieResult - (52 - index) : index + dieResult;
     setPosition();
   }
-//TODO: feil exception?
+
   public void moveToHomeColumn(int dieResult) throws IllegalArgumentException {
     if(boardArea != "gameTrack")
       throw new IllegalArgumentException("Tried to move piece from gametrack to home column when it was not on game track");
@@ -32,21 +34,36 @@ public class Piece extends ImageView implements Renderable {
     setPosition();
   }
 
-  //TODO: refctor to movetohomecolumn and moveonhomecolumn
-  public void movePieceOnHomeColumn(int dieResult){
-    if(dieResult + index - Board.getIndexOfColor(color)*7 > 7) {
-      System.out.println(this.toString() + "har vunnet!");
+  public void moveOnHomeColumn(int dieResult){
+    System.out.println("index: " + index + "colorIndex: " + Board.getIndexOfColor(color));
+    if(((index) % 6 + dieResult) > 5) {
+      moveToGoal();
     } else {
       index += dieResult;
       setPosition();
     }
   }
 
-  public void movePieceOutOfYard(int dieResult) throws IllegalArgumentException{
+  public void moveToGameTrack(int dieResult) throws IllegalArgumentException{
     if(boardArea != "yard" || dieResult != 6)
       throw new IllegalArgumentException("Tried to move piece out of yard with another die result than 6 or piece not on gameTrack");
     setBoardArea("gameTrack");
     setIndex(13*Board.getIndexOfColor(color));
+    setPosition();
+  }
+
+  public void moveToYard() throws IllegalStateException{
+    if(this.boardArea == "yard") {
+      throw new IllegalStateException("Piece already in yard!");
+    }
+    this.boardArea = "yard";
+    this.index = initialIndex;
+    setPosition();
+  }
+
+  public void moveToGoal() {
+    this.boardArea = "goal";
+    this.index = initialIndex;
     setPosition();
   }
 

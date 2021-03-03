@@ -33,9 +33,10 @@ public class App extends Application {
         stage.setScene(scene);
 
         stage.show();
+
     }
 
-    private void drawRectangle(int x, int y) {
+    private static void drawRectangle(int x, int y) {
         var rect = new Rectangle(x, y);
         rect.setX(x);
         rect.setY(y);
@@ -44,7 +45,7 @@ public class App extends Application {
         GameInitialState.getGameContainer().getChildren().add(rect);
     }
 
-    private void drawBoardPositions(ArrayList<BoardPosition> array) {
+    public static void drawBoardPositions(ArrayList<BoardPosition> array) {
         for (int i = 0; i < array.size(); i++) {
             drawRectangle(array.get(i).getX(), array.get(i).getY());
         }
