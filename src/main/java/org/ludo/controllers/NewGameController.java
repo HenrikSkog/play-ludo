@@ -39,13 +39,11 @@ public class NewGameController extends GameSceneController {
   @FXML
   public void newGame(ActionEvent event) throws IOException {
     App.setRoot("gameScene");
-    var gameState = new GameState();
-
-    gameState.intializeGameState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
+    var gameState = new GameState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
 
     GameInitialState.getStage().setWidth(520);
 
-    gameState.setTestingMode();
+    //gameState.setTestingMode();
 
     gameState.renderPieces();
   }

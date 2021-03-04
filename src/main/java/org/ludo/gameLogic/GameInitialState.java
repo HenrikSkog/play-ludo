@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 public class GameInitialState {
   private static Pane gameContainer;
   private static Label[] playerLabels;
-  private static TextField[] playerText;
   private static Text dieTextOutput;
   private static Button dieBtn;
   private static Stage stage;

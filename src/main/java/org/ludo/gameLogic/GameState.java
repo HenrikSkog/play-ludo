@@ -2,19 +2,16 @@ package org.ludo.gameLogic;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Border;
 import org.ludo.gameRendering.DieAnimator;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 public class GameState {
+
+  //TODO nå er det mulig å trykke på brikke inne i yard om man har brikker ute selv om man ikke får 6. Fjerne eventlistener bare
   private ArrayList<Player> players = new ArrayList<>();
   private PieceMover pieceMover = new PieceMover(this);
 
@@ -26,8 +23,7 @@ public class GameState {
 
   private boolean testing = false;
 
-
-  public void intializeGameState(String... playerNames) {
+  public GameState(String... playerNames) {
     setPlayers(playerNames);
     indicatePlayerTurn();
     enableDieRoll();

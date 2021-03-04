@@ -2,7 +2,6 @@ package org.ludo.gameLogic;
 
 import javafx.scene.paint.Color;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public abstract class Board {
@@ -18,7 +17,7 @@ public abstract class Board {
   private static ArrayList<String> allowedBoardPositionAreas = new ArrayList<>();
 
   static {
-    generateBetweenColorPositions();
+    generateGameTrackPositions();
     generateHomePositions();
     initBoardPositionAreas();
     generateHomeColumnPositions();
@@ -94,7 +93,7 @@ public abstract class Board {
   }
 
 
-  private static void generateBetweenColorPositions() {
+  private static void generateGameTrackPositions() {
 //    starting at green home as index 0.
 //    Appending long right
     for (int i = 0; i < 5; i++) {

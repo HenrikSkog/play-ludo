@@ -29,7 +29,7 @@ public class Piece extends ImageView implements Renderable {
   public void moveToHomeColumn(int dieResult) throws IllegalArgumentException {
     if(boardArea != "gameTrack")
       throw new IllegalArgumentException("Tried to move piece from gametrack to home column when it was not on game track");
-    index = dieResult + Board.getIndexOfColor(color)*7;
+    index = dieResult + Board.getIndexOfColor(color)*6;
     setBoardArea("homeColumn");
     setPosition();
   }

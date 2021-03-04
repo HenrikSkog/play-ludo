@@ -48,13 +48,14 @@ public class PieceMover {
     var colorIndex = Board.getIndexOfColor(piece.getColor());
     //find lane
     int colorLane = (colorIndex - 1) % 4;
+    //java gives remainder and not modulo:
+    if(colorLane<0) colorLane+=4;
+
     int currentLane = (piece.getIndex() / 13);
     int currentLaneIndex = piece.getIndex() % 13;
 
-    if (currentLane == colorLane) {
-      int entrancePassValue = 13 - currentLaneIndex + dieResult;
-      if (entrancePassValue > 0)
-        return entrancePassValue;
+    if (currentLane == colorLane && currentLaneIndex + dieResult > 13) {
+        return currentLaneIndex + dieResult - 13;
     }
     return -1;
   }
