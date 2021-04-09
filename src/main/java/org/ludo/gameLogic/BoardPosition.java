@@ -1,13 +1,9 @@
 package org.ludo.gameLogic;
 
-import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
-
-public class BoardPosition {
+//klasse som lagrer et sett med koordinater.
+public class BoardPosition implements XYCoordinate {
     private int x;
     private int y;
-
-    private Color color;
 
     public BoardPosition(int x, int y) {
         this.x = x;

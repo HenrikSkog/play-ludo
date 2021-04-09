@@ -3,50 +3,51 @@ package org.ludo.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import org.ludo.App;
-import org.ludo.gameLogic.Board;
-import org.ludo.gameLogic.GameInitialState;
-import org.ludo.gameLogic.GameState;
-import org.ludo.gameLogic.Piece;
+import org.ludo.gameLogic.FXMLElements;
+import org.ludo.gameLogic.GameEngine;
+import org.ludo.gameLogic.GameEngineInterface;
+import org.ludo.gameLogic.LudoBoardLayout;
 
 import java.io.IOException;
 
 public class NewGameController extends GameSceneController {
-  @FXML
-  public TextField greenName;
-  @FXML
-  public TextField yellowName;
-  @FXML
-  public TextField blueName;
-  @FXML
-  public TextField redName;
+	@FXML
+	public TextField greenName;
+	@FXML
+	public TextField yellowName;
+	@FXML
+	public TextField blueName;
+	@FXML
+	public TextField redName;
 
-  @FXML
-  private Button goBackButton;
+	@FXML
+	private Button goBackButton;
 
-  @FXML
-  void goBackMethod(ActionEvent event) throws IOException {
-    App.setRoot("startScene");
-  }
+	@FXML
+	void goBackMethod(ActionEvent event) throws IOException {
+		App.setRoot("startScene");
+	}
 
-  @FXML
-  public void newGame(ActionEvent event) throws IOException {
-    App.setRoot("gameScene");
-    var gameState = new GameState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
+	@FXML
+	public void newGame(ActionEvent event) throws IOException {
+		FXMLElements.getStage().setWidth(520);
+		FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/gameScene.fxml"));
 
-    GameInitialState.getStage().setWidth(520);
+		Scene activeScene = App.getScene();
+		activeScene.setRoot(loader.load());
 
-    //gameState.setTestingMode();
+		var gameEngine = new GameEngine();
+		gameEngine.init(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
 
-    gameState.renderPieces();
-  }
+		gameEngine.getRenderer().renderPieces();
+
+        GameSceneController controller = loader.getController();
+        controller.setGameState(gameEngine);
+	}
 
 }
 

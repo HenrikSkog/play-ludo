@@ -1,23 +1,27 @@
 package org.ludo.utils;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+import org.ludo.App;
+import org.ludo.gameLogic.LudoBoardLayout;
 
 import java.util.HashMap;
 
 public class PieceImages {
-    public static HashMap<Color, Image> pieceImages= new HashMap();
-    private static int pieceWidth = 25;
+    public static HashMap<String, Image> pieceImages= new HashMap();
 
-    static {
-        PieceImages.pieceImages.put(Color.GREEN, Helper.getImage("greenpiece", pieceWidth, pieceWidth));
-        PieceImages.pieceImages.put(Color.YELLOW, Helper.getImage("yellowpiece", pieceWidth, pieceWidth));
-        PieceImages.pieceImages.put(Color.RED, Helper.getImage("redpiece", pieceWidth, pieceWidth));
-        PieceImages.pieceImages.put(Color.BLUE, Helper.getImage("bluepiece", pieceWidth, pieceWidth));
+    private static Image getImage(String source, int width, int height) {
+        return new Image(App.class.getResource("assets/" + source + ".png").toExternalForm(), width, height, false, false);
     }
 
-    public static Image getPieceImage(Color color) {
+    static {
+        int pieceWidth = LudoBoardLayout.getScale();
+        PieceImages.pieceImages.put("green", getImage("greenpiece", pieceWidth, pieceWidth));
+        PieceImages.pieceImages.put("yellow", getImage("yellowpiece", pieceWidth, pieceWidth));
+        PieceImages.pieceImages.put("red", getImage("redpiece", pieceWidth, pieceWidth));
+        PieceImages.pieceImages.put("blue", getImage("bluepiece", pieceWidth, pieceWidth));
+    }
+
+    public static Image getPieceImage(String color) {
         return pieceImages.get(color);
     }
 }

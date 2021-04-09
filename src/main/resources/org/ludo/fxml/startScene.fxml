@@ -10,14 +10,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.StartSceneController">
    <children>
-      <ImageView blendMode="OVERLAY" fitHeight="394.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView blendMode="OVERLAY" fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/board.png" />
          </image>
       </ImageView>
-      <Button fx:id="newGameButton" layoutX="130.0" layoutY="120.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="70.0" prefWidth="134.0" text="Start new game" />
-      <Button fx:id="loadGameButton" layoutX="130.0" layoutY="210.0" mnemonicParsing="false" onAction="#loadGameMethod" prefHeight="70.0" prefWidth="134.0" text="Load Game" />
-      <Label layoutY="14.0" prefHeight="94.0" prefWidth="395.0" text="LUDO" textAlignment="CENTER">
+      <Button fx:id="newGameButton" layoutX="233.0" layoutY="228.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="70.0" prefWidth="134.0" text="Start new game" />
+      <Button fx:id="loadGameButton" layoutX="233.0" layoutY="318.0" mnemonicParsing="false" onAction="#loadGameMethod" prefHeight="70.0" prefWidth="134.0" text="Load Game" />
+      <Label layoutX="103.0" layoutY="122.0" prefHeight="94.0" prefWidth="395.0" text="LUDO" textAlignment="CENTER">
          <padding>
             <Insets left="135.0" />
          </padding>
@@ -25,6 +25,6 @@
             <Font name="Bodoni 72 Book" size="48.0" />
          </font>
       </Label>
-      <Button fx:id="quitGameButton" layoutX="130.0" layoutY="300.0" mnemonicParsing="false" onAction="#quitGameMethod" prefHeight="70.0" prefWidth="134.0" text="Quit" />
+      <Button fx:id="quitGameButton" layoutX="233.0" layoutY="408.0" mnemonicParsing="false" onAction="#quitGameMethod" prefHeight="70.0" prefWidth="134.0" text="Quit" />
    </children>
 </AnchorPane>

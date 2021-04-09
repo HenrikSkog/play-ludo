@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.ludo.gameLogic.*;
@@ -16,8 +15,6 @@ import java.util.ArrayList;
  * JavaFX App
  */
 public class App extends Application {
-    //TODO: Gå inn i HomeColumn etter en runde
-    //TODO: Ta brikker hvis en lander på en annen
     //TODO: Fikse navngiving når man kommer inn i et nytt spill
     //TODO: Lagring av gamestate
 
@@ -28,12 +25,11 @@ public class App extends Application {
         scene = new Scene(loadFXML("StartScene"));
         scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
 
-        GameInitialState.setStage(stage);
+        FXMLElements.setStage(stage);
 
         stage.setScene(scene);
 
         stage.show();
-
     }
 
     private static void drawRectangle(int x, int y) {
@@ -42,7 +38,7 @@ public class App extends Application {
         rect.setY(y);
         rect.setWidth(25);
         rect.setHeight(25);
-        GameInitialState.getGameContainer().getChildren().add(rect);
+        FXMLElements.getGameContainer().getChildren().add(rect);
     }
 
     public static void drawBoardPositions(ArrayList<BoardPosition> array) {
@@ -55,11 +51,14 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    public static Scene getScene() {
+        return scene;
+    }
     public static void main(String[] args) {
         launch();
     }
