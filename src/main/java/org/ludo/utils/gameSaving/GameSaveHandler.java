@@ -9,29 +9,30 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GameSaveHandler {
+public class GameSaveHandler implements FileHandler {
 
-	private static String getDirPath() {
+	private String getDirPath() {
 		return String.valueOf(Paths.get("src", "main", "resources", "org", "ludo", "assets", "saveFiles"));
 	}
 
-	private static String getFilePath(String filename) {
+	private String getFilePath(String filename) {
 		return getDirPath() + "/" + filename;
 	}
 
 
-	private static int numSavedGames() {
+	private int numSavedGames() {
 		return Objects.requireNonNull(new File(getDirPath()).list()).length;
 	}
 
-	public static ArrayList<String> getSavedGames() {
+	public ArrayList<String> getSavedGames() {
 		return new ArrayList<>(Arrays.asList(Objects.requireNonNull(new File(getDirPath()).list())));
 	}
 
-	public static void saveGame(String content) {
+	@Override
+	public void saveGame(String content) {
 		try {
 			String filename = "gamesave#" + (numSavedGames() + 1) + ".json";
-			FileWriter myWriter = new java.io.FileWriter(getFilePath(filename));
+			FileWriter myWriter = new FileWriter(getFilePath(filename));
 
 			myWriter.write(content);
 			myWriter.close();
@@ -43,7 +44,8 @@ public class GameSaveHandler {
 		}
 	}
 
-	public static SerializedGameState loadGameSave(String filename) throws IOException {
+	@Override
+	public SerializedGameState loadGameSave(String filename) throws IOException {
 		String content = Files.lines(Paths.get("src", "main", "resources", "org", "ludo", "assets", "saveFiles", filename)).collect(Collectors.toList()).get(0);
 		Type type = new TypeToken<SerializedGameState>() {
 		}.getType();

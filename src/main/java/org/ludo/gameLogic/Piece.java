@@ -3,14 +3,17 @@ package org.ludo.gameLogic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Piece implements Serializable, GameObject {
+public class Piece implements Serializable {
+  //doesn't change
   private final int colorIndex;
   private final int initialPosIndex;
 
+  //desides its position on the board
   private int posIndex;
   private String boardArea;
 
-  private GameObjectNode gameObjectNode;
+  //renders the piece
+  private PieceNode pieceNode;
 
   public Piece(int colorIndex, int initialPosIndex) {
     this.colorIndex = colorIndex;
@@ -114,46 +117,44 @@ public class Piece implements Serializable, GameObject {
     }));
   }
 
-  @Override
   public int getPosIndex() {
     return posIndex;
   }
 
-  @Override
-  public String getBoardArea() {
-    return boardArea;
-  }
-
   public void setPosIndex(int posIndex) throws IllegalArgumentException {
-    if(posIndex > LudoBoardLayout.getBoardPositionsLength(getBoardArea())-1)
+    if(posIndex > BoardPositions.getBoardPositionsLength(getBoardArea())-1)
       throw new IllegalArgumentException("Index out of bounds");
     this.posIndex = posIndex;
   }
 
   public void setBoardArea(String boardArea) throws IllegalArgumentException{
-    if(!LudoBoardLayout.getAllowedBoardPositionAreas().contains(boardArea)) {
+    if(!BoardPositions.getAllowedBoardPositionAreas().contains(boardArea)) {
       throw new IllegalArgumentException("Not an allowed area");
     }
 
     this.boardArea = boardArea;
   }
 
+  public String getBoardArea() {
+    return boardArea;
+  }
 
   public int getColorIndex() {
     return colorIndex;
   }
 
-  public void setPieceNode(GameObjectNode gameObjectNode) {
-    this.gameObjectNode = gameObjectNode;
+  public void setPieceNode(PieceNode pieceNode) {
+    this.pieceNode = pieceNode;
   }
 
-  public GameObjectNode getPieceNode() {
-    return gameObjectNode;
+  public PieceNode getPieceNode() {
+    return pieceNode;
   }
 
   @Override
   public String toString() {
     return "Piece{" +
+            "color=" + BoardPositions.getColorByOrder(colorIndex) +
             ", currentBoardPositionArea='" + boardArea + '\'' +
             ", index=" + posIndex +
             '}';

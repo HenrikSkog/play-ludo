@@ -21,4 +21,14 @@ public class SerializedPiece {
 	public int getInitialPosIndex() {
 		return initialPosIndex;
 	}
+
+	@Override
+	public String toString() {
+		return "SerializedPiece{" +
+				"posIndex=" + posIndex +
+				", colorIndex=" + colorIndex +
+				", boardArea='" + boardArea + '\'' +
+				", initialPosIndex=" + initialPosIndex +
+				'}';
+	}
 }

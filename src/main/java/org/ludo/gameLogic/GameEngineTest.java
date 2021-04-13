@@ -163,19 +163,19 @@ public class GameEngineTest {
   }
 
   public void renderPieces() {
-    players.forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().updatePosition()));
+    players.forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().setPosition()));
     players.forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().render()));
   }
 
   private void reRenderPieces() {
-    players.forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().updatePosition()));
+    players.forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().setPosition()));
   }
 
   private void indicatePlayerTurn() {
     for (Player player : players) {
       var i = player.getColorIndex();
       if (i == currentPlayerTurn)
-        FXMLElements.getPlayerLabels()[player.getColorIndex()].setStyle("-fx-background-color: " + LudoBoardLayout.getColorByOrder(i) + ";-fx-text-fill: black");
+        FXMLElements.getPlayerLabels()[player.getColorIndex()].setStyle("-fx-background-color: " + BoardPositions.getColorByOrder(i) + ";-fx-text-fill: black");
       else
         FXMLElements.getPlayerLabels()[i].setStyle("-fx-background-color: none");
     }

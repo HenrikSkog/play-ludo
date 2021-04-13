@@ -19,4 +19,13 @@ public class SerializedPlayer {
 	public int getColorIndex() {
 		return colorIndex;
 	}
+
+	@Override
+	public String toString() {
+		return "SerializedPlayer{" +
+				"pieces=" + Arrays.toString(pieces) +
+				", name='" + name + '\'' +
+				", colorIndex=" + colorIndex +
+				'}';
+	}
 }

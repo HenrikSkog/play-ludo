@@ -10,7 +10,6 @@ import org.ludo.App;
 import org.ludo.gameLogic.FXMLElements;
 import org.ludo.gameLogic.GameEngine;
 import org.ludo.gameLogic.GameEngineInterface;
-import org.ludo.gameLogic.LudoBoardLayout;
 
 import java.io.IOException;
 
@@ -40,13 +39,14 @@ public class NewGameController extends GameSceneController {
 		Scene activeScene = App.getScene();
 		activeScene.setRoot(loader.load());
 
-		var gameEngine = new GameEngine();
+		var gameEngine = GameEngine.getInstance();
 		gameEngine.init(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
-
 		gameEngine.getRenderer().renderPieces();
 
         GameSceneController controller = loader.getController();
         controller.setGameState(gameEngine);
+
+
 	}
 
 }

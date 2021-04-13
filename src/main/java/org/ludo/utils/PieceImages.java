@@ -2,7 +2,7 @@ package org.ludo.utils;
 
 import javafx.scene.image.Image;
 import org.ludo.App;
-import org.ludo.gameLogic.LudoBoardLayout;
+import org.ludo.gameLogic.BoardPositions;
 
 import java.util.HashMap;
 
@@ -14,7 +14,7 @@ public class PieceImages {
     }
 
     static {
-        int pieceWidth = LudoBoardLayout.getScale();
+        int pieceWidth = BoardPositions.getScale();
         PieceImages.pieceImages.put("green", getImage("greenpiece", pieceWidth, pieceWidth));
         PieceImages.pieceImages.put("yellow", getImage("yellowpiece", pieceWidth, pieceWidth));
         PieceImages.pieceImages.put("red", getImage("redpiece", pieceWidth, pieceWidth));

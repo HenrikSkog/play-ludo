@@ -9,4 +9,6 @@ module org.ludo {
     exports org.ludo.controllers;
     opens org.ludo.utils to com.google.gson;
     exports org.ludo.utils;
+    opens org.ludo.utils.gameSaving to com.google.gson;
+    exports org.ludo.utils.gameSaving;
 }

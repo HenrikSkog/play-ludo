@@ -20,4 +20,12 @@ public class SerializedGameState {
 		return (ArrayList<SerializedPlayer>) Arrays.asList(players);
 	}
 
+	@Override
+	public String toString() {
+		return "SerializedGameState{" +
+				"currentPlayerTurn=" + currentPlayerTurn +
+				", currentTurnTries=" + currentTurnTries +
+				", players=" + Arrays.toString(players) +
+				'}';
+	}
 }

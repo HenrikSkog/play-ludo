@@ -19,7 +19,7 @@ public class Player implements Serializable {
   public void initializePieces() {
     for (int i = 0; i < 4; i++) {
       var piece = new Piece(colorIndex, colorIndex * 4 + i);
-      piece.setPieceNode(new GameObjectNode(piece));
+      piece.setPieceNode(new PieceNode(piece));
       pieces.add(piece);
     }
   }
@@ -71,6 +71,7 @@ public class Player implements Serializable {
     return "Player{" +
         "pieces=" + pieces +
         ", name='" + name + '\'' +
+        ", color=" + BoardPositions.getColorByOrder(colorIndex) +
         '}';
   }
 }
