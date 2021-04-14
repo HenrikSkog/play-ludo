@@ -53,7 +53,6 @@ public class Piece implements Serializable {
           break;
       }
     } catch (Error error) {
-      System.out.println(error.getMessage());
       System.out.println("Tried to move" + toString() + "with dieResult " + dieResult);
     }
   }

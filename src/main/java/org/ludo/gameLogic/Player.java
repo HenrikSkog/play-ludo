@@ -39,15 +39,15 @@ public class Player implements Serializable {
     }
 
     public List<Piece> getPiecesInYard() {
-        return pieces.stream().filter(piece -> piece.getBoardArea() == "yard").collect(Collectors.toList());
+        return pieces.stream().filter(piece -> piece.getBoardArea().equals("yard")).collect(Collectors.toList());
     }
 
     public List<Piece> getPiecesInGameTrack() {
-        return pieces.stream().filter(piece -> piece.getBoardArea() == "gameTrack").collect(Collectors.toList());
+        return pieces.stream().filter(piece -> piece.getBoardArea().equals("gameTrack")).collect(Collectors.toList());
     }
 
     public List<Piece> getPiecesInHomeColumn() {
-        return pieces.stream().filter(piece -> piece.getBoardArea() == "homeColumn").collect(Collectors.toList());
+        return pieces.stream().filter(piece -> piece.getBoardArea().equals("homeColumn")).collect(Collectors.toList());
     }
 
     public ArrayList<Piece> getPieces() {
@@ -63,9 +63,7 @@ public class Player implements Serializable {
     }
 
     public boolean hasAllPiecesInYard() {
-        if (getPiecesInYard().size() == 4)
-            return true;
-        return false;
+        return getPiecesInYard().size() == 4;
     }
 
     public int getColorIndex() {

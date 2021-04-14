@@ -13,6 +13,11 @@ public class MenuSceneController {
 		gameEngine.saveGame();
 	}
 
+	@FXML
+	private void exit() {
+		System.out.println("EXITNG");
+	}
+
 	public void setGameEngine(GameEngineInterface gameEngine) {
 		this.gameEngine = gameEngine;
 	}

@@ -33,6 +33,8 @@ public class NewGameController extends GameSceneController {
 	@FXML
 	public void newGame(ActionEvent event) throws IOException {
 		FXMLElements.getStage().setWidth(520);
+		FXMLElements.getStage().setHeight(450);
+
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/gameScene.fxml"));
 
 		Scene activeScene = App.getScene();

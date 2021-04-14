@@ -39,9 +39,10 @@ public class GameEngine implements GameEngineInterface, Serializable {
             players.add(player);
         });
 
-        currentTurnTries = 3;
+        currentTurnTries = loadedSerializedGameState.getCurrentTurnTries();
         currentPlayerTurn = loadedSerializedGameState.getCurrentPlayerTurn();
         currentPlayer = players.get(currentPlayerTurn);
+        System.out.println(currentPlayer);
     }
 
     public void start() {
@@ -51,6 +52,7 @@ public class GameEngine implements GameEngineInterface, Serializable {
     }
 
     private void handleDieRoll() {
+        System.out.println(currentTurnTries +  currentPlayerTurn);
         hasThrownDiceInCurrentTurn = true;
         var die = new Die(FXMLElements.getDieTextOutput(), FXMLElements.getDieBtn());
 
@@ -70,8 +72,10 @@ public class GameEngine implements GameEngineInterface, Serializable {
             @Override
             public void run() {
                 if (currentPlayer.hasAllPiecesInYard()) {
+                    System.out.println("handling in yard");
                     handleDieRollWhenAllInYard(dieResult);
                 } else {
+                    System.out.println("handling out of yard");
                     handleDieRollWhenOutOfYard(dieResult);
                 }
             }
