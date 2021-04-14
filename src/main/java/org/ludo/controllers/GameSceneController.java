@@ -64,7 +64,7 @@ public class GameSceneController {
 		MenuSceneController controller = loader.getController();
 		controller.setGameEngine(gameEngine);
 
-		modal.setWidth(200);
+		modal.setWidth(335);
 		modal.setHeight(300);
 
 		modal.setTitle("Meny");

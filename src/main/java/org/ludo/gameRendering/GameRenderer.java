@@ -15,7 +15,6 @@ public class GameRenderer {
   }
 
   public void renderPieces() {
-    System.out.println(gameEngine.getPlayers().toString());
     gameEngine.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().setPosition()));
     gameEngine.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().render()));
   }
