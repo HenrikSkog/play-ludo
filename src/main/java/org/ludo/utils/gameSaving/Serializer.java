@@ -15,6 +15,7 @@ public abstract class Serializer {
 
 	public static <T> T deserialize(String json, Type type) {
 		T res = gson.fromJson(json, type);
+		System.out.println("hei:" + res.toString());
 		return res;
 	}
 

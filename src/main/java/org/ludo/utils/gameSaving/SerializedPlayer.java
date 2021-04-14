@@ -9,7 +9,7 @@ public class SerializedPlayer {
 	private int colorIndex;
 
 	public ArrayList<SerializedPiece> getPieces() {
-		return (ArrayList<SerializedPiece>) Arrays.asList(pieces);
+		return new ArrayList<>(Arrays.asList(pieces));
 	}
 
 	public String getName() {

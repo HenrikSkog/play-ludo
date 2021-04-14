@@ -22,6 +22,13 @@ public class Piece implements Serializable {
     setBoardArea("yard");
   }
 
+  public Piece(int colorIndex, int initialPosIndex, int posIndex, String boardArea) {
+    this.colorIndex = colorIndex;
+    this.initialPosIndex = initialPosIndex;
+    this.posIndex = posIndex;
+    setBoardArea(boardArea);
+  }
+
   public void move(int dieResult, Player player, ArrayList<Player> players) {
     try {
       switch (getBoardArea()) {

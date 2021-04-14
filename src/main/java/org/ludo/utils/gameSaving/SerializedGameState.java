@@ -17,7 +17,7 @@ public class SerializedGameState {
 	}
 
 	public ArrayList<SerializedPlayer> getPlayers() {
-		return (ArrayList<SerializedPlayer>) Arrays.asList(players);
+		return new ArrayList<>(Arrays.asList(players));
 	}
 
 	@Override

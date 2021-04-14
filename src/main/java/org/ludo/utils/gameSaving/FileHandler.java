@@ -6,5 +6,5 @@ import java.util.ArrayList;
 public interface FileHandler {
     void saveGame(String content);
     ArrayList<String> getSavedGames();
-    Object loadGameSave(String filename) throws IOException;
+    SerializedGameState loadGameSave(String filename) throws IOException;
 }

@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import org.ludo.App;
 import org.ludo.gameLogic.FXMLElements;
 import org.ludo.gameLogic.GameEngine;
-import org.ludo.gameLogic.GameEngineInterface;
 
 import java.io.IOException;
 
@@ -39,9 +38,9 @@ public class NewGameController extends GameSceneController {
 		Scene activeScene = App.getScene();
 		activeScene.setRoot(loader.load());
 
-		var gameEngine = GameEngine.getInstance();
-		gameEngine.init(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
-		gameEngine.getRenderer().renderPieces();
+		var gameEngine = new GameEngine();
+		gameEngine.initState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
+		gameEngine.start();
 
         GameSceneController controller = loader.getController();
         controller.setGameState(gameEngine);
