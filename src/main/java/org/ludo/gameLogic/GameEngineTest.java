@@ -191,7 +191,10 @@ public class GameEngineTest {
       //TODO: move line under to dedicated class for rendering stuff maybe
       FXMLElements.getPlayerLabels()[playerIndex].setText(playerName);
 
-      players.add(new Player(playerName, playerIndex));
+      var player =  new Player(playerName, playerIndex);
+      player.initializePieces();
+      player.initializePieceNodes();
+      players.add(player);
       playerIndex += 1;
     }
   }

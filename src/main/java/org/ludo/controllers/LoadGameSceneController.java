@@ -1,11 +1,16 @@
 package org.ludo.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import org.ludo.App;
+import org.ludo.gameLogic.FXMLElements;
 import org.ludo.gameLogic.GameEngine;
 import org.ludo.utils.gameSaving.GameSaveHandler;
 import org.ludo.utils.gameSaving.FileHandler;
+import org.ludo.utils.gameSaving.SerializedGameState;
 
 import java.io.IOException;
 
@@ -20,23 +25,29 @@ public class LoadGameSceneController {
             Button saveButton = new Button(game.substring(0, game.length() - 5));
             saveButton.setOnAction(event -> {
                 try {
-                    System.out.println(fileHandler.loadGameSave("gamesave#1.json").toString());
+                    loadGame(fileHandler.loadGameSave(game));
                 } catch (IOException e) {
                     //TODO: give feedback to user that error occured
                     e.printStackTrace();
                 }
             });
-
             savedGamesVBox.getChildren().add(saveButton);
         });
     }
 
-    private void loadGame(String serializedGameState) {
-        var gameEngine = GameEngine.getInstance();
-        gameEngine.init();
-        gameEngine.getRenderer().renderPieces();
+    private void loadGame(SerializedGameState serializedGameState) throws IOException {
+        FXMLElements.getStage().setWidth(520);
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/gameScene.fxml"));
 
-        //GameSceneController controller = loader.getController();
-        //controller.setGameState(gameEngine);
+        Scene activeScene = App.getScene();
+        activeScene.setRoot(loader.load());
+
+
+        var gameEngine = new GameEngine();
+        gameEngine.initState(serializedGameState);
+        gameEngine.start();
+
+        GameSceneController controller = loader.getController();
+        controller.setGameState(gameEngine);
     }
 }
