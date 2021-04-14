@@ -1,7 +1,10 @@
 module org.ludo {
+    //requires javafx.controls;
+    //requires javafx.fxml;
+    requires com.google.gson;
+    requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
-    requires com.google.gson;
 
     opens org.ludo to javafx.fxml;
     exports org.ludo;

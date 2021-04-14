@@ -5,8 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.MenuSceneController">
+<AnchorPane prefHeight="343.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.MenuSceneController">
    <children>
       <Text layoutX="166.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MENU">
          <font>
@@ -14,5 +13,6 @@
          </font>
       </Text>
       <Button layoutX="160.0" layoutY="167.0" mnemonicParsing="false" onAction="#handleSaveGame" text="SAVE GAME" />
+      <Button fx:id="quitButton" layoutX="160.0" layoutY="215.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="27.0" prefWidth="88.0" text="QUIT" />
    </children>
 </AnchorPane>

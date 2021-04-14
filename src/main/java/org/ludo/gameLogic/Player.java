@@ -66,6 +66,10 @@ public class Player implements Serializable {
     return stateVars;
   }
 
+  public void addPiece(Piece piece) {
+    this.pieces.add(piece);
+  }
+
   @Override
   public String toString() {
     return "Player{" +

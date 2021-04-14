@@ -96,13 +96,14 @@ public class Piece implements Serializable {
   public int willPassHomeColumnEntranceWith(int dieResult) {
     //find lane
     int colorLane = (getColorIndex() - 1) % 4;
+
     //java gives remainder and not modulo:
     if(colorLane<0) colorLane+=4;
 
     int currentLane = (getPosIndex() / 13);
     int currentLaneIndex = getPosIndex() % 13;
 
-    if (currentLane == colorLane && currentLaneIndex + dieResult > 13) {
+    if (currentLane == colorLane && currentLaneIndex + dieResult >= 13) {
       return currentLaneIndex + dieResult - 13;
     }
     return -1;
@@ -128,12 +129,13 @@ public class Piece implements Serializable {
   }
 
   public void setBoardArea(String boardArea) throws IllegalArgumentException{
-    if(!BoardPositions.getAllowedBoardPositionAreas().contains(boardArea)) {
-      throw new IllegalArgumentException("Not an allowed area");
+      if(!BoardPositions.getAllowedBoardPositionAreas().contains(boardArea)) {
+        throw new IllegalArgumentException("Not an allowed area");
+      }
+
+      this.boardArea = boardArea;
     }
 
-    this.boardArea = boardArea;
-  }
 
   public String getBoardArea() {
     return boardArea;
