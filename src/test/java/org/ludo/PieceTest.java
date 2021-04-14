@@ -25,12 +25,9 @@ public class PieceTest {
     String[] names = new String[]{
             "Henrik", "Erlend", "Sebastian", "Julian"
     };
-    for (int i = 0; i <= 4; i++) {
+    for (int i = 0; i < 4; i++) {
       var player = new Player(names[i], i);
-      for (int j = 0; j < 4; j++) {
-        var piece = new Piece(player.getColorIndex(), player.getColorIndex() * 4 + i);
-        player.addPiece(piece);
-      }
+      player.initializePieces();
       players.add(player);
     }
     piece = players.get(0).getPieces().get(0);
@@ -98,7 +95,6 @@ public class PieceTest {
   public void testWillPassHomeColumnEntranceWith() {
     piece.setBoardArea("gameTrack");
     piece.setPosIndex(0);
-
     assertEquals(-1, piece.willPassHomeColumnEntranceWith(4));
     piece.setPosIndex(50);
     assertEquals(4, piece.willPassHomeColumnEntranceWith(6));
@@ -150,7 +146,7 @@ public class PieceTest {
     piece.setPosIndex(5);
     piece2.setBoardArea("gameTrack");
     piece2.setPosIndex(2);
-    piece2.move(2, players.get(1), players);
+    piece2.move(3, players.get(1), players);
     assertEquals("yard", piece.getBoardArea());
   }
 
