@@ -16,6 +16,7 @@ public class GameEngine implements GameEngineInterface, Serializable {
 
     private final ArrayList<Player> players = new ArrayList<>();
     private final GameRenderer gameRenderer = new GameRenderer(this);
+    private final PieceMover pieceMover = new PieceMover();
 
     //about current turn
     private int currentPlayerTurn;

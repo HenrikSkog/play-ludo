@@ -152,6 +152,10 @@ public class Piece implements Serializable {
     return colorIndex;
   }
 
+  public int getInitialPosIndex() {
+    return initialPosIndex;
+  }
+
   public void setPieceNode(PieceNode pieceNode) {
     this.pieceNode = pieceNode;
   }

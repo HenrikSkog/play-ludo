@@ -2,19 +2,25 @@ package org.ludo.gameLogic;
 
 import java.util.*;
 
-public abstract class BoardPositions {
-  final public static ArrayList<XYCoordinate> gameTrackPositions = new ArrayList<>();
-  final public static ArrayList<XYCoordinate> yardPositions = new ArrayList<>();
-  final public static ArrayList<XYCoordinate> homeColumnPositions = new ArrayList<>();
-  final public static ArrayList<XYCoordinate> goalPositions = new ArrayList<>();
-  final private static int scale = 25;
+public class BoardPositions {
+  final private ArrayList<XYCoordinate> gameTrackPositions = new ArrayList<>();
+  final private ArrayList<XYCoordinate> yardPositions = new ArrayList<>();
+  final private ArrayList<XYCoordinate> homeColumnPositions = new ArrayList<>();
+  final private ArrayList<XYCoordinate> goalPositions = new ArrayList<>();
+  private final ArrayList<String> allowedBoardPositionAreas = new ArrayList<>(Arrays.asList("yard", "gameTrack", "homeColumn", "goal"));
+  final private Map<String, ArrayList<XYCoordinate>> boardPositionAreas = new HashMap<>();
 
-  final private static Map<String, ArrayList<XYCoordinate>> boardPositionAreas = new HashMap<>();
+  private final int scale;
+  private final int boardLayoutY;
+  private final int boardLayoutX;
+  private final String[] colorOrder;
 
-  final public static String[] colorOrder = {"green", "yellow", "blue", "red"};
-  private static ArrayList<String> allowedBoardPositionAreas = new ArrayList<>();
+  public BoardPositions(int scale, int boardLayoutY, int boardLayoutX, String[] colorOrder) {
+    this.scale = scale;
+    this.boardLayoutY = boardLayoutY;
+    this.boardLayoutX = boardLayoutX;
+    this.colorOrder = colorOrder;
 
-  static {
     generateGameTrackPositions();
     generateHomePositions();
     initBoardPositionAreas();
@@ -22,7 +28,8 @@ public abstract class BoardPositions {
     generateGoalPositions();
   }
 
-  private static void initBoardPositionAreas() {
+
+  private void initBoardPositionAreas() {
     boardPositionAreas.put("yard", yardPositions);
     boardPositionAreas.put("gameTrack", gameTrackPositions);
     boardPositionAreas.put("homeColumn", homeColumnPositions);
@@ -34,7 +41,7 @@ public abstract class BoardPositions {
     allowedBoardPositionAreas.add("goal");
   }
 
-  private static void generateHomePositions() {
+  private void generateHomePositions() {
 //    starting at green home as index 0
 //    green
     generateOneHomePosition(scale * 2, scale * 2);
@@ -46,115 +53,116 @@ public abstract class BoardPositions {
     generateOneHomePosition(scale * 2, scale * 11);
   }
 
-  private static void generateOneHomePosition(int x, int y) {
+  private void generateOneHomePosition(int x, int y) {
 //    top square
-    yardPositions.add(new BoardPosition(x + scale, y));
+    yardPositions.add(new BoardPosition(boardLayoutX + x + scale, boardLayoutY + y));
 //    left square
-    yardPositions.add(new BoardPosition(x, y + scale));
+    yardPositions.add(new BoardPosition(boardLayoutX + x, boardLayoutY + y + scale));
 //    bottom square
-    yardPositions.add(new BoardPosition(x + scale, y + scale * 2));
+    yardPositions.add(new BoardPosition(boardLayoutX + x + scale, boardLayoutY + y + scale * 2));
 //    right square
-    yardPositions.add(new BoardPosition(x + scale * 2, y + scale));
+    yardPositions.add(new BoardPosition(boardLayoutX + x + scale * 2, boardLayoutY + y + scale));
   }
 
-  private static void generateHomeColumnPositions() {
+  private void generateHomeColumnPositions() {
     //first green route
-    homeColumnPositions.add(new BoardPosition(13 + scale * 1, 13 + scale * 6));
+    homeColumnPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 1, boardLayoutY + 13 + scale * 6));
 
     //Green horizontal homeColumn
     for (int i = 0; i < 5; i++) {
-      homeColumnPositions.add(new BoardPosition(13 + scale + scale * i, 13 + scale * 7));
+      homeColumnPositions.add(new BoardPosition(boardLayoutX + 13 + scale + scale * i, boardLayoutY + 13 + scale * 7));
     }
+
     //Yellow single route
-    homeColumnPositions.add((new BoardPosition(13 + scale * 8, 13 + scale * 1)));
+    homeColumnPositions.add((new BoardPosition(boardLayoutX + 13 + scale * 8, boardLayoutY + 13 + scale * 1)));
 
     //Yellow vertical homeColumn
     for (int i = 1; i < 6; i++) {
-      homeColumnPositions.add((new BoardPosition(13 + scale * 7, 13 + scale * i)));
+      homeColumnPositions.add((new BoardPosition(boardLayoutX+ 13 + scale * 7, boardLayoutY + 13 + scale * i)));
     }
     //First blue route
-    homeColumnPositions.add(new BoardPosition(13 + scale * 13, 13 + scale * 8));
+    homeColumnPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 13, boardLayoutY + 13 + scale * 8));
 
     //Blue horizontal homeColumn
     for (int i = 13; i > 8; i--) {
-      homeColumnPositions.add(new BoardPosition(13 + scale * i, 13 + scale * 7));
+      homeColumnPositions.add(new BoardPosition(boardLayoutX + 13 + scale * i, boardLayoutY + 13 + scale * 7));
     }
     //First red route
-    homeColumnPositions.add(new BoardPosition(13 + scale * 6, 13 + scale * 13));
+    homeColumnPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 6, boardLayoutY + 13 + scale * 13));
 
     //Vertical red route
     for (int i = 13; i > 8; i--) {
-      homeColumnPositions.add(new BoardPosition(13 + scale * 7, 13 + scale * i));
+      homeColumnPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 7, boardLayoutY + 13 + scale * i));
     }
 
 
   }
 
 
-  private static void generateGameTrackPositions() {
+  private void generateGameTrackPositions() {
 //    starting at green home as index 0.
 //    Appending long right
     for (int i = 0; i < 5; i++) {
-      gameTrackPositions.add(new BoardPosition(13 + scale + scale * i, 13 + scale * 6));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale + scale * i, boardLayoutY + 13 + scale * 6));
     }
 
 //    Long up
     for (int i = 5; i > 0; i--) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 6, 13 + scale * i));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 6, boardLayoutY + 13 + scale * i));
     }
 
 //    Short right
     for (int i = 0; i < 3; i++) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 6 + scale * i, 0 + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 6 + scale * i, boardLayoutY + 0 + 13));
     }
 
 //    Long down
     for (int i = 1; i < 6; i++) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 8, scale * i + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 8, boardLayoutY + scale * i + 13));
     }
 
 //    Long right
     for (int i = 0; i < 5; i++) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 9 + scale * i, scale * 6 + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 9 + scale * i, boardLayoutY + scale * 6 + 13));
     }
 
 //    Short down
     for (int i = 0; i < 3; i++) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 14, scale * 6 + scale * i + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 14, boardLayoutY + scale * 6 + scale * i + 13));
     }
 
 //    Long left
     for (int i = 5; i >= 1; i--) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 8 + scale * i, scale * 8 + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 8 + scale * i, boardLayoutY + scale * 8 + 13));
     }
 
 //    Long down
     for (int i = 0; i < 5; i++) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 8, scale * 9 + scale * i + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 8, boardLayoutY + scale * 9 + scale * i + 13));
     }
 
 //    Short left
     for (int i = 3; i > 0; i--) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 5 + scale * i, scale * 14 + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 5 + scale * i, boardLayoutY + scale * 14 + 13));
     }
 
 //    Long up
     for (int i = 5; i > 0; i--) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * 6, scale * 8 + scale * i + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 6, boardLayoutY + scale * 8 + scale * i + 13));
     }
 
 //    Long left
     for (int i = 5; i >= 1; i--) {
-      gameTrackPositions.add(new BoardPosition(13 + scale * i, scale * 8 + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * i, boardLayoutY + scale * 8 + 13));
     }
 
 //    Short up
     for (int i = 3; i > 0; i--) {
-      gameTrackPositions.add(new BoardPosition(13 + 0, scale * 5 + scale * i + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13, boardLayoutY + scale * 5 + scale * i + 13));
     }
   }
 
-  private static void generateGoalPositions() {
+  private void generateGoalPositions() {
     for (int i = 0; i < colorOrder.length; i++) {
       XYCoordinate penultimate = homeColumnPositions.get(i * 6 + 4);
       XYCoordinate last = homeColumnPositions.get(i * 6 + 5);
@@ -170,37 +178,37 @@ public abstract class BoardPositions {
           x = last.getX() + dx;
           y = last.getY() - (scale / 2) + j * (scale / 3);
         }
-        goalPositions.add(new BoardPosition(x, y));
+        goalPositions.add(new BoardPosition(boardLayoutX + x, boardLayoutY + y));
       }
     }
   }
 
 
-  public static double getBoardPositionY(String area, int index) {
+  public double getBoardPositionY(String area, int index) {
     return boardPositionAreas.get(area).get(index).getY();
   }
 
-  public static double getBoardPositionX(String area, int index) {
+  public double getBoardPositionX(String area, int index) {
     return boardPositionAreas.get(area).get(index).getX();
   }
 
-  public static int getBoardPositionsLength(String area) {
+  public int getBoardPositionsLength(String area) {
     return boardPositionAreas.get(area).size();
   }
 
-  public static String getColorByOrder(int index) {
+  public String getColorByOrder(int index) {
     return colorOrder[index];
   }
 
-  public static int getIndexOfColor(String color) {
+  public int getIndexOfColor(String color) {
     return Arrays.asList(colorOrder).indexOf(color);
   }
 
-  public static ArrayList<String> getAllowedBoardPositionAreas() {
+  public ArrayList<String> getAllowedBoardPositionAreas() {
     return allowedBoardPositionAreas;
   }
 
-  public static int getScale() {
+  public int getScale() {
     return scale;
   }
 }
