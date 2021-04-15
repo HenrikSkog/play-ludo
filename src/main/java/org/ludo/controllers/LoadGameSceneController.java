@@ -15,6 +15,7 @@ import org.ludo.utils.gameSaving.SerializedGameState;
 import java.io.IOException;
 
 public class LoadGameSceneController {
+
     @FXML
     private VBox savedGamesVBox;
 
@@ -28,11 +29,16 @@ public class LoadGameSceneController {
                     loadGame(fileHandler.loadGameSave(game));
                 } catch (IOException e) {
                     //TODO: give feedback to user that error occured
+                    System.out.println("error loading game");
                     e.printStackTrace();
                 }
             });
             savedGamesVBox.getChildren().add(saveButton);
         });
+    }
+
+    public void back() throws IOException {
+        App.setRoot("startScene");
     }
 
     private void loadGame(SerializedGameState serializedGameState) throws IOException {
