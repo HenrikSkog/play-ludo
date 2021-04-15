@@ -1,6 +1,8 @@
 package org.ludo.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import org.ludo.App;
 import org.ludo.gameLogic.GameEngine;
 import org.ludo.gameLogic.GameEngineInterface;
 
@@ -15,7 +17,7 @@ public class MenuSceneController {
 
 	@FXML
 	private void exit() {
-		System.out.println("EXITNG");
+		Platform.exit();
 	}
 
 	public void setGameEngine(GameEngineInterface gameEngine) {
