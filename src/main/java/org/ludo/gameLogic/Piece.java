@@ -104,8 +104,9 @@ public class Piece implements Serializable {
     int colorLane = (getColorIndex() - 1) % 4;
 
     //java gives remainder and not modulo:
-    if(colorLane<0) colorLane+=4;
-
+    if(colorLane<0) {
+      colorLane += 4;
+    }
     int currentLane = (getPosIndex() / 13);
     int currentLaneIndex = getPosIndex() % 13;
 
