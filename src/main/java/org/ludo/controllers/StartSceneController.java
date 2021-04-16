@@ -8,16 +8,16 @@ import java.io.IOException;
 
 public class StartSceneController {
     @FXML
-    void startNewGame(ActionEvent event) throws IOException {
+    void startNewGame() throws IOException {
         App.setRoot("newGameScene");
     }
 
     @FXML
-    void quitGameMethod(ActionEvent event) throws IOException{
+    void quitGameMethod() {
         Platform.exit();
     }
 
-    public void loadGameMethod(ActionEvent event) throws IOException {
+    public void loadGameMethod() throws IOException {
         App.setRoot("loadGameScene");
     }
 }

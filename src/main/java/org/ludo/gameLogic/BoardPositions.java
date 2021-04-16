@@ -1,25 +1,23 @@
 package org.ludo.gameLogic;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BoardPositions {
   final private ArrayList<XYCoordinate> gameTrackPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> yardPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> homeColumnPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> goalPositions = new ArrayList<>();
-  private final ArrayList<String> allowedBoardPositionAreas = new ArrayList<>(Arrays.asList("yard", "gameTrack", "homeColumn", "goal"));
   final private Map<String, ArrayList<XYCoordinate>> boardPositionAreas = new HashMap<>();
 
   private final int scale;
   private final int boardLayoutY;
   private final int boardLayoutX;
-  private final String[] colorOrder;
 
-  public BoardPositions(int scale, int boardLayoutY, int boardLayoutX, String[] colorOrder) {
+  public BoardPositions(int scale, int boardLayoutY, int boardLayoutX) {
     this.scale = scale;
     this.boardLayoutY = boardLayoutY;
     this.boardLayoutX = boardLayoutX;
-    this.colorOrder = colorOrder;
 
     generateGameTrackPositions();
     generateHomePositions();
@@ -34,11 +32,6 @@ public class BoardPositions {
     boardPositionAreas.put("gameTrack", gameTrackPositions);
     boardPositionAreas.put("homeColumn", homeColumnPositions);
     boardPositionAreas.put("goal", goalPositions);
-
-    allowedBoardPositionAreas.add("yard");
-    allowedBoardPositionAreas.add("gameTrack");
-    allowedBoardPositionAreas.add("homeColumn");
-    allowedBoardPositionAreas.add("goal");
   }
 
   private void generateHomePositions() {
@@ -163,7 +156,7 @@ public class BoardPositions {
   }
 
   private void generateGoalPositions() {
-    for (int i = 0; i < colorOrder.length; i++) {
+    for (int i = 0; i < 4; i++) {
       XYCoordinate penultimate = homeColumnPositions.get(i * 6 + 4);
       XYCoordinate last = homeColumnPositions.get(i * 6 + 5);
       int dx = last.getX() - penultimate.getX();
@@ -196,16 +189,8 @@ public class BoardPositions {
     return boardPositionAreas.get(area).size();
   }
 
-  public String getColorByOrder(int index) {
-    return colorOrder[index];
-  }
-
-  public int getIndexOfColor(String color) {
-    return Arrays.asList(colorOrder).indexOf(color);
-  }
-
   public ArrayList<String> getAllowedBoardPositionAreas() {
-    return allowedBoardPositionAreas;
+    return new ArrayList<>(boardPositionAreas.keySet());
   }
 
   public int getScale() {

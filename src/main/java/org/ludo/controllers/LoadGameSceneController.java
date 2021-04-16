@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import org.ludo.App;
 import org.ludo.gameLogic.FXMLElements;
-import org.ludo.gameLogic.GameEngine;
+import org.ludo.gameLogic.Game;
 import org.ludo.utils.gameSaving.GameSaveHandler;
 import org.ludo.utils.gameSaving.FileHandler;
 import org.ludo.utils.gameSaving.SerializedGameState;
@@ -49,11 +49,11 @@ public class LoadGameSceneController {
         activeScene.setRoot(loader.load());
 
 
-        var gameEngine = new GameEngine();
-        gameEngine.initState(serializedGameState);
-        gameEngine.start();
+        var game = new Game();
+        game.initState(serializedGameState);
+        game.start();
 
         GameSceneController controller = loader.getController();
-        controller.setGameState(gameEngine);
+        controller.setGameState(game);
     }
 }

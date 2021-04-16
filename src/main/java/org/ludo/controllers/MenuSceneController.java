@@ -2,17 +2,15 @@ package org.ludo.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import org.ludo.App;
-import org.ludo.gameLogic.GameEngine;
-import org.ludo.gameLogic.GameEngineInterface;
+import org.ludo.gameLogic.Game;
 
 public class MenuSceneController {
-	private GameEngineInterface gameEngine;
+	private Game game;
 
 
 	@FXML
 	private void handleSaveGame() {
-		gameEngine.saveGame();
+		game.saveGame();
 	}
 
 	@FXML
@@ -20,7 +18,7 @@ public class MenuSceneController {
 		Platform.exit();
 	}
 
-	public void setGameEngine(GameEngineInterface gameEngine) {
-		this.gameEngine = gameEngine;
+	public void setGameEngine(Game game) {
+		this.game = game;
 	}
 }

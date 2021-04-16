@@ -7,9 +7,10 @@ import org.ludo.utils.PieceImages;
 public class PieceNode extends ImageView implements Renderable {
   private final Piece piece;
 
-  public PieceNode(Piece piece) {
+  public PieceNode(Piece piece, String color, int scale) {
     this.piece = piece;
-    super.setImage(PieceImages.getPieceImage(BoardPositions.getColorByOrder(piece.getColorIndex())));
+    PieceImages pieceImages = new PieceImages(scale);
+    super.setImage(pieceImages.getPieceImage(color));
   }
 
   @Override
@@ -17,8 +18,8 @@ public class PieceNode extends ImageView implements Renderable {
     FXMLElements.getGameContainer().getChildren().add(this);
   }
 
-  public void setPosition() {
-    super.setLayoutX(BoardPositions.getBoardPositionX(piece.getBoardArea(), piece.getPosIndex()));
-    super.setLayoutY(BoardPositions.getBoardPositionY(piece.getBoardArea(), piece.getPosIndex()));
+  public void setPosition(BoardPositions boardPositions) {
+    super.setLayoutX(boardPositions.getBoardPositionX(piece.getBoardArea(), piece.getPosIndex()));
+    super.setLayoutY(boardPositions.getBoardPositionY(piece.getBoardArea(), piece.getPosIndex()));
   }
 }

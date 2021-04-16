@@ -31,11 +31,11 @@ public class Player implements Serializable {
         });
     }
 
-    public void initializePieceNodes() {
+    public void initializePieceNodes(String color, int scale) {
       if(this.pieces.size() == 0) {
           throw new IllegalStateException("No pieces to initialize nodes for");
       }
-      pieces.forEach(piece -> piece.setPieceNode(new PieceNode(piece)));
+      pieces.forEach(piece -> piece.setPieceNode(new PieceNode(piece, color, scale)));
     }
 
     public List<Piece> getPiecesInYard() {
@@ -78,12 +78,16 @@ public class Player implements Serializable {
         return stateVars;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
                 "pieces=" + pieces +
                 ", name='" + name + '\'' +
-                ", color=" + BoardPositions.getColorByOrder(colorIndex) +
+                ", colorIndex=" + colorIndex +
                 '}';
     }
 }

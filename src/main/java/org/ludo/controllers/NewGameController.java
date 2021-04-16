@@ -4,11 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.ludo.App;
 import org.ludo.gameLogic.FXMLElements;
-import org.ludo.gameLogic.GameEngine;
+import org.ludo.gameLogic.Game;
 
 import java.io.IOException;
 
@@ -23,12 +22,12 @@ public class NewGameController extends GameSceneController {
 	public TextField redName;
 
 	@FXML
-	private void goBackMethod(ActionEvent event) throws IOException {
+	private void goBackMethod() throws IOException {
 		App.setRoot("startScene");
 	}
 
 	@FXML
-	public void newGame(ActionEvent event) throws IOException {
+	public void newGame() throws IOException {
 		FXMLElements.getStage().setWidth(600);
 		FXMLElements.getStage().setHeight(600);
 
@@ -37,13 +36,13 @@ public class NewGameController extends GameSceneController {
 		Scene activeScene = App.getScene();
 		activeScene.setRoot(loader.load());
 
-		var gameEngine = new GameEngine();
-		gameEngine.initState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
-		gameEngine.start();
+		var game = new Game();
+		game.initState(new String[]{"green", "yellow", "blue", "red"}, greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
+		game.initGraphics();
+		game.start();
 
         GameSceneController controller = loader.getController();
-        controller.setGameState(gameEngine);
+        controller.setGameState(game);
 	}
-
 }
 

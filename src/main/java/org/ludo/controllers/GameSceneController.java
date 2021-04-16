@@ -11,8 +11,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.ludo.App;
 import org.ludo.gameLogic.FXMLElements;
-import org.ludo.gameLogic.GameEngine;
-import org.ludo.gameLogic.GameEngineInterface;
+import org.ludo.gameLogic.Game;
+import org.ludo.gameLogic.Game;
 
 import java.io.IOException;
 
@@ -39,7 +39,7 @@ public class GameSceneController {
 	private Label player4Label;
 
 
-	private GameEngineInterface gameEngine;
+	private Game game;
 
 	@FXML
 	private void initialize() {
@@ -49,8 +49,8 @@ public class GameSceneController {
 		FXMLElements.setDieBtn(dieBtn);
 	}
 
-	public void setGameState(GameEngine gameEngine) {
-		this.gameEngine = gameEngine;
+	public void setGameState(Game game) {
+		this.game = game;
 	}
 
 	@FXML
@@ -62,7 +62,7 @@ public class GameSceneController {
 		modal.setScene(new Scene(loader.load()));
 
 		MenuSceneController controller = loader.getController();
-		controller.setGameEngine(gameEngine);
+		controller.setGameEngine(game);
 
 		modal.setWidth(335);
 		modal.setHeight(300);
