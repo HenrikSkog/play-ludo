@@ -68,8 +68,7 @@ public class GameSceneController {
 		modal.setHeight(300);
 
 		modal.setTitle("Meny");
-		modal.initModality(Modality.WINDOW_MODAL);
+		modal.initModality(Modality.APPLICATION_MODAL);
 		modal.show();
-
 	}
 }

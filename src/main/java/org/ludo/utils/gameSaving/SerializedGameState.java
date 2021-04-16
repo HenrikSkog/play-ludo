@@ -7,6 +7,7 @@ public class SerializedGameState {
 	private int currentPlayerTurn;
 	private int currentTurnTries;
 	private SerializedPlayer[] players;
+	private String[] colorOrder;
 
 	public int getCurrentPlayerTurn() {
 		return currentPlayerTurn;
@@ -18,6 +19,10 @@ public class SerializedGameState {
 
 	public ArrayList<SerializedPlayer> getPlayers() {
 		return new ArrayList<>(Arrays.asList(players));
+	}
+
+	public String[] getColorOrder() {
+		return colorOrder;
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class Player implements Serializable {
 
     public void initializePieces(ArrayList<SerializedPiece> serializedPieces) {
         serializedPieces.forEach(serializedPiece -> {
-            var piece = new Piece(serializedPiece.getColorIndex(), serializedPiece.getInitialPosIndex(), serializedPiece.getPosIndex(), serializedPiece.getBoardArea());
+            var piece = new Piece(serializedPiece.getColorIndex(), serializedPiece.getInitialPosIndex(), serializedPiece.getPosIndex(), Areas.valueOf(serializedPiece.getBoardArea()));
             this.pieces.add(piece);
         });
     }
@@ -39,15 +39,15 @@ public class Player implements Serializable {
     }
 
     public List<Piece> getPiecesInYard() {
-        return pieces.stream().filter(piece -> piece.getBoardArea().equals("yard")).collect(Collectors.toList());
+        return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.YARD)).collect(Collectors.toList());
     }
 
     public List<Piece> getPiecesInGameTrack() {
-        return pieces.stream().filter(piece -> piece.getBoardArea().equals("gameTrack")).collect(Collectors.toList());
+        return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.GAMETRACK)).collect(Collectors.toList());
     }
 
     public List<Piece> getPiecesInHomeColumn() {
-        return pieces.stream().filter(piece -> piece.getBoardArea().equals("homeColumn")).collect(Collectors.toList());
+        return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.HOMECOLUMN)).collect(Collectors.toList());
     }
 
     public ArrayList<Piece> getPieces() {

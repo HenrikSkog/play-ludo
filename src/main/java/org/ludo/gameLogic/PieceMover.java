@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 public class PieceMover {
     private final ArrayList<Player> players;
-    private final BoardPositions boardPositions;
 
-    public PieceMover(ArrayList<Player> players, BoardPositions boardPositions) {
+    public PieceMover(ArrayList<Player> players) {
         this.players = players;
-        this.boardPositions = boardPositions;
     }
 
     public void move(Piece piece, int dieResult) {
@@ -16,13 +14,13 @@ public class PieceMover {
 
         try {
             switch (piece.getBoardArea()) {
-                case "yard":
+                case YARD:
                     if (dieResult == 6 && player.hasAllPiecesInYard()) {
                         moveToGameTrack(piece, dieResult);
-                    } else if (dieResult == 6 && piece.getBoardArea().equals("yard"))
+                    } else if (dieResult == 6 && piece.getBoardArea().equals(Areas.YARD))
                         moveToGameTrack(piece, dieResult);
                     break;
-                case "gameTrack":
+                case GAMETRACK:
                     int passVal = willPassHomeColumnEntranceWith(piece, dieResult);
                     if (passVal != -1) {
                         moveToHomeColumn(piece, passVal);
@@ -31,7 +29,7 @@ public class PieceMover {
                         handleLandingOnAnotherPiece(piece);
                     }
                     break;
-                case "homeColumn":
+                case HOMECOLUMN:
                     moveOnHomeColumn(piece, dieResult);
                     break;
             }
@@ -40,20 +38,20 @@ public class PieceMover {
         }
     }
 
-    public void moveOnGameTrack(Piece piece, int dieResult) throws IllegalArgumentException {
-        if(!piece.getBoardArea().equals("gameTrack"))
+    private void moveOnGameTrack(Piece piece, int dieResult) throws IllegalArgumentException {
+        if(!piece.getBoardArea().equals(Areas.GAMETRACK))
             throw new IllegalArgumentException("Tried to move piece on game track when it was not on game track");
         setPosIndex(piece, (piece.getPosIndex()+ dieResult > 51) ? dieResult - (52 - piece.getPosIndex()) : piece.getPosIndex() + dieResult);
     }
 
-    public void moveToHomeColumn(Piece piece, int dieResult) throws IllegalArgumentException {
-        if(!piece.getBoardArea().equals("gameTrack"))
+    private void moveToHomeColumn(Piece piece, int dieResult) throws IllegalArgumentException {
+        if(!piece.getBoardArea().equals(Areas.GAMETRACK))
             throw new IllegalArgumentException("Tried to move piece from gametrack to home column when it was not on game track");
         setPosIndex(piece, dieResult + piece.getColorIndex()*6);
-        setBoardArea(piece, "homeColumn");
+        setBoardArea(piece, Areas.HOMECOLUMN);
     }
 
-    public void moveOnHomeColumn(Piece piece, int dieResult){
+    private void moveOnHomeColumn(Piece piece, int dieResult){
         if(((piece.getPosIndex()) % 6 + dieResult) > 5) {
             moveToGoal(piece);
         } else {
@@ -61,27 +59,27 @@ public class PieceMover {
         }
     }
 
-    public void moveToGameTrack(Piece piece, int dieResult) throws IllegalArgumentException{
-        if(!piece.getBoardArea().equals("yard") || dieResult != 6)
+    private void moveToGameTrack(Piece piece, int dieResult) throws IllegalArgumentException{
+        if(!piece.getBoardArea().equals(Areas.YARD) || dieResult != 6)
             throw new IllegalArgumentException("Tried to move piece out of yard with another die result than 6 or piece not on gameTrack");
-        setBoardArea(piece, "gameTrack");
+        setBoardArea(piece, Areas.GAMETRACK);
         setPosIndex(piece, 13*piece.getColorIndex());
     }
 
-    public void moveToYard(Piece piece) throws IllegalStateException{
-        if(piece.getBoardArea().equals("yard")) {
+    private void moveToYard(Piece piece) throws IllegalStateException{
+        if(piece.getBoardArea().equals(Areas.YARD)) {
             throw new IllegalStateException("Piece already in yard!");
         }
-        setBoardArea(piece, "yard");
+        setBoardArea(piece, Areas.YARD);
         setPosIndex(piece, piece.getInitialPosIndex());
     }
 
-    public void moveToGoal(Piece piece) {
-        setBoardArea(piece, "goal");
+    private void moveToGoal(Piece piece) {
+        setBoardArea(piece, Areas.GOAL);
         setPosIndex(piece, piece.getInitialPosIndex());
     }
 
-    public int willPassHomeColumnEntranceWith(Piece piece, int dieResult) {
+    private int willPassHomeColumnEntranceWith(Piece piece, int dieResult) {
         //find lane
         int colorLane = (piece.getColorIndex() - 1) % 4;
 
@@ -100,21 +98,19 @@ public class PieceMover {
 
     private void handleLandingOnAnotherPiece(Piece piece) {
         players.forEach(player -> player.getPieces().forEach(playerPiece -> {
-            if (piece.getPosIndex() == playerPiece.getPosIndex() && piece != playerPiece && playerPiece.getBoardArea().equals("gameTrack")) {
+            if (piece.getPosIndex() == playerPiece.getPosIndex() && piece != playerPiece && playerPiece.getBoardArea().equals(Areas.GAMETRACK) && piece.getColorIndex() != player.getColorIndex()) {
                 moveToYard(playerPiece);
             }
         }));
     }
 
-    public void setPosIndex(Piece piece, int posIndex) throws IllegalArgumentException {
+    private void setPosIndex(Piece piece, int posIndex) throws IllegalArgumentException {
         if(posIndex < 0) throw new IllegalArgumentException("Cannot set index to negative number");
         piece.setPosIndex(posIndex);
     }
 
-    public void setBoardArea(Piece piece, String boardArea) throws IllegalArgumentException{
-        if(!boardPositions.getAllowedBoardPositionAreas().contains(boardArea)) {
-            throw new IllegalArgumentException("Not an allowed area");
-        }
+    private void setBoardArea(Piece piece, Areas boardArea) throws IllegalArgumentException{
+        //if board area is accepted as Areas, it is allowed
         piece.setBoardArea(boardArea);
     }
 }

@@ -10,7 +10,7 @@ public class Piece implements Serializable {
 
   //desides its position on the board
   private int posIndex;
-  private String boardArea;
+  private Areas boardArea;
 
   //renders the piece
   private PieceNode pieceNode;
@@ -19,10 +19,10 @@ public class Piece implements Serializable {
     this.colorIndex = colorIndex;
     this.initialPosIndex = initialPosIndex;
     this.posIndex = initialPosIndex;
-    setBoardArea("yard");
+    setBoardArea(Areas.YARD);
   }
 
-  public Piece(int colorIndex, int initialPosIndex, int posIndex, String boardArea) {
+  public Piece(int colorIndex, int initialPosIndex, int posIndex, Areas boardArea) {
     this.colorIndex = colorIndex;
     this.initialPosIndex = initialPosIndex;
     this.posIndex = posIndex;
@@ -38,11 +38,11 @@ public class Piece implements Serializable {
     this.posIndex = posIndex;
   }
 
-  public void setBoardArea(String boardArea) {
+  public void setBoardArea(Areas boardArea) {
     this.boardArea = boardArea;
   }
 
-  public String getBoardArea() {
+  public Areas getBoardArea() {
     return boardArea;
   }
 

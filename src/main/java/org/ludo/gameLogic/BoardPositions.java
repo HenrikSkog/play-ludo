@@ -8,7 +8,9 @@ public class BoardPositions {
   final private ArrayList<XYCoordinate> yardPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> homeColumnPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> goalPositions = new ArrayList<>();
-  final private Map<String, ArrayList<XYCoordinate>> boardPositionAreas = new HashMap<>();
+  final private Map<Areas, ArrayList<XYCoordinate>> boardPositionAreas = new HashMap<>();
+
+
 
   private final int scale;
   private final int boardLayoutY;
@@ -28,10 +30,10 @@ public class BoardPositions {
 
 
   private void initBoardPositionAreas() {
-    boardPositionAreas.put("yard", yardPositions);
-    boardPositionAreas.put("gameTrack", gameTrackPositions);
-    boardPositionAreas.put("homeColumn", homeColumnPositions);
-    boardPositionAreas.put("goal", goalPositions);
+    boardPositionAreas.put(Areas.YARD, yardPositions);
+    boardPositionAreas.put(Areas.GAMETRACK, gameTrackPositions);
+    boardPositionAreas.put(Areas.HOMECOLUMN, homeColumnPositions);
+    boardPositionAreas.put(Areas.GOAL, goalPositions);
   }
 
   private void generateHomePositions() {
@@ -176,24 +178,11 @@ public class BoardPositions {
     }
   }
 
-
-  public double getBoardPositionY(String area, int index) {
+  public double getBoardPositionY(Areas area, int index) {
     return boardPositionAreas.get(area).get(index).getY();
   }
 
-  public double getBoardPositionX(String area, int index) {
+  public double getBoardPositionX(Areas area, int index) {
     return boardPositionAreas.get(area).get(index).getX();
-  }
-
-  public int getBoardPositionsLength(String area) {
-    return boardPositionAreas.get(area).size();
-  }
-
-  public ArrayList<String> getAllowedBoardPositionAreas() {
-    return new ArrayList<>(boardPositionAreas.keySet());
-  }
-
-  public int getScale() {
-    return scale;
   }
 }

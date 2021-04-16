@@ -29,10 +29,6 @@ public abstract class FXMLElements {
     return dieBtn;
   }
 
-  public static Stage getStage() {
-    return stage;
-  }
-
   public static void setGameContainer(Pane gameContainer) {
     FXMLElements.gameContainer = gameContainer;
   }

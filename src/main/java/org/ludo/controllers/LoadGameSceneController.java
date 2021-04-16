@@ -42,7 +42,6 @@ public class LoadGameSceneController {
     }
 
     private void loadGame(SerializedGameState serializedGameState) throws IOException {
-        FXMLElements.getStage().setWidth(520);
         FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/gameScene.fxml"));
 
         Scene activeScene = App.getScene();
@@ -51,6 +50,7 @@ public class LoadGameSceneController {
 
         var game = new Game();
         game.initState(serializedGameState);
+        game.initGraphics();
         game.start();
 
         GameSceneController controller = loader.getController();

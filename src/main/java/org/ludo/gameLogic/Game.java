@@ -24,8 +24,8 @@ public class Game implements Serializable {
     private boolean hasThrownDiceInCurrentTurn = false;
 
     private int scale = 25;
-    private int boardLayoutX;
-    private int boardLayoutY;
+    private int boardLayoutX = 50;
+    private int boardLayoutY = 100;
 
     public void initState(String[] colorOrder, String... playerNames) {
         this.colorOrder = colorOrder;
@@ -39,7 +39,6 @@ public class Game implements Serializable {
         loadedSerializedGameState.getPlayers().forEach(serializedPlayer -> {
             var player = new Player(serializedPlayer.getName(), serializedPlayer.getColorIndex());
             player.initializePieces(serializedPlayer.getPieces());
-            player.initializePieceNodes(colorOrder[player.getColorIndex()], scale);
 
             players.add(player);
         });
@@ -47,6 +46,7 @@ public class Game implements Serializable {
         currentTurnTries = loadedSerializedGameState.getCurrentTurnTries();
         currentPlayerTurn = loadedSerializedGameState.getCurrentPlayerTurn();
         currentPlayer = players.get(currentPlayerTurn);
+        colorOrder = loadedSerializedGameState.getColorOrder();
     }
 
     public void initGraphics() {
@@ -60,7 +60,7 @@ public class Game implements Serializable {
 
     public void start() {
         boardPositions = new BoardPositions(scale, boardLayoutX, boardLayoutY);
-        pieceMover = new PieceMover(players, boardPositions);
+        pieceMover = new PieceMover(players);
         gameRenderer.indicatePlayerTurn();
         gameRenderer.renderPieces();
         enableDieRoll();
@@ -109,7 +109,7 @@ public class Game implements Serializable {
     private void enableMoveToPlayer(int dieResult) {
         for (Piece piece : currentPlayer.getPieces()) {
 //    if dieResult not 6 and piece in yard, dont add listener to it
-            if (!(piece.getBoardArea().equals("yard") && dieResult != 6)) {
+            if (!(piece.getBoardArea().equals(Areas.YARD) && dieResult != 6)) {
                 piece.getPieceNode().setOnMouseClicked(event -> {
                     pieceMover.move(piece, dieResult);
                     removePieceListeners();
@@ -210,6 +210,7 @@ public class Game implements Serializable {
         HashMap stateVars = new HashMap<String, Object>();
         stateVars.put("currentPlayerTurn", currentPlayerTurn);
         stateVars.put("currentTurnTries", currentTurnTries);
+        stateVars.put("colorOrder", colorOrder);
         stateVars.put("players", getPlayers().stream().map(player -> player.getState()).collect(Collectors.toList()));
         return stateVars;
     }
