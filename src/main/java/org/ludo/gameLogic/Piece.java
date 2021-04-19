@@ -3,7 +3,7 @@ package org.ludo.gameLogic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Piece implements Serializable {
+public class Piece {
   //doesn't change
   private final int colorIndex;
   private final int initialPosIndex;
@@ -70,14 +70,5 @@ public class Piece implements Serializable {
             ", posIndex=" + posIndex +
             ", boardArea='" + boardArea + '\'' +
             '}';
-  }
-
-  public HashMap<String, Object> getState() {
-    var stateVars = new HashMap<String, Object>();
-    stateVars.put("colorIndex", colorIndex);
-    stateVars.put("posIndex", posIndex);
-    stateVars.put("initialPosIndex", initialPosIndex);
-    stateVars.put("boardArea", boardArea);
-    return stateVars;
   }
 }

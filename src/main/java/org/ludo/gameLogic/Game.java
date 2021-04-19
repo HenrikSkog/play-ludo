@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class Game implements Serializable {
+public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private final GameRenderer gameRenderer = new GameRenderer(this);
     private PieceMover pieceMover;
@@ -23,9 +23,10 @@ public class Game implements Serializable {
     private int currentTurnTries;
     private boolean hasThrownDiceInCurrentTurn = false;
 
-    private int scale = 25;
-    private int boardLayoutX = 50;
-    private int boardLayoutY = 100;
+    //inits to default values, but can be changed here later if layout changes instead of changing values scattered around
+    private final int scale = 25;
+    private final int boardLayoutX = 50;
+    private final int boardLayoutY = 100;
 
     public void initState(String[] colorOrder, String... playerNames) {
         this.colorOrder = colorOrder;
@@ -187,23 +188,12 @@ public class Game implements Serializable {
         }
     }
 
-
-
     public int getCurrentPlayerTurn() {
         return currentPlayerTurn;
     }
 
     public ArrayList<Player> getPlayers() {
         return players;
-    }
-
-    public HashMap<String, Object> getState() {
-        HashMap stateVars = new HashMap<String, Object>();
-        stateVars.put("currentPlayerTurn", currentPlayerTurn);
-        stateVars.put("currentTurnTries", currentTurnTries);
-        stateVars.put("colorOrder", Arrays.toString(colorOrder));
-        stateVars.put("players", getPlayers().stream().map(player -> player.getState()).collect(Collectors.toList()));
-        return stateVars;
     }
 
     public void saveGame() throws IOException {
@@ -213,7 +203,6 @@ public class Game implements Serializable {
         var gamesaver = new LudoSaveHandler();
         gamesaver.saveGame(this);
     }
-
 
     public BoardPositions getBoardPositions() {
        return boardPositions;

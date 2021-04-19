@@ -105,11 +105,4 @@ public class LudoSaveHandler implements LudoFileHandler {
         game.initState(players, playerTurn, colorOrder);
         return game;
     }
-
-    public static void main(String[] args) {
-        var tst = new LudoSaveHandler();
-        Game game = tst.buildGameFromFile("gamesave#1.txt");
-
-        System.out.println(game.toString());
-    }
 }
