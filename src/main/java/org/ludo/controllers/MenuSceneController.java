@@ -19,7 +19,7 @@ public class MenuSceneController {
 		try {
 			game.saveGame();
 			errorText.setText("Successfully saved game!");
-		} catch(IllegalStateException e) {
+		} catch(IllegalStateException | IOException e) {
 			errorText.setText("Could not save game");
 			e.printStackTrace();
 		}

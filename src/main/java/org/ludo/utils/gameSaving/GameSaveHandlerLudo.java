@@ -1,3 +1,4 @@
+/*
 package org.ludo.utils.gameSaving;
 
 import com.google.gson.reflect.TypeToken;
@@ -9,8 +10,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GameSaveHandler implements FileHandler {
-
+public class GameSaveHandlerLudo implements LudoFileHandler {
 	private String getDirPath() {
 		return String.valueOf(Paths.get("src", "main", "resources", "org", "ludo", "assets", "saveFiles"));
 	}
@@ -18,7 +18,6 @@ public class GameSaveHandler implements FileHandler {
 	private String getFilePath(String filename) {
 		return getDirPath() + "/" + filename;
 	}
-
 
 	private int numSavedGames() {
 		return Objects.requireNonNull(new File(getDirPath()).list()).length;
@@ -52,4 +51,4 @@ public class GameSaveHandler implements FileHandler {
 
 		return Serializer.deserialize(content, type);
 	}
-}
+}*/
