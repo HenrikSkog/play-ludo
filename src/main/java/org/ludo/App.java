@@ -15,9 +15,6 @@ import java.util.ArrayList;
  * JavaFX App
  */
 public class App extends Application {
-    //TODO: Fikse navngiving når man kommer inn i et nytt spill
-    //TODO: Lagring av gamestate
-
     private static Scene scene;
 
     @Override
@@ -32,21 +29,6 @@ public class App extends Application {
         stage.show();
     }
 
-    private static void drawRectangle(int x, int y) {
-        var rect = new Rectangle(x, y);
-        rect.setX(x);
-        rect.setY(y);
-        rect.setWidth(25);
-        rect.setHeight(25);
-        FXMLElements.getGameContainer().getChildren().add(rect);
-    }
-
-    public static void drawBoardPositions(ArrayList<BoardPosition> array) {
-        for (int i = 0; i < array.size(); i++) {
-            drawRectangle(array.get(i).getX(), array.get(i).getY());
-        }
-    }
-
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
@@ -59,6 +41,7 @@ public class App extends Application {
     public static Scene getScene() {
         return scene;
     }
+
     public static void main(String[] args) {
         launch();
     }

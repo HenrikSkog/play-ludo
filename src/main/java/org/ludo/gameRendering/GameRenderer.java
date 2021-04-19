@@ -2,32 +2,30 @@ package org.ludo.gameRendering;
 
 import org.ludo.gameLogic.BoardPositions;
 import org.ludo.gameLogic.FXMLElements;
-import org.ludo.gameLogic.GameEngineInterface;
+import org.ludo.gameLogic.Game;
 import org.ludo.gameLogic.Player;
 
-import java.util.ArrayList;
-
 public class GameRenderer {
-  private GameEngineInterface gameEngine;
+  private Game game;
 
-  public GameRenderer(GameEngineInterface gameEngine) {
-    this.gameEngine = gameEngine;
+  public GameRenderer(Game game) {
+    this.game = game;
   }
 
   public void renderPieces() {
-    gameEngine.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().setPosition()));
-    gameEngine.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().render()));
+    game.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().setPosition(game.getBoardPositions())));
+    game.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().render()));
   }
 
   public void reRenderPieces() {
-    gameEngine.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().setPosition()));
+    game.getPlayers().forEach(player -> player.getPieces().forEach(piece -> piece.getPieceNode().setPosition(game.getBoardPositions())));
   }
 
   public void indicatePlayerTurn() {
-    for (Player player : gameEngine.getPlayers()) {
+    for (Player player : game.getPlayers()) {
       var i = player.getColorIndex();
-      if (i == gameEngine.getCurrentPlayerTurn())
-        FXMLElements.getPlayerLabels()[player.getColorIndex()].setStyle("-fx-background-color: " + BoardPositions.getColorByOrder(i) + ";-fx-text-fill: black");
+      if (i == game.getCurrentPlayerTurn())
+        FXMLElements.getPlayerLabels()[player.getColorIndex()].setStyle("-fx-background-color: " + game.getColorOrder()[i] + ";-fx-text-fill: black");
       else
         FXMLElements.getPlayerLabels()[i].setStyle("-fx-background-color: none");
     }

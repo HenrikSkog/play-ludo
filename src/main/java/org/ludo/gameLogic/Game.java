@@ -1,6 +1,5 @@
 package org.ludo.gameLogic;
 
-import com.google.gson.Gson;
 import org.ludo.gameRendering.DieAnimator;
 import org.ludo.gameRendering.GameRenderer;
 import org.ludo.utils.gameSaving.GameSaveHandler;
@@ -11,11 +10,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class GameEngine implements GameEngineInterface, Serializable {
-    private static final GameEngine gameEngine = new GameEngine();
-
+public class Game implements Serializable {
     private final ArrayList<Player> players = new ArrayList<>();
     private final GameRenderer gameRenderer = new GameRenderer(this);
+    private PieceMover pieceMover;
+    private BoardPositions boardPositions;
+    private String[] colorOrder;
 
     //about current turn
     private int currentPlayerTurn;
@@ -23,7 +23,12 @@ public class GameEngine implements GameEngineInterface, Serializable {
     private int currentTurnTries;
     private boolean hasThrownDiceInCurrentTurn = false;
 
-    public void initState(String... playerNames) {
+    private int scale = 25;
+    private int boardLayoutX = 50;
+    private int boardLayoutY = 100;
+
+    public void initState(String[] colorOrder, String... playerNames) {
+        this.colorOrder = colorOrder;
         setPlayers(new ArrayList<>(Arrays.asList(playerNames)));
         currentTurnTries = 3;
         currentPlayerTurn = 0;
@@ -34,7 +39,6 @@ public class GameEngine implements GameEngineInterface, Serializable {
         loadedSerializedGameState.getPlayers().forEach(serializedPlayer -> {
             var player = new Player(serializedPlayer.getName(), serializedPlayer.getColorIndex());
             player.initializePieces(serializedPlayer.getPieces());
-            player.initializePieceNodes();
 
             players.add(player);
         });
@@ -42,10 +46,21 @@ public class GameEngine implements GameEngineInterface, Serializable {
         currentTurnTries = loadedSerializedGameState.getCurrentTurnTries();
         currentPlayerTurn = loadedSerializedGameState.getCurrentPlayerTurn();
         currentPlayer = players.get(currentPlayerTurn);
-        System.out.println(currentPlayer);
+        colorOrder = loadedSerializedGameState.getColorOrder();
+    }
+
+    public void initGraphics() {
+        int index = 0;
+        for (Player player: players ) {
+            FXMLElements.getPlayerLabels()[index].setText(player.getName());
+            player.initializePieceNodes(colorOrder[player.getColorIndex()], scale);
+            index+=1;
+        }
     }
 
     public void start() {
+        boardPositions = new BoardPositions(scale, boardLayoutX, boardLayoutY);
+        pieceMover = new PieceMover(players);
         gameRenderer.indicatePlayerTurn();
         gameRenderer.renderPieces();
         enableDieRoll();
@@ -94,9 +109,9 @@ public class GameEngine implements GameEngineInterface, Serializable {
     private void enableMoveToPlayer(int dieResult) {
         for (Piece piece : currentPlayer.getPieces()) {
 //    if dieResult not 6 and piece in yard, dont add listener to it
-            if (!(piece.getBoardArea().equals("yard") && dieResult != 6)) {
+            if (!(piece.getBoardArea().equals(Areas.YARD) && dieResult != 6)) {
                 piece.getPieceNode().setOnMouseClicked(event -> {
-                    piece.move(dieResult, currentPlayer, players);
+                    pieceMover.move(piece, dieResult);
                     removePieceListeners();
                     enableDieRoll();
                     if (currentTurnTries == 0)
@@ -168,19 +183,16 @@ public class GameEngine implements GameEngineInterface, Serializable {
 
         int playerIndex = 0;
         for (String playerName : playerNames) {
-            //TODO: move line under to dedicated class for rendering stuff maybe
             if (!playerName.equals("")) {
-                FXMLElements.getPlayerLabels()[playerIndex].setText(playerName);
-
                 var player = new Player(playerName, playerIndex);
                 player.initializePieces();
-                player.initializePieceNodes();
-
                 players.add(player);
             }
             playerIndex += 1;
         }
     }
+
+
 
     public int getCurrentPlayerTurn() {
         return currentPlayerTurn;
@@ -198,6 +210,7 @@ public class GameEngine implements GameEngineInterface, Serializable {
         HashMap stateVars = new HashMap<String, Object>();
         stateVars.put("currentPlayerTurn", currentPlayerTurn);
         stateVars.put("currentTurnTries", currentTurnTries);
+        stateVars.put("colorOrder", colorOrder);
         stateVars.put("players", getPlayers().stream().map(player -> player.getState()).collect(Collectors.toList()));
         return stateVars;
     }
@@ -209,5 +222,25 @@ public class GameEngine implements GameEngineInterface, Serializable {
         var gamesaver = new GameSaveHandler();
         String gameStateJSON = Serializer.serialize(getState());
         gamesaver.saveGame(gameStateJSON);
+    }
+
+    public void setScale(int scale) {
+        this.scale = scale;
+    }
+
+    public void setBoardLayoutX(int boardLayoutX) {
+        this.boardLayoutX = boardLayoutX;
+    }
+
+    public void setBoardLayoutY(int boardLayoutY) {
+        this.boardLayoutY = boardLayoutY;
+    }
+
+    public BoardPositions getBoardPositions() {
+       return boardPositions;
+    }
+
+    public String[] getColorOrder() {
+        return colorOrder;
     }
 }

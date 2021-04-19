@@ -7,42 +7,25 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #EEE6E6#EEE6E6;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.GameSceneController">
+<AnchorPane fx:id="gameContainer" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #EEE6E6#EEE6E6;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.GameSceneController">
    <children>
+      <ImageView fitHeight="638.0" fitWidth="400.0" layoutX="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/bord_2.jpeg" />
+         </image>
+      </ImageView>
       <ImageView fitHeight="622.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/bord_2.jpeg" />
          </image>
       </ImageView>
-      <VBox layoutX="400.0" layoutY="50.0" prefHeight="265.0" prefWidth="100.0" spacing="10.0">
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-      </VBox>
-      <Pane fx:id="gameContainer" layoutY="-35.0" prefHeight="401.0" prefWidth="400.0">
+      <Button fx:id="dieBtn" layoutX="266.0" layoutY="489.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="RULL" />
+      <Pane layoutX="336.0" layoutY="20.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;">
          <children>
-            <ImageView fitHeight="638.0" fitWidth="400.0" layoutX="200.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/bord_2.jpeg" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="100.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/board.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="dieBtn" layoutX="266.0" layoutY="538.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="69.0" text="RULL" />
-            <Text fx:id="dieTextOutput" fill="WHITE" layoutX="295.0" layoutY="604.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="26.13671875">
-               <font>
-                  <Font size="27.0" />
-               </font>
-            </Text>
-            <Pane layoutX="336.0" layoutY="75.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;" />
-            <Label fx:id="player2Label" layoutX="336.0" layoutY="75.0" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 2" textAlignment="CENTER" textFill="#b9bc05e3">
+            <Label fx:id="player2Label" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 2" textAlignment="CENTER" textFill="#cdd30be3">
                <font>
                   <Font size="14.0" />
                </font>
@@ -50,8 +33,11 @@
                   <Insets left="50.0" />
                </padding>
             </Label>
-            <Pane layoutX="100.0" layoutY="75.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;" />
-            <Label fx:id="player1Label" layoutX="100.0" layoutY="75.0" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 1" textAlignment="CENTER" textFill="#2ada20">
+         </children>
+      </Pane>
+      <Pane layoutX="100.0" layoutY="20.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;">
+         <children>
+            <Label fx:id="player1Label" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 1" textAlignment="CENTER" textFill="#2ada20">
                <font>
                   <Font size="14.0" />
                </font>
@@ -59,9 +45,11 @@
                   <Insets left="60.0" />
                </padding>
             </Label>
-            <Button fx:id="menuButton" layoutX="482.0" layoutY="38.0" mnemonicParsing="false" onAction="#openMenu" prefHeight="29.0" prefWidth="117.0" styleClass="btn" stylesheets="@../css/styles.css" text="Menu" />
-            <Pane layoutX="101.0" layoutY="507.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;" />
-            <Label fx:id="player4Label" layoutX="101.0" layoutY="507.0" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 4" textAlignment="CENTER" textFill="#eb0d0d">
+         </children>
+      </Pane>
+      <Pane layoutX="100.0" layoutY="460.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;">
+         <children>
+            <Label fx:id="player4Label" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 4" textAlignment="CENTER" textFill="#eb0d0d">
                <font>
                   <Font size="14.0" />
                </font>
@@ -69,8 +57,11 @@
                   <Insets left="60.0" />
                </padding>
             </Label>
-            <Pane layoutX="336.0" layoutY="507.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;" />
-            <Label fx:id="player3Label" layoutX="336.0" layoutY="507.0" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 3" textAlignment="CENTER" textFill="#2944e1">
+         </children>
+      </Pane>
+      <Pane layoutX="336.0" layoutY="460.0" prefHeight="23.0" prefWidth="164.0" style="-fx-background-color: #FFFFFF#FFFFFF;">
+         <children>
+            <Label fx:id="player3Label" prefHeight="23.0" prefWidth="164.0" styleClass="nameLabel" text="Navn 3" textAlignment="CENTER" textFill="#2944e1">
                <font>
                   <Font size="14.0" />
                </font>
@@ -78,6 +69,18 @@
                   <Insets left="60.0" />
                </padding>
             </Label>
-         </children></Pane>
+         </children>
+      </Pane>
+      <Button fx:id="menuButton" layoutX="513.0" layoutY="9.0" mnemonicParsing="false" onAction="#openMenu" prefHeight="29.0" prefWidth="87.0" styleClass="btn" stylesheets="@../css/styles.css" text="Menu" />
+      <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/board.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="dieTextOutput" fill="WHITE" layoutX="287.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="26.13671875">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

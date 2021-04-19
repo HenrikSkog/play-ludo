@@ -13,6 +13,8 @@
          </font>
       </Text>
       <Button layoutX="127.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleSaveGame" text="SAVE GAME" />
-      <Button layoutX="127.0" layoutY="157.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="80.0" text="EXIT" />
+      <Button layoutX="127.0" layoutY="196.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="80.0" text="EXIT" />
+      <Text fx:id="errorText" boundsType="LOGICAL_VERTICAL_CENTER" layoutX="128.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" textOrigin="CENTER" wrappingWidth="80.0" />
+      <Button layoutX="127.0" layoutY="154.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="25.0" prefWidth="80.0" text="MAIN MENU" />
    </children>
 </AnchorPane>

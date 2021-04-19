@@ -2,17 +2,27 @@ package org.ludo.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 import org.ludo.App;
-import org.ludo.gameLogic.GameEngine;
-import org.ludo.gameLogic.GameEngineInterface;
+import org.ludo.gameLogic.Game;
+
+import java.io.IOException;
 
 public class MenuSceneController {
-	private GameEngineInterface gameEngine;
+	private Game game;
+	@FXML
+	private Text errorText;
 
 
 	@FXML
 	private void handleSaveGame() {
-		gameEngine.saveGame();
+		try {
+			game.saveGame();
+			errorText.setText("Successfully saved game!");
+		} catch(IllegalStateException e) {
+			errorText.setText("Could not save game");
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -20,7 +30,12 @@ public class MenuSceneController {
 		Platform.exit();
 	}
 
-	public void setGameEngine(GameEngineInterface gameEngine) {
-		this.gameEngine = gameEngine;
+	@FXML
+	private void goToMenu() throws IOException {
+		App.setRoot("startScene");
+	}
+
+	public void setGameEngine(Game game) {
+		this.game = game;
 	}
 }
