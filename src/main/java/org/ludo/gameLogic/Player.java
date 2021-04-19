@@ -54,6 +54,11 @@ public class Player implements Serializable {
         return pieces;
     }
 
+    public void setPieces(ArrayList<Piece> pieces) throws IllegalArgumentException {
+        if(pieces.stream().anyMatch(piece -> piece.getColorIndex() != this.colorIndex)) throw new IllegalArgumentException("Colors dont match");
+        this.pieces = pieces;
+    }
+
     private void setName(String name) throws IllegalArgumentException {
         if (name.length() < 1) {
             throw new IllegalArgumentException("Name cannot be empty");

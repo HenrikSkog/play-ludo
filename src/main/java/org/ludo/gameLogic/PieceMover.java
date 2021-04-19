@@ -16,9 +16,11 @@ public class PieceMover {
             switch (piece.getBoardArea()) {
                 case YARD:
                     if (dieResult == 6 && player.hasAllPiecesInYard()) {
-                        moveToGameTrack(piece, dieResult);
-                    } else if (dieResult == 6 && piece.getBoardArea().equals(Areas.YARD))
-                        moveToGameTrack(piece, dieResult);
+                        moveOutOfYard(piece, dieResult);
+                    } else if (dieResult == 6 && piece.getBoardArea().equals(Areas.YARD)) {
+                        moveOutOfYard(piece, dieResult);
+                        handleLandingOnAnotherPiece(piece);
+                    }
                     break;
                 case GAMETRACK:
                     int passVal = willPassHomeColumnEntranceWith(piece, dieResult);
@@ -59,7 +61,7 @@ public class PieceMover {
         }
     }
 
-    private void moveToGameTrack(Piece piece, int dieResult) throws IllegalArgumentException{
+    private void moveOutOfYard(Piece piece, int dieResult) throws IllegalArgumentException{
         if(!piece.getBoardArea().equals(Areas.YARD) || dieResult != 6)
             throw new IllegalArgumentException("Tried to move piece out of yard with another die result than 6 or piece not on gameTrack");
         setBoardArea(piece, Areas.GAMETRACK);

@@ -2,16 +2,16 @@ package org.ludo.gameLogic;
 
 import org.ludo.gameRendering.DieAnimator;
 import org.ludo.gameRendering.GameRenderer;
-import org.ludo.utils.gameSaving.GameSaveHandler;
+import org.ludo.utils.gameSaving.LudoSaveHandler;
 import org.ludo.utils.gameSaving.SerializedGameState;
-import org.ludo.utils.gameSaving.Serializer;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class Game implements Serializable {
-    private final ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
     private final GameRenderer gameRenderer = new GameRenderer(this);
     private PieceMover pieceMover;
     private BoardPositions boardPositions;
@@ -35,18 +35,13 @@ public class Game implements Serializable {
         currentPlayer = players.get(currentPlayerTurn);
     }
 
-    public void initState(SerializedGameState loadedSerializedGameState) {
-        loadedSerializedGameState.getPlayers().forEach(serializedPlayer -> {
-            var player = new Player(serializedPlayer.getName(), serializedPlayer.getColorIndex());
-            player.initializePieces(serializedPlayer.getPieces());
-
-            players.add(player);
-        });
-
-        currentTurnTries = loadedSerializedGameState.getCurrentTurnTries();
-        currentPlayerTurn = loadedSerializedGameState.getCurrentPlayerTurn();
-        currentPlayer = players.get(currentPlayerTurn);
-        colorOrder = loadedSerializedGameState.getColorOrder();
+    public void initState(ArrayList<Player> players, int currentPlayerTurn, String[] colorOrder) {
+        this.players = players;
+        this.currentPlayerTurn = currentPlayerTurn;
+        this.currentPlayer = players.get(currentPlayerTurn);
+        this.colorOrder = colorOrder;
+        if(currentPlayer.hasAllPiecesInYard()) this.currentTurnTries = 3;
+        else this.currentTurnTries = 1;
     }
 
     public void initGraphics() {
@@ -202,39 +197,23 @@ public class Game implements Serializable {
         return players;
     }
 
-    public GameRenderer getRenderer() {
-        return gameRenderer;
-    }
-
     public HashMap<String, Object> getState() {
         HashMap stateVars = new HashMap<String, Object>();
         stateVars.put("currentPlayerTurn", currentPlayerTurn);
         stateVars.put("currentTurnTries", currentTurnTries);
-        stateVars.put("colorOrder", colorOrder);
+        stateVars.put("colorOrder", Arrays.toString(colorOrder));
         stateVars.put("players", getPlayers().stream().map(player -> player.getState()).collect(Collectors.toList()));
         return stateVars;
     }
 
-    public void saveGame() {
+    public void saveGame() throws IOException {
         if (hasThrownDiceInCurrentTurn) {
             throw new IllegalStateException("You can't save in the middle of a turn!");
         }
-        var gamesaver = new GameSaveHandler();
-        String gameStateJSON = Serializer.serialize(getState());
-        gamesaver.saveGame(gameStateJSON);
+        var gamesaver = new LudoSaveHandler();
+        gamesaver.saveGame(this);
     }
 
-    public void setScale(int scale) {
-        this.scale = scale;
-    }
-
-    public void setBoardLayoutX(int boardLayoutX) {
-        this.boardLayoutX = boardLayoutX;
-    }
-
-    public void setBoardLayoutY(int boardLayoutY) {
-        this.boardLayoutY = boardLayoutY;
-    }
 
     public BoardPositions getBoardPositions() {
        return boardPositions;
@@ -242,5 +221,23 @@ public class Game implements Serializable {
 
     public String[] getColorOrder() {
         return colorOrder;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "players=" + players +
+                ", gameRenderer=" + gameRenderer +
+                ", pieceMover=" + pieceMover +
+                ", boardPositions=" + boardPositions +
+                ", colorOrder=" + Arrays.toString(colorOrder) +
+                ", currentPlayerTurn=" + currentPlayerTurn +
+                ", currentPlayer=" + currentPlayer +
+                ", currentTurnTries=" + currentTurnTries +
+                ", hasThrownDiceInCurrentTurn=" + hasThrownDiceInCurrentTurn +
+                ", scale=" + scale +
+                ", boardLayoutX=" + boardLayoutX +
+                ", boardLayoutY=" + boardLayoutY +
+                '}';
     }
 }

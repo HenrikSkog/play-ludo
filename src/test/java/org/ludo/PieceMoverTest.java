@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.ludo.gameLogic.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,11 +37,11 @@ public class PieceMoverTest {
         pieceMover = new PieceMover(players);
     }
 
-   private interface pieceModifier {
+   private interface PieceModifier {
         void apply(Piece piece);
    }
 
-   private void applyToPieces(pieceModifier method) {
+   private void applyToPieces(PieceModifier method) {
        players.forEach(player -> player.getPieces().forEach(method::apply));
    }
 
@@ -151,7 +150,7 @@ public class PieceMoverTest {
            piece.setBoardArea(Areas.GAMETRACK);
            piece.setPosIndex(30);
         });
-        testingPlayer = players.get(0);
+        var testingPlayer = players.get(0);
 
         piece1.setPosIndex(29);
 
