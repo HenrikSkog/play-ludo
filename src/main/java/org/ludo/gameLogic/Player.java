@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Player implements Serializable {
+public class Player {
     private ArrayList<Piece> pieces = new ArrayList<>();
     private String name;
     private int colorIndex;
@@ -24,13 +24,6 @@ public class Player implements Serializable {
         }
     }
 
-    public void initializePieces(ArrayList<SerializedPiece> serializedPieces) {
-        serializedPieces.forEach(serializedPiece -> {
-            var piece = new Piece(serializedPiece.getColorIndex(), serializedPiece.getInitialPosIndex(), serializedPiece.getPosIndex(), Areas.valueOf(serializedPiece.getBoardArea()));
-            this.pieces.add(piece);
-        });
-    }
-
     public void initializePieceNodes(String color, int scale) {
       if(this.pieces.size() == 0) {
           throw new IllegalStateException("No pieces to initialize nodes for");
@@ -40,14 +33,6 @@ public class Player implements Serializable {
 
     public List<Piece> getPiecesInYard() {
         return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.YARD)).collect(Collectors.toList());
-    }
-
-    public List<Piece> getPiecesInGameTrack() {
-        return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.GAMETRACK)).collect(Collectors.toList());
-    }
-
-    public List<Piece> getPiecesInHomeColumn() {
-        return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.HOMECOLUMN)).collect(Collectors.toList());
     }
 
     public ArrayList<Piece> getPieces() {
@@ -73,14 +58,6 @@ public class Player implements Serializable {
 
     public int getColorIndex() {
         return colorIndex;
-    }
-
-    public HashMap<String, Object> getState() {
-        var stateVars = new HashMap<String, Object>();
-        stateVars.put("name", name);
-        stateVars.put("colorIndex", colorIndex);
-        stateVars.put("pieces", getPieces().stream().map(Piece::getState).collect(Collectors.toList()));
-        return stateVars;
     }
 
     public String getName() {
