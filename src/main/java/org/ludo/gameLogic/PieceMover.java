@@ -1,9 +1,11 @@
 package org.ludo.gameLogic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PieceMover {
     private final ArrayList<Player> players;
+    private List<PieceMoverObserver> observers = new ArrayList<>();
 
     public PieceMover(ArrayList<Player> players) {
         this.players = players;
@@ -35,6 +37,7 @@ public class PieceMover {
                     moveOnHomeColumn(piece, dieResult);
                     break;
             }
+            alertPieceMoved(piece);
         } catch (Error error) {
             System.out.println("Tried to move" + toString() + "with dieResult " + dieResult);
         }
@@ -102,6 +105,7 @@ public class PieceMover {
         players.forEach(player -> player.getPieces().forEach(playerPiece -> {
             if (piece.getPosIndex() == playerPiece.getPosIndex() && piece != playerPiece && playerPiece.getBoardArea().equals(Areas.GAMETRACK) && piece.getColorIndex() != player.getColorIndex()) {
                 moveToYard(playerPiece);
+                alertPieceMoved(playerPiece);
             }
         }));
     }
@@ -114,5 +118,13 @@ public class PieceMover {
     private void setBoardArea(Piece piece, Areas boardArea) throws IllegalArgumentException{
         //if board area is accepted as Areas, it is allowed
         piece.setBoardArea(boardArea);
+    }
+
+    private void alertPieceMoved(Piece piece) {
+        observers.forEach(pieceMoverObserver -> pieceMoverObserver.handlePieceMoved(piece));
+    }
+
+    public void subscribeToPieceMoveAlerts(PieceMoverObserver observer) {
+        observers.add(observer);
     }
 }

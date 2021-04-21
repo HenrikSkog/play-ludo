@@ -10,8 +10,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.ludo.App;
-import org.ludo.gameLogic.FXMLElements;
-import org.ludo.gameLogic.Game;
 import org.ludo.gameLogic.Game;
 
 import java.io.IOException;
@@ -38,15 +36,14 @@ public class GameSceneController {
 	@FXML
 	private Label player4Label;
 
+	@FXML
+	private Text errorText;
 
 	private Game game;
 
-	@FXML
-	private void initialize() {
-		FXMLElements.setGameContainer(gameContainer);
-		FXMLElements.setPlayerLabels(new Label[]{player1Label, player2Label, player3Label, player4Label});
-		FXMLElements.setDieTextOutput(dieTextOutput);
-		FXMLElements.setDieBtn(dieBtn);
+	public void startGame() {
+		game.getGameRenderer().setFXMLElements(gameContainer, dieTextOutput, dieBtn, errorText, new Label[]{player1Label, player2Label, player3Label, player4Label});
+		game.start();
 	}
 
 	public void setGameState(Game game) {

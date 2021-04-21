@@ -16,6 +16,7 @@ public class DieAnimator {
   private Text dieOutput;
   private int lastRoll;
   private int finalRoll;
+  //TODO: dette er egentlig ikke bra nok ass
 
   public DieAnimator(Text dieOutput, Button dieBtn, int lastRoll, int finalRoll) {
     this.dieBtn = dieBtn;

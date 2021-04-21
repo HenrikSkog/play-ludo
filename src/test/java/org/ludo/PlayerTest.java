@@ -23,6 +23,7 @@ public class PlayerTest {
             player.initializePieces();
             players.add(player);
         }
+        //list with 4 pieces with different color
         for (int i = 0; i < 4; i++) {
             Piece piece = new Piece(i, 0);
             pieces.add(piece);
@@ -60,13 +61,13 @@ public class PlayerTest {
 
     @Test
     @DisplayName("Test get pieces in Yard")
-    public void testgetPiecesInYard(){
+    public void testGetPiecesInYard(){
         Player player1 = players.get(0);
         assertEquals(4, player1.getPiecesInYard().size());
     }
 
     @Test
-    @DisplayName("Test Pieces")
+    @DisplayName("Test setting pieces that dont match with player color")
     public void testSetPieces(){
         assertThrows(IllegalArgumentException.class, () -> {
             Player player = players.get(0);

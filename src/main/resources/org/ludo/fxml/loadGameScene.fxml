@@ -6,18 +6,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.LoadGameSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ludo.controllers.LoadGameSceneController">
    <children>
       <Text layoutX="251.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Load game">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <VBox fx:id="savedGamesVBox" alignment="CENTER" layoutX="250.0" layoutY="159.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
+      <VBox fx:id="savedGamesVBox" alignment="CENTER" layoutX="232.0" layoutY="200.0" prefHeight="245.0" prefWidth="150.0" spacing="10.0" />
       <Button layoutX="34.0" layoutY="31.0" mnemonicParsing="false" onAction="#back" text="Back">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
+      <Text fx:id="errorText" fill="RED" layoutX="14.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="571.7294921875" />
    </children>
 </AnchorPane>

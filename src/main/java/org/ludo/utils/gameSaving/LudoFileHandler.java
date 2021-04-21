@@ -1,7 +1,6 @@
 package org.ludo.utils.gameSaving;
 
 import org.ludo.gameLogic.Game;
-import org.ludo.gameLogic.Serializable;
 
 import java.io.IOException;
 import java.util.ArrayList;

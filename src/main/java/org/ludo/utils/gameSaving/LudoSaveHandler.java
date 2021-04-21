@@ -3,15 +3,19 @@ package org.ludo.utils.gameSaving;
 import org.ludo.gameLogic.*;
 
 import java.io.*;
-import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LudoSaveHandler implements LudoFileHandler {
     private String getDirPath() {
-        return String.valueOf(Paths.get("src", "main", "resources", "org", "ludo", "assets", "saveFiles"));
+        Path path = Paths.get(System.getProperty("user.home") + "/tdt4100_project_sorknes_skog");
+        File file = new File(String.valueOf(path));
+        if(!file.exists()) {
+            file.mkdir();
+        }
+        return String.valueOf(path);
     }
 
     private String getFilePath(String filename) {
@@ -30,14 +34,6 @@ public class LudoSaveHandler implements LudoFileHandler {
     @Override
     public void saveGame(Game game) throws IOException {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getFilePath("gamesave#" + (numSavedGames() + 1) + ".txt")), "utf-8"))) {
-            //write color order
-            for (String color : game.getColorOrder()) {
-                try {
-                    writer.write(color + ";");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
             //write player turn
             try {
                 writer.write("\n");
@@ -68,7 +64,7 @@ public class LudoSaveHandler implements LudoFileHandler {
 
     private List<String> getLinesFromFile(String filename) {
         List<String> lines = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(String.valueOf(Paths.get("src", "main", "resources", "org", "ludo", "assets", "saveFiles", filename))))) {
+        try (Scanner scanner = new Scanner(new File(getFilePath(filename)))) {
             while (scanner.hasNext()) {
                 lines.add(scanner.next());
             }
@@ -81,11 +77,10 @@ public class LudoSaveHandler implements LudoFileHandler {
     @Override
     public Game buildGameFromFile(String filename) {
         List<String> lines = getLinesFromFile(filename);
-        String[] colorOrder = lines.get(0).split(";");
-        int playerTurn = Integer.parseInt(lines.get(1));
+        int playerTurn = Integer.parseInt(lines.get(0));
 
         ArrayList<Player> players = new ArrayList<>();
-        lines.subList(2, lines.size() - 1).forEach(line -> {
+        lines.subList(1, lines.size()).forEach(line -> {
             String[] player_pieces = line.split("-");
             String[] playerData = player_pieces[0].split(";");
             String[] piecesData = player_pieces[1].split(":");
@@ -102,7 +97,7 @@ public class LudoSaveHandler implements LudoFileHandler {
             players.add(player);
         });
         var game = new Game();
-        game.initState(players, playerTurn, colorOrder);
+        game.loadState(players, playerTurn);
         return game;
     }
 }

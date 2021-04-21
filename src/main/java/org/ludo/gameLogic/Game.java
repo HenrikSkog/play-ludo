@@ -3,19 +3,16 @@ package org.ludo.gameLogic;
 import org.ludo.gameRendering.DieAnimator;
 import org.ludo.gameRendering.GameRenderer;
 import org.ludo.utils.gameSaving.LudoSaveHandler;
-import org.ludo.utils.gameSaving.SerializedGameState;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private final GameRenderer gameRenderer = new GameRenderer(this);
     private PieceMover pieceMover;
-    private BoardPositions boardPositions;
-    private String[] colorOrder;
+    private Die die = new Die();
 
     //about current turn
     private int currentPlayerTurn;
@@ -23,59 +20,32 @@ public class Game {
     private int currentTurnTries;
     private boolean hasThrownDiceInCurrentTurn = false;
 
-    //inits to default values, but can be changed here later if layout changes instead of changing values scattered around
-    private final int scale = 25;
-    private final int boardLayoutX = 50;
-    private final int boardLayoutY = 100;
-
-    public void initState(String[] colorOrder, String... playerNames) {
-        this.colorOrder = colorOrder;
+    public void initState(String... playerNames) {
         setPlayers(new ArrayList<>(Arrays.asList(playerNames)));
         currentTurnTries = 3;
         currentPlayerTurn = 0;
         currentPlayer = players.get(currentPlayerTurn);
     }
 
-    public void initState(ArrayList<Player> players, int currentPlayerTurn, String[] colorOrder) {
+    public void loadState(ArrayList<Player> players, int currentPlayerTurn) {
         this.players = players;
         this.currentPlayerTurn = currentPlayerTurn;
         this.currentPlayer = players.get(currentPlayerTurn);
-        this.colorOrder = colorOrder;
-        if(currentPlayer.hasAllPiecesInYard()) this.currentTurnTries = 3;
-        else this.currentTurnTries = 1;
-    }
-
-    public void initGraphics() {
-        int index = 0;
-        for (Player player: players ) {
-            FXMLElements.getPlayerLabels()[index].setText(player.getName());
-            player.initializePieceNodes(colorOrder[player.getColorIndex()], scale);
-            index+=1;
-        }
+        this.currentTurnTries = (currentPlayer.hasAllPiecesInYard()) ? 3 : 1;
     }
 
     public void start() {
-        boardPositions = new BoardPositions(scale, boardLayoutX, boardLayoutY);
         pieceMover = new PieceMover(players);
-        gameRenderer.indicatePlayerTurn();
-        gameRenderer.renderPieces();
+        pieceMover.subscribeToPieceMoveAlerts(gameRenderer);
+        gameRenderer.initGraphics();
         enableDieRoll();
     }
 
     private void handleDieRoll() {
-        System.out.println(currentTurnTries +  currentPlayerTurn);
         hasThrownDiceInCurrentTurn = true;
-        var die = new Die(FXMLElements.getDieTextOutput(), FXMLElements.getDieBtn());
 
-        String lastDieRoll = FXMLElements.getDieTextOutput().getText();
-        int lastDieRollInt;
-
-        if (lastDieRoll.equals(""))
-            lastDieRollInt = 1;
-        else
-            lastDieRollInt = Integer.parseInt(lastDieRoll);
         var dieResult = die.roll();
-        var dieAnimator = new DieAnimator(FXMLElements.getDieTextOutput(), FXMLElements.getDieBtn(), lastDieRollInt, dieResult);
+        var dieAnimator = new DieAnimator(gameRenderer.getDieText(), gameRenderer.getDieBtn(), die.getLastRoll(), dieResult);
 
         var timer = new Timer();
 
@@ -83,10 +53,8 @@ public class Game {
             @Override
             public void run() {
                 if (currentPlayer.hasAllPiecesInYard()) {
-                    System.out.println("handling in yard");
                     handleDieRollWhenAllInYard(dieResult);
                 } else {
-                    System.out.println("handling out of yard");
                     handleDieRollWhenOutOfYard(dieResult);
                 }
             }
@@ -112,7 +80,6 @@ public class Game {
                     enableDieRoll();
                     if (currentTurnTries == 0)
                         nextPlayer();
-                    gameRenderer.reRenderPieces();
                 });
             }
         }
@@ -134,11 +101,9 @@ public class Game {
     }
 
     private void handleDieRollWhenOutOfYard(int dieResult) {
-        System.out.println("forsøk: " + currentTurnTries);
         if (dieResult != 6) {
             currentTurnTries--;
         }
-        System.out.println("etter minus: " + currentTurnTries);
         enableMoveToPlayer(dieResult);
         disableDieRoll();
     }
@@ -151,7 +116,6 @@ public class Game {
             disableDieRoll();
             currentTurnTries = 1;
         } else if (currentTurnTries == 0) {
-            System.out.println("Next player");
             nextPlayer();
         } else {
             enableDieRoll();
@@ -159,11 +123,11 @@ public class Game {
     }
 
     private void enableDieRoll() {
-        FXMLElements.getDieBtn().setOnMouseClicked(event -> handleDieRoll());
+        gameRenderer.getDieBtn().setOnMouseClicked(event -> handleDieRoll());
     }
 
     private void disableDieRoll() {
-        FXMLElements.getDieBtn().setOnMouseClicked(null);
+        gameRenderer.getDieBtn().setOnMouseClicked(null);
     }
 
     private void removePieceListeners() {
@@ -204,12 +168,8 @@ public class Game {
         gamesaver.saveGame(this);
     }
 
-    public BoardPositions getBoardPositions() {
-       return boardPositions;
-    }
-
-    public String[] getColorOrder() {
-        return colorOrder;
+    public GameRenderer getGameRenderer() {
+        return gameRenderer;
     }
 
     @Override
@@ -218,15 +178,10 @@ public class Game {
                 "players=" + players +
                 ", gameRenderer=" + gameRenderer +
                 ", pieceMover=" + pieceMover +
-                ", boardPositions=" + boardPositions +
-                ", colorOrder=" + Arrays.toString(colorOrder) +
                 ", currentPlayerTurn=" + currentPlayerTurn +
                 ", currentPlayer=" + currentPlayer +
                 ", currentTurnTries=" + currentTurnTries +
                 ", hasThrownDiceInCurrentTurn=" + hasThrownDiceInCurrentTurn +
-                ", scale=" + scale +
-                ", boardLayoutX=" + boardLayoutX +
-                ", boardLayoutY=" + boardLayoutY +
                 '}';
     }
 }

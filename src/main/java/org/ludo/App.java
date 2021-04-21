@@ -4,13 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import org.ludo.gameLogic.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * JavaFX App
@@ -22,8 +19,6 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("startScene"));
         scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
-
-        FXMLElements.setStage(stage);
 
         stage.setScene(scene);
 
@@ -38,7 +33,6 @@ public class App extends Application {
         URL path = App.class.getResource("fxml/" + fxml + ".fxml");
         if(path == null) throw new IllegalArgumentException("Cannot find path");
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
-        System.out.println(App.class.getResource("fxml"));
         return fxmlLoader.load();
     }
 
