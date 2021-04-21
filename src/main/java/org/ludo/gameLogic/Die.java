@@ -8,6 +8,7 @@ public class Die {
 
     public int roll() {
         int result = (int)(Math.random() * 6 + 1);
+        this.lastThrow = result;
         return result;
     }
 

@@ -36,7 +36,6 @@ public class LudoSaveHandler implements LudoFileHandler {
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(getFilePath("gamesave#" + (numSavedGames() + 1) + ".txt")), "utf-8"))) {
             //write player turn
             try {
-                writer.write("\n");
                 writer.write(Integer.toString(game.getCurrentPlayerTurn()));
                 writer.write("\n");
             } catch (IOException e) {
