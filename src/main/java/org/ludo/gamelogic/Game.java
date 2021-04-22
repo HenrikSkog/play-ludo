@@ -21,7 +21,7 @@ public class Game {
     private int currentTurnTries;
     private boolean hasThrownDiceInCurrentTurn = false;
 
-    public void initState(String[] playerNames) {
+    public void initState(String[] playerNames) throws IllegalArgumentException {
         setPlayers(playerNames);
         currentTurnTries = 3;
         currentPlayerTurn = 0;

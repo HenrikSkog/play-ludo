@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -19,9 +18,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("startScene"));
         scene.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
-
         stage.setScene(scene);
-
         stage.show();
     }
 
