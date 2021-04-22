@@ -1,8 +1,9 @@
-package org.ludo.gameLogic;
+package org.ludo.gamelogic;
 
-import org.ludo.gameRendering.DieAnimator;
-import org.ludo.gameRendering.GameRenderer;
-import org.ludo.utils.gameSaving.LudoSaveHandler;
+import org.ludo.filesaving.LudoFileHandler;
+import org.ludo.gamerendering.DieAnimator;
+import org.ludo.gamerendering.GameRenderer;
+import org.ludo.filesaving.LudoSaveHandler;
 
 import java.io.IOException;
 import java.util.*;
@@ -12,7 +13,7 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private final GameRenderer gameRenderer = new GameRenderer(this);
     private PieceMover pieceMover;
-    private Die die = new Die();
+    private final DieInterface die = new Die();
 
     //about current turn
     private int currentPlayerTurn;
@@ -20,18 +21,22 @@ public class Game {
     private int currentTurnTries;
     private boolean hasThrownDiceInCurrentTurn = false;
 
-    public void initState(String... playerNames) {
-        setPlayers(new ArrayList<>(Arrays.asList(playerNames)));
+    public void initState(String[] playerNames) {
+        setPlayers(playerNames);
         currentTurnTries = 3;
         currentPlayerTurn = 0;
         currentPlayer = players.get(currentPlayerTurn);
     }
 
-    public void loadState(ArrayList<Player> players, int currentPlayerTurn) {
+    public void loadState(ArrayList<Player> players, int currentPlayerTurn) throws IllegalArgumentException {
+        if(players.size() != 4 || currentPlayerTurn < 0 || currentPlayerTurn > 3) {
+           throw new IllegalArgumentException("Illegal arguments");
+        }
+
         this.players = players;
         this.currentPlayerTurn = currentPlayerTurn;
         this.currentPlayer = players.get(currentPlayerTurn);
-        this.currentTurnTries = (currentPlayer.hasAllPiecesInYard()) ? 3 : 1;
+        this.currentTurnTries = (currentPlayer.hasAllPiecesInYardOrGoal()) ? 3 : 1;
     }
 
     public void start() {
@@ -44,21 +49,20 @@ public class Game {
     private void handleDieRoll() {
         hasThrownDiceInCurrentTurn = true;
 
-        var dieResult = die.roll();
-        var dieAnimator = new DieAnimator(gameRenderer.getDieText(), gameRenderer.getDieBtn(), die.getLastRoll(), dieResult);
+        int dieResult = die.roll();
+        DieAnimator dieAnimator = new DieAnimator(gameRenderer.getDieText(), gameRenderer.getDieBtn(), die.getLastRoll(), dieResult);
 
-        var timer = new Timer();
+        Timer timer = new Timer();
 
-        var task = new TimerTask() {
+        TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (currentPlayer.hasAllPiecesInYard()) {
+                if (currentPlayer.hasAllPiecesInYardOrGoal()) {
                     handleDieRollWhenAllInYard(dieResult);
                 } else {
                     handleDieRollWhenOutOfYard(dieResult);
                 }
             }
-            // all pieces in yard and no tries left -> only go to next player and dont enable move to player
         };
 
         int delay = 1000;
@@ -72,8 +76,8 @@ public class Game {
 
     private void enableMoveToPlayer(int dieResult) {
         for (Piece piece : currentPlayer.getPieces()) {
-//    if dieResult not 6 and piece in yard, dont add listener to it
-            if (!(piece.getBoardArea().equals(Areas.YARD) && dieResult != 6)) {
+//    if dieResult not 6 and piece in yard or piece in goal, dont add listener to it
+            if (!(piece.getBoardArea().equals(Areas.YARD)  && dieResult != 6) || piece.getBoardArea().equals(Areas.GOAL)) {
                 piece.getPieceNode().setOnMouseClicked(event -> {
                     pieceMover.move(piece, dieResult);
                     removePieceListeners();
@@ -94,7 +98,7 @@ public class Game {
         currentPlayer = players.get(currentPlayerTurn);
 
         gameRenderer.indicatePlayerTurn();
-        if (currentPlayer.hasAllPiecesInYard())
+        if (currentPlayer.hasAllPiecesInYardOrGoal())
             currentTurnTries = 3;
         else
             currentTurnTries = 1;
@@ -136,18 +140,20 @@ public class Game {
         }
     }
 
-    public void setPlayers(ArrayList<String> playerNames) throws IllegalArgumentException {
-        if (playerNames.size() > 4) {
-            throw new IllegalArgumentException("There cannot be more than 4 players");
+    public void setPlayers(String[] playerNames) throws IllegalArgumentException {
+        if (playerNames.length != 4) {
+            throw new IllegalArgumentException("There has to be 4 players");
         }
 
         int playerIndex = 0;
         for (String playerName : playerNames) {
-            if (!playerName.equals("")) {
-                var player = new Player(playerName, playerIndex);
-                player.initializePieces();
-                players.add(player);
+            if (playerName.equals("")) {
+                throw new IllegalArgumentException("There cannot be empty names");
             }
+
+            Player player = new Player(playerName, playerIndex);
+            player.initializePieces();
+            players.add(player);
             playerIndex += 1;
         }
     }
@@ -160,11 +166,11 @@ public class Game {
         return players;
     }
 
-    public void saveGame() throws IOException {
+    public void saveGame() throws IOException, IllegalArgumentException {
         if (hasThrownDiceInCurrentTurn) {
             throw new IllegalStateException("You can't save in the middle of a turn!");
         }
-        var gamesaver = new LudoSaveHandler();
+        LudoFileHandler gamesaver = new LudoSaveHandler();
         gamesaver.saveGame(this);
     }
 

@@ -7,13 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.ludo.App;
-import org.ludo.gameLogic.Game;
-import org.ludo.utils.gameSaving.LudoFileHandler;
-import org.ludo.utils.gameSaving.LudoSaveHandler;
+import org.ludo.gamelogic.Game;
+import org.ludo.filesaving.LudoFileHandler;
+import org.ludo.filesaving.LudoSaveHandler;
 
 import java.io.IOException;
 
-public class LoadGameSceneController{
+public class LoadGameSceneController {
 
     @FXML
     private VBox savedGamesVBox;
@@ -23,7 +23,6 @@ public class LoadGameSceneController{
 
     @FXML
     private void initialize() {
-        //TODO: bilde på load game
         LudoFileHandler ludoFileHandler = new LudoSaveHandler();
         ludoFileHandler.getSavedGames().forEach(gameFilename -> {
             Button saveButton = new Button(gameFilename.substring(0, gameFilename.length() - 4));

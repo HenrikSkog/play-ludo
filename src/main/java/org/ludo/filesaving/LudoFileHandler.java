@@ -1,6 +1,6 @@
-package org.ludo.utils.gameSaving;
+package org.ludo.filesaving;
 
-import org.ludo.gameLogic.Game;
+import org.ludo.gamelogic.Game;
 
 import java.io.IOException;
 import java.util.ArrayList;

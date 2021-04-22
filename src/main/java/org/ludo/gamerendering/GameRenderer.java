@@ -1,10 +1,10 @@
-package org.ludo.gameRendering;
+package org.ludo.gamerendering;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import org.ludo.gameLogic.*;
+import org.ludo.gamelogic.*;
 
 public class GameRenderer implements PieceMoverObserver {
   private Game game;
@@ -12,8 +12,6 @@ public class GameRenderer implements PieceMoverObserver {
   private Pane gameContainer;
   private Text dieText;
   private Button dieBtn;
-  //TODO: handle error text
-  private Text errorText;
 
   //inits to default values, but can be changed here later if layout changes instead of changing values scattered around
   private final int scale = 25;
@@ -25,11 +23,10 @@ public class GameRenderer implements PieceMoverObserver {
     this.game = game;
   }
 
-  public void setFXMLElements(Pane gameContainer, Text dieTextOutput, Button dieBtn, Text errorText, Label[] playerLabels) {
+  public void setFXMLElements(Pane gameContainer, Text dieTextOutput, Button dieBtn, Label[] playerLabels) {
     this.gameContainer = gameContainer;
     this.dieText = dieTextOutput;
     this.dieBtn = dieBtn;
-    this.errorText = errorText;
     this.playerLabels = playerLabels;
   }
 

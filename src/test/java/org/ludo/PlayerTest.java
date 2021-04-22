@@ -3,9 +3,9 @@ package org.ludo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.ludo.gameLogic.Areas;
-import org.ludo.gameLogic.Piece;
-import org.ludo.gameLogic.Player;
+import org.ludo.gamelogic.Areas;
+import org.ludo.gamelogic.Piece;
+import org.ludo.gamelogic.Player;
 
 import java.util.ArrayList;
 
@@ -79,6 +79,6 @@ public class PlayerTest {
     @DisplayName("Test for all pieces in yard")
     public void testPiecesinYard(){
         Player player1 = players.get(0);
-        assertEquals(true, player1.hasAllPiecesInYard());
+        assertEquals(true, player1.hasAllPiecesInYardOrGoal());
     }
 }

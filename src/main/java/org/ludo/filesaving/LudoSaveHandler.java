@@ -1,6 +1,6 @@
-package org.ludo.utils.gameSaving;
+package org.ludo.filesaving;
 
-import org.ludo.gameLogic.*;
+import org.ludo.gamelogic.*;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -39,7 +39,7 @@ public class LudoSaveHandler implements LudoFileHandler {
                 writer.write(Integer.toString(game.getCurrentPlayerTurn()));
                 writer.write("\n");
             } catch (IOException e) {
-                e.printStackTrace();
+               throw new IOException("Error in writing player portion of save");
             }
             //write player data
             game.getPlayers().forEach(player -> {
@@ -95,7 +95,7 @@ public class LudoSaveHandler implements LudoFileHandler {
             player.setPieces(new ArrayList<>(pieces));
             players.add(player);
         });
-        var game = new Game();
+        Game game = new Game();
         game.loadState(players, playerTurn);
         return game;
     }

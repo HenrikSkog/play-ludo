@@ -1,11 +1,11 @@
-package org.ludo.gameLogic;
+package org.ludo.gamelogic;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PieceMover {
     private final ArrayList<Player> players;
-    private List<PieceMoverObserver> observers = new ArrayList<>();
+    private final List<PieceMoverObserver> observers = new ArrayList<>();
 
     public PieceMover(ArrayList<Player> players) {
         this.players = players;
@@ -17,7 +17,7 @@ public class PieceMover {
         try {
             switch (piece.getBoardArea()) {
                 case YARD:
-                    if (dieResult == 6 && player.hasAllPiecesInYard()) {
+                    if (dieResult == 6 && player.hasAllPiecesInYardOrGoal()) {
                         moveOutOfYard(piece, dieResult);
                     } else if (dieResult == 6 && piece.getBoardArea().equals(Areas.YARD)) {
                         moveOutOfYard(piece, dieResult);
@@ -39,7 +39,7 @@ public class PieceMover {
             }
             alertPieceMoved(piece);
         } catch (Error error) {
-            System.out.println("Tried to move" + toString() + "with dieResult " + dieResult);
+            System.out.println("Tried to move" + piece.toString() + "with dieResult " + dieResult);
         }
     }
 

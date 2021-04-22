@@ -1,8 +1,7 @@
-package org.ludo.utils;
+package org.ludo.gamerendering;
 
 import javafx.scene.image.Image;
 import org.ludo.App;
-import org.ludo.gameLogic.BoardPositions;
 
 import java.util.HashMap;
 

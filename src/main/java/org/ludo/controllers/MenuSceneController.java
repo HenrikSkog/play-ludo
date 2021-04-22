@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.ludo.App;
-import org.ludo.gameLogic.Game;
+import org.ludo.gamelogic.Game;
 
 import java.io.IOException;
 

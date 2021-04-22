@@ -1,4 +1,4 @@
-package org.ludo.gameLogic;
+package org.ludo.gamelogic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +16,17 @@ public class Player {
 
     public void initializePieces() {
         for (int i = 0; i < 4; i++) {
-            var piece = new Piece(colorIndex, colorIndex * 4 + i);
+            Piece piece = new Piece(colorIndex, colorIndex * 4 + i);
             pieces.add(piece);
         }
     }
 
-    public void initializePieceNodes(String color, int scale) {
-      if(this.pieces.size() == 0) {
-          throw new IllegalStateException("No pieces to initialize nodes for");
-      }
-      pieces.forEach(piece -> piece.setPieceNode(new PieceNode(piece, color, scale)));
-    }
-
     public List<Piece> getPiecesInYard() {
         return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.YARD)).collect(Collectors.toList());
+    }
+
+    public List<Piece> getPiecesInGoal() {
+        return pieces.stream().filter(piece -> piece.getBoardArea().equals(Areas.GOAL)).collect(Collectors.toList());
     }
 
     public ArrayList<Piece> getPieces() {
@@ -49,8 +46,8 @@ public class Player {
         }
     }
 
-    public boolean hasAllPiecesInYard() {
-        return getPiecesInYard().size() == 4;
+    public boolean hasAllPiecesInYardOrGoal() {
+        return (getPiecesInYard().size() + getPiecesInGoal().size() == 4);
     }
 
     public int getColorIndex() {

@@ -1,16 +1,17 @@
-package org.ludo.gameLogic;
+package org.ludo.gamelogic;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * Class that generates arrays with board positions that map an area and an index to coordinates on the Ludo board.
+ */
 public class BoardPositions {
   final private ArrayList<XYCoordinate> gameTrackPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> yardPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> homeColumnPositions = new ArrayList<>();
   final private ArrayList<XYCoordinate> goalPositions = new ArrayList<>();
+
   final private Map<Areas, ArrayList<XYCoordinate>> boardPositionAreas = new HashMap<>();
-
-
 
   private final int scale;
   private final int boardLayoutY;
@@ -27,7 +28,6 @@ public class BoardPositions {
     generateHomeColumnPositions();
     generateGoalPositions();
   }
-
 
   private void initBoardPositionAreas() {
     boardPositionAreas.put(Areas.YARD, yardPositions);
@@ -92,7 +92,6 @@ public class BoardPositions {
 
 
   }
-
 
   private void generateGameTrackPositions() {
 //    starting at green home as index 0.
@@ -173,7 +172,7 @@ public class BoardPositions {
           x = last.getX() + dx;
           y = last.getY() - (scale / 2) + j * (scale / 3);
         }
-        goalPositions.add(new BoardPosition(boardLayoutX + x, boardLayoutY + y));
+        goalPositions.add(new BoardPosition(x, y));
       }
     }
   }

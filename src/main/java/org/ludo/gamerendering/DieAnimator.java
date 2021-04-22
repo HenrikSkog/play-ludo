@@ -1,22 +1,19 @@
-package org.ludo.gameRendering;
+package org.ludo.gamerendering;
 
 import javafx.animation.RotateTransition;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import org.ludo.gameLogic.Die;
 
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class DieAnimator {
-  private Node dieBtn;
-  private Text dieOutput;
+  private final Node dieBtn;
+  private final Text dieOutput;
   private int lastRoll;
-  private int finalRoll;
-  //TODO: dette er egentlig ikke bra nok ass
+  private final int finalRoll;
 
   public DieAnimator(Text dieOutput, Button dieBtn, int lastRoll, int finalRoll) {
     this.dieBtn = dieBtn;
@@ -30,9 +27,9 @@ public class DieAnimator {
     rt.setByAngle(360 * rotations);
     rt.play();
 
-    var timer = new Timer();
+    Timer timer = new Timer();
 
-    var timerTask = new TimerTask() {
+    TimerTask timerTask = new TimerTask() {
       private int count = 0;
 
       @Override

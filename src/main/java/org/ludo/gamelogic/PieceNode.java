@@ -1,7 +1,7 @@
-package org.ludo.gameLogic;
+package org.ludo.gamelogic;
 
 import javafx.scene.image.ImageView;
-import org.ludo.utils.PieceImages;
+import org.ludo.gamerendering.PieceImages;
 
 public class PieceNode extends ImageView {
   private final Piece piece;

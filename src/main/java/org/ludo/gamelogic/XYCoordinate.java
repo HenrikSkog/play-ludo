@@ -1,4 +1,4 @@
-package org.ludo.gameLogic;
+package org.ludo.gamelogic;
 
 public interface XYCoordinate {
   int getX();

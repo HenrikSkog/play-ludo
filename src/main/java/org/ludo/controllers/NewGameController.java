@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import org.ludo.App;
-import org.ludo.gameLogic.Game;
+import org.ludo.gamelogic.Game;
 
 import java.io.IOException;
 
@@ -31,8 +31,8 @@ public class NewGameController extends GameSceneController {
 		Scene activeScene = App.getScene();
 		activeScene.setRoot(loader.load());
 
-		var game = new Game();
-		game.initState(greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText());
+		Game game = new Game();
+		game.initState(new String[]{greenName.getText(), yellowName.getText(), redName.getText(), blueName.getText()});
 
         GameSceneController controller = loader.getController();
         controller.setGameState(game);

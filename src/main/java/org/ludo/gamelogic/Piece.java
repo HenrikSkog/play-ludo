@@ -1,7 +1,4 @@
-package org.ludo.gameLogic;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+package org.ludo.gamelogic;
 
 public class Piece {
   //doesn't change

@@ -1,17 +1,16 @@
-package org.ludo.gameLogic;
+package org.ludo.gamelogic;
 
-import javafx.scene.control.Button;
-import javafx.scene.text.Text;
-
-public class Die {
+public class Die implements DieInterface {
     private int lastThrow;
 
+    @Override
     public int roll() {
         int result = (int)(Math.random() * 6 + 1);
         this.lastThrow = result;
         return result;
     }
 
+    @Override
     public int getLastRoll() {
         return lastThrow;
     }
