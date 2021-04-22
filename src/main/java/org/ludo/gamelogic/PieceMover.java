@@ -39,7 +39,7 @@ public class PieceMover {
             }
             alertPieceMoved(piece);
         } catch (Error error) {
-            System.out.println("Tried to move" + piece.toString() + "with dieResult " + dieResult);
+            System.out.println("Tried to move" + piece + "with dieResult " + dieResult);
         }
     }
 

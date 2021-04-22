@@ -25,7 +25,7 @@ public class NewGameController extends GameSceneController {
 	}
 
 	@FXML
-	public void newGame() throws IOException {
+	private void newGame() throws IOException {
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("fxml/gameScene.fxml"));
 
 		Scene activeScene = App.getScene();

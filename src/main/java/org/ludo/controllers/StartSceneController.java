@@ -1,7 +1,6 @@
 package org.ludo.controllers;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.ludo.App;
 import java.io.IOException;

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Player {
     private ArrayList<Piece> pieces = new ArrayList<>();
     private String name;
-    private int colorIndex;
+    private final int colorIndex;
 
     public Player(String name, int colorIndex) {
         setName(name);

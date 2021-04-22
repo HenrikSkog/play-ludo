@@ -61,7 +61,7 @@ public class BoardPositions {
 
   private void generateHomeColumnPositions() {
     //first green route
-    homeColumnPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 1, boardLayoutY + 13 + scale * 6));
+    homeColumnPositions.add(new BoardPosition(boardLayoutX + 13, boardLayoutY + 13 + scale * 6));
 
     //Green horizontal homeColumn
     for (int i = 0; i < 5; i++) {
@@ -69,7 +69,7 @@ public class BoardPositions {
     }
 
     //Yellow single route
-    homeColumnPositions.add((new BoardPosition(boardLayoutX + 13 + scale * 8, boardLayoutY + 13 + scale * 1)));
+    homeColumnPositions.add((new BoardPosition(boardLayoutX + 13 + scale * 8, boardLayoutY + 13)));
 
     //Yellow vertical homeColumn
     for (int i = 1; i < 6; i++) {
@@ -107,7 +107,7 @@ public class BoardPositions {
 
 //    Short right
     for (int i = 0; i < 3; i++) {
-      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 6 + scale * i, boardLayoutY + 0 + 13));
+      gameTrackPositions.add(new BoardPosition(boardLayoutX + 13 + scale * 6 + scale * i, boardLayoutY + 13));
     }
 
 //    Long down

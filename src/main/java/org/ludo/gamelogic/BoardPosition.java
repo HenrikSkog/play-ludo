@@ -2,8 +2,8 @@ package org.ludo.gamelogic;
 
 //klasse som lagrer et sett med koordinater.
 public class BoardPosition implements XYCoordinate {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public BoardPosition(int x, int y) {
         this.x = x;

@@ -84,7 +84,7 @@ public class LudoSaveHandler implements LudoFileHandler {
             String[] playerData = player_pieces[0].split(";");
             String[] piecesData = player_pieces[1].split(":");
             Player player = new Player(playerData[0], Integer.parseInt(playerData[1]));
-            List<Piece> pieces = Arrays.asList(piecesData).stream().map(pieceData -> {
+            List<Piece> pieces = Arrays.stream(piecesData).map(pieceData -> {
                 String[] pieceDataList = pieceData.split(";");
                 return new Piece(
                         Integer.parseInt(playerData[1]),

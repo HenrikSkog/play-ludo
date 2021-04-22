@@ -7,7 +7,7 @@ import javafx.scene.text.Text;
 import org.ludo.gamelogic.*;
 
 public class GameRenderer implements PieceMoverObserver {
-  private Game game;
+  private final Game game;
   private Label[] playerLabels;
   private Pane gameContainer;
   private Text dieText;
