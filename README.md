@@ -11,4 +11,4 @@ Prosjektoppgave i faget TDT4100 Objektorientert programmering. Sammen med Erlend
 
 <img width="601" alt="image" src="https://user-images.githubusercontent.com/55615149/155858472-03014e28-086d-497b-b594-646ab66d8517.png">
 
-![GIF](https://github.com/HenrikSkog/prosjektoppgave-tdt4100/master/preview.gif "Logo Title Text 1")
+![GIF](https://github.com/HenrikSkog/prosjektoppgave-tdt4100/blob/master/preview.gif "Logo Title Text 1")
